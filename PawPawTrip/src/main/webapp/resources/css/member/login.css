@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+/*공통 css*/
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+    margin: 0;
+    padding: 0;
+}
+
+#biglogo {
+	text-align: center;
+	margin-top: 50px;
+	cursor: pointer;
+}
+
+body {
+    background-color: #FFF9E5;
+}
+
+.first_div {
+    background-color: #fff;
+    border: 1px solid #CCCCCC;
+    height: 550px;
+/*     width: 650px; */
+    width: 100%;
+    margin: 20px auto;
+    margin-bottom: 120px;
+}
+
+.login-box{
+    width: 100%;
+    height: 625px;
+    padding:0px 74px;
+/*     margin: 0 auto; */
+}
+
+#input_id {
+    border: 1px solid #CCCCCC;
+    height: 50px;
+    width: 100%;
+    margin-top: 50px;
+    background-image: url(https://i.ibb.co/TKyQLd7/id-Icon.png);
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    padding-left: 45px;
+}
+
+#input_pass {
+    border: 1px solid #CCCCCC;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    background-image: url(https://i.ibb.co/wz2kYDS/password-Icon.png);
+    background-size: 18px;
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    padding-left: 45px;
+}
+
+.first_div input::placeholder{
+    color:#a2a2a2;
+}
+
+input:focus{
+    outline: none;
+}
+
+.login_info_save {
+    margin-top: 20px;
+}
+
+.login_info_save label{
+    color: #CCCCCC;
+}
+
+.login_btn {
+    height: 50px;
+    width: 100%;
+    padding: 7px 20px;
+    border-radius: 5px;
+    background: #B29254;
+    color: #fff;
+    line-height: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+    border:none;
+    font-size: 16px;
+}
+
+.label_signup {
+    float: left;
+    width: 33%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.label_signAndIdPass a {
+	text-decoration: none;
+	color: #4B4242;
+}
+
+.label_signAndIdPass > div > *:hover {
+	color: #B29254;
+}
+
+.login_info_save > * {
+	font-size: 16px;
+}
+
+.label_id {
+    float: left;
+    /* margin-right:20px; */
+    width: 33%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.label_pass {
+    /* float: right; */
+    text-align: center;
+    /* width: 33%; */
+    cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+    color: #101010;
+    font-size: 16px;
+}
+
+.line {
+    border-bottom: 1px solid #CCCCCC;
+    width: 250px;
+}
+
+.hr-sect {
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.35);
+	/* font-size: 12px; */
+	margin: 8px 0px;
+}
+.hr-sect::before, .hr-sect::after {
+	content: "";
+	flex-grow: 1;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 16px;
+}
+
+/*
+.kakao {
+    text-align: center;
+}
+*/
+
+.kakao_btn {
+    border: 1px solid #FEE500;
+    background-color: #FEE500;
+    border-radius: 5px;
+    height: 50px;
+    width: 100%;
+    margin: 0 auto;
+    color: 	#000000;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    cursor : pointer;
+}
+
+.kakao_btn > span {
+    padding: 10px;
+    color: 	#000000;
+    opacity: 0.85;
+}

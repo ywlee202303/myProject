@@ -1,0 +1,180 @@
+@media (min-width: 500px) {
+    .card>a>img {
+        height: 385px !important;
+    }   
+}
+
+@media (min-width: 768px) {
+    .card>a>img {
+        height: 160px !important;
+    }   
+}
+
+@media (min-width: 992px) {
+    .card>a>img {
+        height: 250px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card>a>img {
+        height: 250px !important;
+    }
+}
+@media ( min-width : 500px)
+{
+	.nav-item ul.menu-sub li a {
+		text-decoration: none;
+		color: #222222;
+	}
+	.nav-item ul.menu-sub li {
+		margin-right: 20px;
+		float: left;
+	}
+	#templatemo_main_nav .nav-item ul.menu-sub li.on a {
+		color: #B29254;
+		font-weight: 700;
+	}
+	.nav-item ul.menu-sub {
+		list-style-type: none;
+		float: left;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		z-index: 3;
+		top: 197px;
+		width: 200px;
+		display: none;
+	}
+	.nav-item:nth-child(3) ul.menu-sub {
+		top: 162px;
+	}
+}
+
+@media ( min-width : 992px) {
+	.nav-item ul.menu-sub li {
+		margin-right: 20px;
+		float: left;
+	}
+	.nav-item ul.menu-sub li a {
+		text-decoration: none;
+		color: #222222;
+	}
+	#templatemo_main_nav .nav-item ul.menu-sub li.on a {
+		color: #B29254;
+		font-weight: 700;
+	}
+	.nav-item ul.menu-sub {
+		list-style-type: none;
+		float: left;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		z-index: 3;
+		top: 71px;
+		left: -3px;
+		width: 200px;
+		display: none;
+	}
+	.nav-item:nth-child(3) ul.menu-sub {
+		top: 71px;
+		left: -32px;
+	}
+}
+
+nav.navbar {
+	background-color: white;
+}
+
+#submenu_bg {
+	margin-top: -8px;
+	background-color: #FDFAEF;
+	height: 50px;
+	display: none;
+	position: absolute;
+	z-index: 2;
+}
+
+.nav-item {
+	position: relative;
+}
+
+a.navbar-brand>img {
+	padding-top: 3px;
+	width: 35px;
+}
+
+a.navbar-brand>span {
+	font-weight: 700;
+	font-size: 25px
+}
+
+a.navbar-brand>span:nth-child(2) {
+	color: #B29254;
+}
+
+a.navbar-brand>span:nth-child(3) {
+	color: #FFDE69;
+}
+
+section.bg-pawpaw .card-body .stayDivisionSize {
+	font-size: 15px;
+}
+
+section.bg-pawpaw .card-body .stayTitleSize {
+	font-size: 20px;
+}
+
+section.bg-pawpaw .card-body .stayAddressSize {
+	font-size: 14px;
+}
+
+section.bg-pawpaw .card-body .stayAddressSize>img {
+	padding-right: 8px;
+}
+
+body>.content {
+	padding: 0px;
+	float: none;
+}
+
+#tempaltemo_footer {
+	height: 133px;
+	padding: 34px 0px;
+	position: relative;
+	width: 100%;
+	bottom: 0px;
+	clear: both;
+}
+
+#tempaltemo_footer .text-right {
+	text-align: right;
+}
+
+#tempaltemo_footer .footer-span-left {
+	float: left;
+}
+
+#tempaltemo_footer .footer-span-left>span:nth-child(2) {
+	padding-left: 40px;
+}
+
+#tempaltemo_footer .text-white {
+	font-size: 12px;
+}
+
+#tempaltemo_footer .footer-span-right {
+	float: right;
+}
+/* #templatemo_main_nav a:hover+ul.menu-sub{display:block;} */
+section.favoriteMenu>div.row {
+	text-align: center;
+}
+
+div.afterWeather
+{
+    position: fixed;
+    bottom: 300px;
+    left: 70px;
+    z-index: 10;
+}

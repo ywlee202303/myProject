@@ -1,0 +1,221 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+body {
+	font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', sans-serif;
+	color: black;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.section1 {
+	margin: 0 auto;
+	width: 100%;
+	height: auto;
+}
+
+
+.join_title {
+	display: block;
+	width: 443px;
+	height: 150px;
+	background: url(https://i.ibb.co/JChKjCy/join-title.png);
+	margin: 66px auto;
+}
+
+
+.section1>hr {
+	display: block;
+	width: 600px;
+	height: 0;
+	margin: 0 auto;
+	border: 1px solid #808080;
+}
+
+/* -------------------------------------------------------------- */
+.section2 {
+	display: block;
+	width: 600px;
+	height: fit-content;
+	margin: 0 auto;
+}
+
+
+.input_wrap {
+	width: 600px;
+	height: fit-content;
+	margin: 30px auto;
+}
+
+
+.input_box {
+	display: block;
+	width: 600px;
+	height: 85px;
+	margin-top: 35px;
+	border-bottom: #808080 1px solid;
+}
+
+
+label {
+	display: block;
+	height: 30px;
+	width: fit-content;
+	font-size: 15px;
+	color: black;
+}
+
+
+/* input 태그 */
+input {
+	outline: none;
+	color: #101010;
+	top: 6px;
+	border-style: none;
+	margin-top: 15px;
+	font-size: 15px;
+}
+
+
+.img-button {
+	background-image: url("../../img/hidden_eye_icon.png");
+	background-repeat: no-repeat;
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	border: none;
+	background-color: white;
+}
+
+
+.show-password {
+	background-image: url("../../img/visible_eye_icon.png");
+	background-repeat: no-repeat;
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	border: none;
+	background-color: white;
+}
+
+
+.pwd_checked {
+	height: 30px;
+	margin: auto;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: block;
+	box-sizing: border-box;
+}
+
+
+.pwd_checked>li {
+	text-decoration: none;
+	width: 33%;
+	height: 100%;
+	text-align: center;
+	float: left;
+	font-size: 14px;
+	opacity: .5;
+
+}
+
+
+.pwd_checked li.on {
+	color: blue;
+	font-weight: 700;
+
+}
+
+
+#passwordMismatch {
+	color: red;
+	font-size: 14px;
+	margin-top: 3px;
+	display: none;
+	position: absolute;
+}
+
+/* ----------------------------------------------------------------------- */
+.btn_phoneChecked {
+	display: block;
+
+	width: 600px;
+	height: 48px;
+	line-height: 30px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 12px;
+	text-align: center;
+	color: white;
+	background-color: black;
+	border-style: none;
+	margin: 0px auto;
+}
+
+
+.agree {
+	display: block;
+	width: 250px;
+	height: fit-content;
+	margin: 0 auto;
+}
+
+
+.check_skin {
+	display: inline-block;
+	width: inherit;
+	height: fit-content;
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 20px;
+	text-align: start;
+	vertical-align: middle;
+}
+
+
+.agree>label,
+input {
+	display: inline-block;
+	height: fit-content;
+	width: 570px;
+	height: fit-content;
+	display: inline-block;
+}
+
+
+.agree_check {
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	top: 3px;
+}
+
+
+.agree_wrap {
+	display: inline-block;
+	width: inherit;
+	height: fit-content;
+	margin: 20px auto;
+	list-style-type: none;
+}
+
+.agree_wrap>li {
+	margin: 10px auto;
+	vertical-align: middle;
+}
+
+
+.btn_join {
+	display: block;
+	width: 600px;
+	height: 48px;
+	line-height: 30px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 12px;
+	text-align: center;
+	color: white;
+	background: rgba(9, 86, 26, 0.63);
+	border-style: none;
+	margin: 0px auto;
+}

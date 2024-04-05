@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kr.pawpawtrip.member.model.mapper.MemberMapper">
+
+	<!-- 중복되는 쿼리를 재사용하기 위한 SQL 조각으로 사용하려는 요소보다 항상 위에 있어야 한다. -->
+	<sql id="selectMemberSql">
+		SELECT MEMBER_NO,
+		       MEMBER_ID,
+			   MEMBER_NAME,
+		       MEMBER_PW,
+		       MEMBER_ROLE,
+		       MEMBER_PHONE,
+		       MEMBER_EMAIL,
+		       MEMBER_BIRTH,
+		       MEMBER_PET_NAME,
+		       MEMBER_PET_TYPE,
+		       MEMBER_STATUS,
+		       MEMBER_ED,
+		       MEMBER_MD,
+		       MRKT_AGREE_YN,
+		       RECV_AGREE_YN,
+		       LOCA_AGREE_YN
+		FROM MEMBER
+	</sql>
+	
+	<resultMap id="memberResultMap" type="Member">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberName" column="MEMBER_NAME"/>
+		<result property="memberPw" column="MEMBER_PW"/>
+		<result property="memberRole" column="MEMBER_ROLE"/>
+		<result property="memberPhone" column="MEMBER_PHONE"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
+		<result property="memberPetName" column="MEMBER_PET_NAME"/>
+		<result property="memberPetType" column="MEMBER_PET_TYPE"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberEd" column="MEMBER_ED"/>
+		<result property="memberMd" column="MEMBER_MD"/>
+		<result property="mrktAgreeYn" column="MRKT_AGREE_YN"/>
+		<result property="recvAgreeYn" column="RECV_AGREE_YN"/>
+		<result property="locaAgreeYn" column="LOCA_AGREE_YN"/>
+	</resultMap>
+	
+	<!-- 회원 수 조회 -->
+	<select id="selectCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
+	
+	
+	<select id="selectMemberById" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectMemberSql" />
+		WHERE MEMBER_STATUS = 'Y' AND MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- 카카오 회원 조회 -->
+	<select id="findKakao" parameterType="Member" resultMap="memberResultMap">
+		<include refid="selectMemberSql" />
+		WHERE MEMBER_STATUS = 'Y' 
+			  AND MEMBER_NAME = #{name}
+			  AND MEMBER_ID = #{id}
+			  AND MEMBER_EMAIL = #{email}
+	</select>
+	
+	<!-- 카카오 회원 가입 -->
+	<insert id="insertKakao">
+		INSERT INTO MEMBER(
+			MEMBER_NO,
+			MEMBER_NAME,
+			MEMBER_ID,
+			MEMBER_PHONE,
+			MEMBER_EMAIL,
+			MEMBER_BIRTH
+		)
+		VALUES (
+			SEQ_MEM_NO.NEXTVAL,
+			#{name},
+			#{id},
+			#{phone_number},
+			#{email},
+			#{birth}
+		)
+	</insert>
+	
+	<!-- 회원 가입 -->
+	<insert id="insertMember" parameterType="Member"
+		useGeneratedKeys="true" keyColumn="MEMBER_NO" keyProperty="memberNo">
+		INSERT INTO MEMBER (
+			MEMBER_NO,
+			MEMBER_NAME,
+			MEMBER_ID, 
+			MEMBER_PW, 
+			MEMBER_PHONE, 
+			MEMBER_EMAIL, 
+			MEMBER_BIRTH, 
+			MEMBER_PET_NAME, 
+			MEMBER_PET_TYPE,
+			MRKT_AGREE_YN,
+	        RECV_AGREE_YN,
+	        LOCA_AGREE_YN
+		) 
+		VALUES (
+			SEQ_MEM_NO.NEXTVAL,
+			#{memberName},
+			#{memberId},
+			#{memberPw},
+			#{memberPhone},
+			#{memberEmail},
+			#{memberBirth},
+			#{memberPetName},
+			#{memberPetType},
+			#{mrktAgreeYn},
+			#{recvAgreeYn},
+			#{locaAgreeYn}			
+		)
+	</insert>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+	    UPDATE MEMBER  
+	    <set>
+	        MEMBER_MD = SYSDATE,
+	    	<if test="memberPetName == null">
+	            MEMBER_PET_NAME = MEMBER_PET_NAME,
+	        </if>
+	        <if test="memberPetName != null">
+	            MEMBER_PET_NAME = #{memberPetName},
+	        </if>
+	        <if test="memberPetType == null">
+	            MEMBER_PET_TYPE = MEMBER_PET_TYPE,
+	        </if>
+	        <if test="memberPetType != null">
+	            MEMBER_PET_TYPE = #{memberPetType},
+	        </if>
+	        <if test="memberPhone == null">
+	            MEMBER_PHONE = MEMBER_PHONE,
+	        </if>
+	        <if test="memberPhone != null">
+	            MEMBER_PHONE = #{memberPhone},
+	        </if>
+	        <if test="memberEmail == null">
+	            MEMBER_EMAIL = MEMBER_EMAIL,
+	        </if>
+	        <if test="memberEmail != null">
+	            MEMBER_EMAIL = #{memberEmail},
+	        </if>
+	        <if test="memberPw == null">
+	            MEMBER_PW = MEMBER_PW
+	        </if>
+	        <if test="memberPw != null">
+	            MEMBER_PW = #{memberPw}
+	        </if>
+	    </set>
+	    WHERE 
+	        MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 회원 삭제 (MEMBER_STATUS-> 'N') -->
+	<update id="updateStatus" parameterType="map">
+		UPDATE MEMBER
+		SET
+			MEMBER_STATUS = #{memberStatus}
+		WHERE 
+			MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findMemberId" parameterType="String" resultType="String">
+		SELECT MEMBER_ID
+		FROM MEMBER
+		WHERE MEMBER_NAME=#{memberName} AND MEMBER_PHONE=#{memberPhone}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findMemberAndChangePw" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectMemberSql" />
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_NAME = #{memberName}
+		AND MEMBER_PHONE = #{memberPhone}
+	</select>
+	
+	<!-- 비밀번호 변경하기 -->
+	
+</mapper>

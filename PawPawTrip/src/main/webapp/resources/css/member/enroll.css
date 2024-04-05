@@ -1,0 +1,272 @@
+@charset "UTF-8";
+
+/* 공통 */
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+    margin: 0;
+    padding: 0;
+    color: #101010;
+}
+
+body {
+    background-color: #FFF9E5;
+}
+
+a {
+text-decoration: none;
+}
+
+tr, td {
+	border: none;
+}
+
+label {
+	font-size: 16px;
+}
+
+/* 네비 */
+.navi {
+    display: flex;
+}
+
+.findbyid {
+    border: 1px solid #c0c0c0;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #B29254;
+    color: #FFF;
+    width: 135px;
+    height: 45px;
+    text-align: center;
+    float: left;
+    line-height: 40px;
+}
+
+/* 회원가입 창 */
+.top_div {
+    font-size: 30px;
+    font-weight: bold;
+    color: #B29254;
+}
+
+.main_div {
+    border: 1px solid;
+    /*height: 1050px;*/
+    color: #cacaca;
+    background-color: #ffffff;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #B29254;
+    margin-left: 80px;
+    margin-top: 30px;
+}
+
+.enroll-tr {
+	padding-bottom: 20px;
+}
+
+.enroll-tr > div {
+	font-weight: bold;
+}
+
+.enroll-contain {
+	display: inline-flex;
+}
+
+.enroll-table {
+	margin-left: 80px;
+    margin-right: 80px;
+    padding: 30px;
+}
+
+.enroll-table input, .enroll-table select {
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #E8E8E8;
+    font-size: 15px;
+}
+
+.info > select:nth-child(2), .info > select:nth-child(3) {
+	margin-left: 10px;
+}
+
+.e-mail > input {
+	margin-right: 10px;
+}
+
+.e-mail > input:nth-child(3) {
+	margin-left: 10px;
+}
+
+.e-mail > span {
+	font-weight: normal;
+    color: black;
+}
+
+.pet-type > select {
+	border: 1px solid #E8E8E8;
+    border-radius: none;
+    height: 40px;
+    width: 100%;
+}
+
+select:focus {
+	outline: 1px solid #B29254;
+}
+
+.enroll-btn {
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    border:1px solid #B29254;
+    background: #fff;
+    box-sizing: border-box;
+    color:#B29254;
+    line-height: 1.2em;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+/* 회원가입 버튼 */
+.signInBtn{
+    margin: 30px auto;
+    text-align: center;
+}
+.bottom-btn {
+    width: 100px;
+    height: 40px;
+    padding: 7px 20px;
+    border-radius: 5px;
+    background: #B29254;
+    color:#fff;
+    /*line-height: 1.2em;*/
+    cursor: pointer;
+    border: 1px solid #B29254;
+    font-size: 15px;
+}
+
+.reset-btn {
+    width: 100px;
+    height: 40px;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #B29254;	
+}
+
+/* 약관동의 */
+.inner_top_div {
+    border: 1px solid;
+    color: #cacaca;
+    margin-left: 80px;
+    margin-right: 80px;
+    padding: 30px;
+    font-size: 15px;
+    overflow: auto;
+  	white-space: nowrap;
+}
+
+.inner_top_div > input{
+    margin: 12px;
+    vertical-align: middle;
+}
+
+.inner_top_div > input:focus {
+	outline: none;
+}
+
+.required_option {
+    color: #B29254;
+    font-weight: bold;
+}
+
+.select_option {
+    color: #c1c1c1;
+}
+
+.manual a,
+.manual {
+    color: #c1c1c1;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+input[type="checkbox"]{
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-top: 8px;
+}
+
+/* 유효성 검사 문구 */
+.hide {
+    display: none;
+}
+
+
+
+
+
+/*
+
+.info > * {
+    border: 1px solid #c0c0c0;
+    border-radius: none;
+    height: 40px;
+    width: 91px;
+    /* margin-left: 10px;*/
+    /* padding: 20px; */
+}
+
+/*
+.e-mail > * {
+    border: 1px solid #c0c0c0;
+    border-radius: none;
+    height: 40px;
+    width: 129px;
+    margin-right: 10px;
+}
+
+
+span{
+    color: red;
+}
+*/
+
+/* 이메일 
+select.box {
+    width: 200px;
+    height: 50px;
+    box-sizing: border-box;
+    margin-left: 5px;
+    padding: 5px 0 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #d9d6d6;
+    color: #101010;
+    background-color: #ffffff;
+}
+
+option {
+    font-size: 15px;
+}
+
+.info .box#domain-list option {
+    font-size: 14px;
+    background-color: #ffffff;
+}
+*/
+
+
+
+

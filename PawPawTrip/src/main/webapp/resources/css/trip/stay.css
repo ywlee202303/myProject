@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+@media (min-width: 500px) {
+	.card-img {
+		height: 385px !important;
+	}	
+}
+
+@media (min-width: 768px) {
+	.card-img {
+		height: 160px !important;
+	}	
+}
+
+@media (min-width: 992px) {
+	.card-img {
+		height: 150px !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	.card-img {
+		height: 189px !important;
+	}
+}
+
+* {
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+.card.product-wap .card .product-overlay {
+    background: rgba(0,0,0,.4);
+}
+
+.readMore {
+    text-align: center;
+    
+    color: #FDFAEF;
+    font-size: 14px !important;
+}
+
+.disable {
+	pointer-events: none;
+	background-color: #B29254;
+	color: white;
+}
+
+.board-text > a {
+	color: #B29254 !important;
+	font-weight: bold;
+}
+
+.board-text>a:hover+.community-detail-sideMenu {
+    display: block;
+}
+/* ------------------------------------------------- */
+.common-detail-list > .row {
+	padding-top: 7px
+}
+
+#searchKeyword {
+	width: auto !important;
+}
+
+/* 카드 */
+.col-md-4 {
+	transition: 0.2s ease-in-out !important;
+}
+
+.col-md-4:hover {
+	transform: translateY(-7px) !important;
+}
+
+/* 속소이름 */
+.text-center mb-4 {
+    font-weight: bold;
+    font-size: 20px !important;
+}
+
+.text-start mb-2 {
+    font-size: 18px !important;
+}
+
+.text-start mb-2:first {
+    background: url(./resource_icon/map_icon.png);
+}
+
+.card-body p:nth-of-type(2) {
+	height: 38px !important;
+}
+
+/* 아이콘 */
+.card-body div img {
+    margin-bottom: 2.5px;
+    display: inline-block;
+}

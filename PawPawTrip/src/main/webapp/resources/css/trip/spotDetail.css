@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+* {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+/* 
+.tripDetail-wrap {
+    display: block;
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+*/
+
+/* 페이지 타이틀 */
+/* 
+.tripDetail-title {
+    display: block;
+    width: 1200px;
+    height: 150px;
+    margin: 0 auto;
+    border-bottom: 2px solid #b1b1b1;
+    line-height: 150px;
+}
+
+.tripDetail-title > p {
+    height: fit-content;
+    width: fit-content;
+    color: #4B4242;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 auto;
+}
+*/
+/* ---------------------------------------------- */
+
+/* 내부 전체 콘텐츠  */
+.tripDetail-container {
+    display: block;
+    /* position: relative; */
+    width: 1200px;
+    /* height: 100%; */
+    margin: 35px auto 50px auto;
+}
+
+/* 사이드 메뉴바 */
+.menu-area {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin-right: 45px;
+}
+
+.side-menu {
+    display: block;
+    /* position: absolute; */
+    width: 250px;
+    left: 0;
+    text-align: center;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+}
+
+.side-menu > a {
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 42px;
+    font-weight: 400;
+    color: #222;
+}
+
+.side-menu a:nth-child(1) {
+    background-color: #B29254;
+    border: 1px;
+    font-size: 16px;
+    color: #FDFAEF;
+    font-weight: 500;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.side-menu a:nth-child(2):hover,
+.side-menu a:nth-child(3):hover {
+    font-weight: bold;
+    font-size: 18px;
+    color: #B29254;
+}
+
+.side-menu a:nth-child(2):hover:focus
+.side-menu a:nth-child(3):hover:focus {
+    font-weight: bold;
+    font-size: 18px;
+    color: #B29254;
+}
+
+.notice-text > a {
+   color: #B29254 !important;
+   font-weight: bold;
+}
+
+.notice-text>a:hover+.community-detail-sideMenu {
+    display: block;
+}
+
+/* ------------------------------------------- */
+
+/* 메인 콘텐츠 영역 */
+.tripDetail-content {
+    display: inline-block;
+    /* position: absolute; */
+    width: 900px;
+    /* height: 350px; */
+    height: inherit;
+    right: 0;
+    margin-bottom: 50px;
+}
+
+/* 메인 정보 */
+.tripDetail-mainInfo-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    /* height: 330px; */
+}
+
+.tripDetail-mainInfo {
+    display: block;
+    position: absolute;
+    background-color: #FDFAEF;
+    /* max-height: 350px; */
+    /* height: auto; */
+    border-radius: 10px;
+    padding: 10px 15px;
+    right: 0;
+}
+
+.tripNameAndLike {
+    display: block;
+    /* position: relative; */
+    width: 100%;
+    height: max-content;
+   text-align: start;
+}
+
+.tripName {
+    /* position: absolute; */
+    display: inline-block;
+    color: #B29254;
+    font-weight: bold;
+    font-size: 20px;
+    height: 36px;
+    width: 90%;
+    right: 0;
+    margin: 10px auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* 하트 아이콘 */
+.heartBox {
+	display: inline-block;
+    position: absolute;
+    line-height: 63px;
+    height: 56px;
+    width: auto;
+    right: 20px;
+}
+
+label {
+    background-image: url(/pawpawtrip/img/trip/heartOutline_icon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px;
+    width: 31px;
+    height: 31px;   
+}
+
+#heart {
+   width: 0;
+}
+#heart:checked+label{
+    background-image: url(/pawpawtrip/img/trip/heartFill_icon.png);
+}
+
+/* ---------------------------------------------------------- */
+
+.mainInfo {
+    display: block;
+    width: 100%;
+    position: relative;
+    font-size: 16px !important;
+    line-height: 28px;
+    text-align: start;
+    margin-top: 10px;
+}
+
+.mainInfo > span {
+    display: inline-block;
+    margin-left: 28px;
+    font-weight: 600;
+    font-weight: bold;
+    color: #4B4242;
+}
+
+.mainInfo a {
+   color: #FFDE69 !important;
+}
+
+.mainInfo  p {
+    display: block;
+    /* width: inherit; */
+    margin-bottom: 5px !important;
+    text-align: start;
+    font-size: 16px !important;
+}
+
+.mainInfo > p,
+.mainInfo > a >p {
+    margin: 0 0 0 29px;
+}
+
+.infoIcon {
+    display: inline-block;
+    position: absolute;
+    /* position: absolute; */
+    margin: 0 5px 0 0;
+    margin-top: 5px;
+}
+
+/* 세부 정보 */
+.tripDetail-subInfo-wrap {
+    display: block;
+    width: 100%;
+    height: max-content;
+    margin-top: 55px;
+    /* border: 1px solid black; */
+    line-height: 1.5;
+}
+
+.dog-ion {
+    width: 23px;
+    height: 23px;
+    vertical-align: text-bottom;
+}
+
+.subInfo-div {
+    text-align: left;
+    width: 100%;
+    word-wrap: break-word;
+    margin: 35px auto;
+}
+
+.subInfo-div > p {
+   padding-left: 25px !important;
+}
+
+.iconAndInfo {
+    height: 50;
+    border-bottom: 1px solid #e8e8e8;
+    line-height: 50px;
+}
+
+.iconAndInfo > span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4B4242;  
+}
+
+.iconAndInfo p {
+    width: 100%;
+}
+
+.btn-wrap {
+    text-align: center !important;
+}
+
+.btnList {
+    padding: 0;
+    width: 90px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #B29254;
+    background-color: white;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btnList:hover {
+   border-width: 2px;
+}

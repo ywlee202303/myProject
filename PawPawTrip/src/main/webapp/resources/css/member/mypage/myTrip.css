@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+@media (min-width: 500px) {
+	.card-img {
+		height: 385px !important;
+	}	
+}
+
+@media (min-width: 768px) {
+	.card-img {
+		height: 160px !important;
+	}	
+}
+
+@media (min-width: 992px) {
+	.card-img {
+		height: 150px !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	.card-img {
+		height: 189px !important;
+	}
+}
+
+.myboard-detail-list {
+	margin-top: 0;
+}
+
+.board-text > a {
+	color: #B29254;
+	font-weight: bold;
+}
+
+/********************************************************/
+
+/* .myTrip-list { */
+/*     width: 100%; */
+/*     border: 1px solid #E8E8E8 !important; */
+/*     padding: 20px; */
+/*     font-size: 16px; */
+/*     border: none; */
+/*     border-spacing: 0 5px; */
+/* } */
+
+* {
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+.emptyTripHeight {
+	height: 400px !important;
+}
+
+.btnGoSpot,
+.btnGoStay {
+	padding: 0;
+    width: 130px;
+    height: 33px;
+    border-radius: 5px;
+    border: 1px solid #B29254;
+    background-color: white;
+    color: #B29254;
+    font-size: 15px;
+}
+
+.btnGoSpot:hover, 
+.btnGoStay:hover {
+	border-width: 2px;
+	font-weight: 500;
+}
+
+.card.product-wap .card .product-overlay {
+    background: rgba(0,0,0,.4);
+}
+
+.readMore {
+    text-align: center;
+    
+    color: #FDFAEF;
+    font-size: 14px !important;
+}
+
+.common-detail-list > .row {
+	padding-top: 7px
+}
+
+.col-md-4 {
+	transition: 0.2s ease-in-out !important;
+}
+
+.col-md-4:hover {
+	transform: translateY(-7px) !important;
+}
+
+.contentType {
+	font-size: 13px;
+	color: #FDFAEF;
+	background-color: #B29254;
+	width: 50px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	margin: 0 auto;
+	margin-bottom: 8px;
+	font-weight: 500;
+	border-radius: 5px;
+}
+
+.common-detail-list {
+	margin-top: 0 !important;
+}
+
+/* 선택한 페이지 클릭 시 */
+.disable {
+	pointer-events: none;
+	background-color: #B29254;
+	color: white;
+}
+
+.card-body:nth-child(1) {
+    font-weight: bold;
+    font-size: 20px !important;
+    height: 54px !important;
+}
+
+.text-start mb-2 {
+    font-size: 18px !important;
+}
+
+.text-start mb-2:first {
+    background: url(./resource_icon/map_icon.png);
+}
+
+.card-body p:nth-of-type(2) {
+	height: 38px !important;
+}
+
+/* 아이콘 */
+.card-body div img {
+    margin-bottom: 2.5px;
+    display: inline-block;
+}

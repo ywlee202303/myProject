@@ -1,0 +1,470 @@
+@charset "UTF-8";
+@-webkit-keyframes hue {
+    from {
+        filter: hue-rotate(0deg);
+        -webkit-filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(-360deg);
+        -webkit-filter: hue-rotate(-360deg);
+    }
+}
+/*     color:black; */
+/*     background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a); */
+/*     animation: hue 2s infinite linear; */
+/*     background-clip: text; */
+/*     -webkit-background-clip: text; */
+/*     -webkit-text-fill-color: transparent; */
+/*     -webkit-animation: hue 2s infinite linear;   */
+
+/* 모바일처럼 보이게 할때 */
+@media (min-width: 500px) 
+{
+	.common-list {
+		width:100%;
+	    padding:0px; 
+		float:right;
+		margin-top:35px;
+		text-align:center;
+	}
+	
+	.common-sideMenu {
+		width:100%;
+	    text-align: center;
+		float:left;
+		margin-top:35px;
+	}
+}
+/* 데스크탑처럼 보이게 할때 */
+@media (min-width: 992px) 
+{
+	.common-list {
+		width:651px;
+	    padding:0px; 
+		float:right;
+		margin-top:35px;
+		text-align:center;
+	}
+	.common-sideMenu {
+		width:250px;
+	    text-align: center;
+		float:left;
+		margin-top:35px;
+	}
+}
+@media (min-width: 1200px)
+{
+	.common-list {
+		width:811px;
+	    padding:0px; 
+		float:right;
+		margin-top:35px;
+		text-align:center;
+	}
+}
+.container{
+/* 	height:calc(100% - 91px - 134px); */
+}
+
+input::placeholder {
+    color: gray;
+    font-size: 14px;
+}
+input:focus {
+    outline: 1px solid #B29254;
+}
+
+/************************************ 타이틀 - 시작 ***********************************/
+.common-title {
+	position:relative;
+    padding: 55px 0px 55px;
+    border-bottom: 1px solid #e8e8e8;
+    text-align: center;
+    clear: both;
+}
+
+.common-title > p {
+    margin: 0;
+    color: #4B4242;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/************************************ 타이틀 - 종료 ***********************************/
+/************************************ 사이드 메뉴 - 시작 ***********************************/
+
+.common-sideMenu > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.common-sideMenu a:hover {
+    color: #B29254;
+}
+
+.common-sideMenu>ul>li:first-child
+{
+    background-color: #B29254;
+    color: white;
+    font-size: 18px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.common-sideMenu>ul>li {
+    padding: 10px 0 10px 0;
+	border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+}
+.common-sideMenu>ul>li.on>a
+{
+	font-weight: bold;
+    color: #B29254;
+}
+.common-sideMenu a:hover
+{
+    color: #B29254;
+}.common-sideMenu a
+{
+    color: black;
+}
+.common-sideMenu>ul>li:last-child {
+	border: 1px solid #e8e8e8;
+    border-top-style: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.common-sideMenu>ul>li:first-child
+{
+    background-color: #B29254;
+    color: white;
+    font-size: 18px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.common-sideMenu>ul>li {
+	border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+}
+.common-sideMenu>ul>li> a{
+    font-size: 16px;
+    text-decoration: none;
+}
+.common-sideMenu>ul>li:last-child {
+	border: 1px solid #e8e8e8;
+    border-top-style: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.community-text, .notice-text, .board-text {
+    padding: 10px 0 10px 0;
+}
+
+.community-text {
+    background-color: #B29254;
+    color: white;
+    font-size: 18px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.notice-text {
+	border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+}
+
+.board-text {
+	border: 1px solid #e8e8e8;
+    border-top-style: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.notice-text > a, .board-text > a {
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+/************************************ 사이드 메뉴 - 종료 ***********************************/
+
+/************************************ 사이드 메뉴서브메뉴 - 시작 ***********************************/
+.board-text>a:hover+.community-detail-sideMenu {
+    display: block;
+}
+
+.community-detail-sideMenu:hover {
+    display: block;
+}
+
+.community-detail-sideMenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    display: none;
+}
+
+.community-detail-sideMenu > li {
+    padding-top: 10px;
+}
+
+.community-detail-sideMenu > li a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+/************************************ 사이드 메뉴서브메뉴 - 종료 ***********************************/
+/************************************ 검색바 - 종료 ***********************************/
+.common-search {
+    height: 45px;
+/*     display: flex; */
+/*     position: relative; */
+    background-color: #FDFAEF;
+    border: 1px solid #e8e8e8;
+}
+
+.common-search > div:nth-of-type(1) {
+    width: 85px;
+    padding-top: 12px;
+    margin-left:8px;
+    font-size: 14px;
+    float:left;
+}
+
+.common-search > div:nth-of-type(2) {
+    font-size: 14px;
+    float:right;
+	padding-top:5px;
+}
+
+.common-search > div:nth-of-type(2)> div{
+    margin-left:8px;
+    float:left;
+}
+.common-search > div:nth-of-type(2)> div:nth-of-type(1) {
+    height: 33px;
+    box-sizing: content-box;
+    display: flex;
+    background-color: white;
+}
+.common-search > div:nth-of-type(2)> div:nth-of-type(1) > select {
+    width: 119px;
+    height: 33px;
+    border: 1px solid #E8E8E8;
+    font-size: 14px;
+    color: gray;
+}
+
+
+.common-search > div:nth-of-type(2)> div:nth-of-type(2) {
+    width: 176px;
+    height: 33px;
+    border: 1px solid #E8E8E8;
+    display: flex;
+    background-color: white;
+    padding-left: 4px;
+}
+
+.common-search > div:nth-of-type(2)> div:nth-of-type(2) > img {
+    width: 21px;
+    height: 21px;
+    margin-top: 6px;
+}
+
+.common-search > div:nth-of-type(2)> div:nth-of-type(2) > input {
+    width: 149px;
+    border-style: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.common-search > div:nth-of-type(2)> div:nth-of-type(3) {
+    width: 45px;
+}
+
+.common-search > div:nth-of-type(2)> div:nth-of-type(3) > button {
+    border: 1px solid #B29254;
+    border-radius: 5px;
+    height: 33px;
+    background-color: #B29254;
+    color: white;
+    font-size: 13px;
+}
+
+.common-search > div > span {
+    color: #B29254;
+}
+
+/************************************ 검색바 - 종료 ***********************************/
+
+/************************************ 테이블 - 시작 ***********************************/
+ .common-table {
+ 	table-layout: fixed;
+ }
+
+.common-detail-list {
+    /* border: 1px solid #E8E8E8; */
+    margin-top: 25px;
+    overflow: auto;
+}
+.common-detail-list.no-row {margin: 25px -12px 0px;}
+.common-detail-list.no-row>.row {margin:0px}
+
+tr {
+    border: 1px solid #E8E8E8;
+}
+
+.common-detail-list > table {
+    font-size: 16px;
+    border-collapse: collapse;
+    border: 1px solid #E8E8E8;
+    width: 100%;
+}
+
+
+.common-detail-list>table>thead>tr>td,
+.common-detail-list>table>thead>tr>th,
+.common-detail-list>table>tr>th
+ {
+	text-align: center;
+    height: 62px;
+    font-weight:bold;
+    background-color: #FDFAEF;
+    border: 1px solid #E8E8E8;
+}
+
+
+.common-detail-list > table>tbody>tr td,
+.common-detail-list > table>tr td {
+	text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-width: 1px;
+}
+
+.common-detail-list > table tr {
+    height: 62px;
+}
+
+.common-detail-list > table tr td a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.common-detail-list>table.common-col-table>tbody>tr>td:nth-child(odd)
+ {
+    text-align: center;
+    height: 62px;
+    font-weight:bold;
+    background-color: #FDFAEF;
+    border: 1px solid #E8E8E8;
+}
+.no-ellipsis{
+    text-wrap: wrap;
+    white-space: break-spaces !important;
+}
+
+.common-text-left {
+	text-align: left !important;
+}
+
+.common-text-right {
+	text-align: right !important;
+}
+
+/************************************ 테이블 - 종료 ***********************************/
+
+/************************************ 페이징 - 시작 ***********************************/
+/* 페이징 */
+.common-page-number > ul {
+    padding: 0;
+    padding-bottom: 81px;
+    margin-top: 18px;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.common-page-number > ul a {
+    font-size: 18px;
+    color: #B29254;
+    text-decoration: none;
+}
+
+.common-page-number > ul li {
+    min-width: 25px;
+    padding:0px 3px;
+    height: 29px;
+    border: 1px solid #B29254;
+    border-radius: 5px;
+}
+.common-page-number > ul li.on{
+    background-color:#B29254;
+}
+.common-page-number > ul li.on>a{
+    color:#FFFFFF;
+}
+.common-page-number > ul > li:hover {
+    border-width: 2px;
+    cursor:pointer;
+}
+.common-page-number > ul > li:hover>a{
+    line-height:10px;
+}
+.no-padding-all{
+	padding:0px !important;
+}
+.no-margin-top{
+	margin-top:0px !important;
+}
+.btn-wrap {
+    padding-top: 35px;
+    padding-bottom: 35px;
+    text-align: right;
+}
+.common-btn {
+    width: 90px;
+    height: 40px;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #B29254;
+}
+.common-btn:hover {
+	border: 2px solid #B29254;
+}
+.common-btn.btn-filled{
+    background-color: #B29254;
+    color: #FFF;
+    margin-left: 10px;
+}
+
+.disable {
+	pointer-events: none;
+	background-color: #B29254;
+	color: white;
+}
+
+/************************************ 페이징 - 종료 ***********************************/
+
+.common-input-text
+{
+    height: 40px;
+    border: 1px solid #E8E8E8;
+    padding: 8px;
+    font-size: 15px;
+}
+
+/* summernote전체화면 배경 페이지 */
+div.note-editable 
+{
+    background-color:white;
+}

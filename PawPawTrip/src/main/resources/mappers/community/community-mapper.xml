@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+    
+<mapper namespace="com.kr.pawpawtrip.community.model.mapper.CommunityMapper">
+	<sql id="communitySelectNo">
+			SELECT C.COMMUNITY_NO
+			     , C.COMMUNITY_CATEGORY
+			     , C.COMMUNITY_TITLE
+			     , C.COMMUNITY_CONTENT
+			     , C.COMMUNITY_ED
+			     , C.COMMUNITY_STATUS
+			     , C.COMMUNITY_COUNT
+			     , C.COMMUNITY_O_FILENAME
+			     , C.COMMUNITY_R_FILENAME
+			     , C.NOTICE_IMPORTANT_YN
+			     , C.COMMUNITY_WRITER_NO
+			     , M.MEMBER_ID
+			  FROM COMMUNITY                  C
+			 INNER JOIN
+			       MEMBER                     M
+			    ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+			   WHERE C.COMMUNITY_STATUS     = 'Y'
+	</sql>
+
+    <sql id="noticeListSql">
+        SELECT COMMUNITY_NO
+             , ROWNUM                   AS RNUM
+             , COMMUNITY_CATEGORY
+             , COMMUNITY_TITLE
+             , COMMUNITY_CONTENT
+             , COMMUNITY_ED
+             , COMMUNITY_STATUS
+             , COMMUNITY_COUNT
+             , COMMUNITY_O_FILENAME
+             , COMMUNITY_R_FILENAME
+             , NOTICE_IMPORTANT_YN
+             , COMMUNITY_WRITER_NO
+             , MEMBER_ID
+          FROM (
+               SELECT C.COMMUNITY_NO
+                    , C.COMMUNITY_CATEGORY
+                    , C.COMMUNITY_TITLE
+                    , C.COMMUNITY_CONTENT
+                    , C.COMMUNITY_ED
+                    , C.COMMUNITY_STATUS
+                    , C.COMMUNITY_COUNT
+                    , C.COMMUNITY_O_FILENAME
+                    , C.COMMUNITY_R_FILENAME
+                    , C.NOTICE_IMPORTANT_YN
+                    , C.COMMUNITY_WRITER_NO
+                    , M.MEMBER_ID
+                 FROM COMMUNITY                C
+                INNER JOIN
+                      MEMBER                   M
+                   ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+                WHERE C.COMMUNITY_CATEGORY   = '[공지사항]'
+                  AND C.COMMUNITY_STATUS     = 'Y'
+                ORDER BY
+                      C.NOTICE_IMPORTANT_YN      ASC
+                    , C.COMMUNITY_ED             ASC
+               ) 
+    </sql>
+    
+    <sql id="communityListSql">
+          WITH BOARD AS 
+        (  
+        SELECT ROWNUM               AS RNUM
+             , COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+             , COMMUNITY_TITLE
+             , COMMUNITY_CONTENT
+             , COMMUNITY_O_FILENAME
+             , COMMUNITY_R_FILENAME
+             , MEMBER_ID
+             , COMMUNITY_COUNT
+             , COMMUNITY_ED
+             , NOTICE_IMPORTANT_YN
+          FROM (
+               SELECT C.COMMUNITY_NO
+                    , C.COMMUNITY_CATEGORY
+                    , C.COMMUNITY_TITLE
+                    , C.COMMUNITY_CONTENT
+                    , M.MEMBER_ID
+                    , C.COMMUNITY_COUNT
+                    , C.COMMUNITY_O_FILENAME
+                    , C.COMMUNITY_R_FILENAME
+                    , C.COMMUNITY_ED
+                    , C.NOTICE_IMPORTANT_YN
+                 FROM COMMUNITY                C
+                 JOIN MEMBER                   M 
+                   ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+                WHERE C.COMMUNITY_STATUS     = 'Y'
+                  AND C.COMMUNITY_CATEGORY  IN ('[수다]', '[마이펫 자랑]')
+                UNION
+               SELECT C.COMMUNITY_NO
+                    , C.COMMUNITY_CATEGORY
+                    , C.COMMUNITY_TITLE
+                    , C.COMMUNITY_CONTENT
+                    , M.MEMBER_ID
+                    , C.COMMUNITY_COUNT
+                    , C.COMMUNITY_O_FILENAME
+                    , C.COMMUNITY_R_FILENAME
+                    , C.COMMUNITY_ED
+                    , C.NOTICE_IMPORTANT_YN
+                 FROM COMMUNITY                C
+                 JOIN MEMBER                   M 
+                   ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+                WHERE C.COMMUNITY_STATUS     = 'Y'
+                  AND C.NOTICE_IMPORTANT_YN  = 'Y'
+                ORDER BY 
+                      NOTICE_IMPORTANT_YN      ASC
+                    , COMMUNITY_ED             ASC
+               )
+         )
+    </sql>
+    
+    <resultMap id="communityListResultMap"   type="Community">
+       <id     property="communityNo"        column="COMMUNITY_NO"        />
+       <result property="communityRNUM"      column="RNUM"                />
+       <result property="communityCategory"  column="COMMUNITY_CATEGORY"  />
+       <result property="communityTitle"     column="COMMUNITY_TITLE"     />
+       <result property="communityContent"   column="COMMUNITY_CONTENT"   />
+       <result property="communityEd"        column="COMMUNITY_ED"        />
+       <result property="communityStatus"    column="COMMUNITY_STATUS"    />
+       <result property="communityCount"     column="COMMUNITY_COUNT"     />
+       <result property="communityOfileName" column="COMMUNITY_O_FILENAME"/>
+       <result property="communityRfileName" column="COMMUNITY_R_FILENAME"/>
+       <result property="noticeImportantYN"  column="NOTICE_IMPORTANT_YN" />
+       <result property="communityWriterNo"  column="COMMUNITY_WRITER_NO" />
+       <result property="communityWriterId"  column="MEMBER_ID"           />
+  </resultMap>    
+
+     <!-- 조회 -->
+       <select id="selectBoardCount" parameterType="map">
+      <include refid="communityListSql" />
+        SELECT COUNT(*)
+          FROM BOARD
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+               </if>
+       </trim>
+     </select>
+     
+       <select id="selectNoticeCount" parameterType="string">
+        SELECT COUNT(*)
+          FROM COMMUNITY                  
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE    LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID          LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT  LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+           AND COMMUNITY_CATEGORY   = '[공지사항]'
+           AND COMMUNITY_STATUS     = 'Y'
+       </trim>
+     </select>
+    
+       <select id="selectBoardTalkCount" parameterType="map">
+      <include refid="communityListSql" />
+        SELECT COUNT(*)
+          FROM BOARD
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE    LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID          LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT  LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+           AND COMMUNITY_CATEGORY   IN ('[수다]', '[공지사항]')
+       </trim>
+     </select>
+    
+       <select id="selectBoardMypetCount" parameterType="map">
+      <include refid="communityListSql" />
+        SELECT COUNT(*)
+          FROM BOARD
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+           AND COMMUNITY_CATEGORY         IN ('[마이펫 자랑]', '[공지사항]')
+       </trim>
+     </select>
+    
+       <select id="selectNoticeList" resultMap="communityListResultMap" parameterType="map">
+      <include refid="noticeListSql" />
+         WHERE 1 = 1
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+           AND COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+           AND MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+           AND COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+         ORDER BY 
+               RNUM DESC
+     </select>
+    
+       <select id="selectBoardList" resultMap="communityListResultMap" parameterType="map">
+      <include refid="communityListSql" />
+        SELECT RNUM
+             , COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+             , COMMUNITY_TITLE
+             , COMMUNITY_CONTENT
+             , MEMBER_ID
+             , COMMUNITY_COUNT
+             , COMMUNITY_ED
+             , NOTICE_IMPORTANT_YN
+          FROM BOARD
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+       </trim>
+         ORDER BY 
+               RNUM DESC
+    </select>
+    
+       <select id="selectBoardTalkList" resultMap="communityListResultMap" parameterType="map">
+      <include refid="communityListSql" />
+        SELECT RNUM
+             , COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+             , COMMUNITY_TITLE
+             , COMMUNITY_CONTENT
+             , MEMBER_ID
+             , COMMUNITY_COUNT
+             , COMMUNITY_ED
+             , NOTICE_IMPORTANT_YN
+          FROM BOARD
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE    LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID          LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT  LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+           AND COMMUNITY_CATEGORY   IN ('[수다]', '[공지사항]')
+       </trim>
+         ORDER BY 
+               RNUM DESC
+     </select>
+    
+       <select id="selectBoardMypetList" resultMap="communityListResultMap" parameterType="map">
+      <include refid="communityListSql" />
+        SELECT RNUM
+             , COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+             , COMMUNITY_TITLE
+             , COMMUNITY_CONTENT
+             , MEMBER_ID
+             , COMMUNITY_COUNT
+             , COMMUNITY_ED
+             , NOTICE_IMPORTANT_YN
+          FROM BOARD
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+           AND COMMUNITY_CATEGORY  IN ('[마이펫 자랑]', '[공지사항]')
+       </trim>
+         ORDER BY 
+               RNUM DESC
+     </select>
+    
+     <select id="selectBoardByNo" resultMap="communityListResultMap" parameterType="_int">
+      <include refid="communitySelectNo" />
+         AND COMMUNITY_NO = #{no}
+    </select>
+    
+     <!-- 내가 쓴 게시글 조회 -->
+     <select id="selectBoardByMember" resultMap="communityListResultMap" parameterType="_int">
+      SELECT ROWNUM AS RNUM,
+	         COMMUNITY_NO,
+	         COMMUNITY_CATEGORY,
+	         COMMUNITY_TITLE,
+	         COMMUNITY_CONTENT,
+	         COMMUNITY_ED,
+	         COMMUNITY_COUNT,
+	         COMMUNITY_WRITER_NO,
+	         MEMBER_ID
+	  FROM (
+	      SELECT C.COMMUNITY_NO,
+	             C.COMMUNITY_CATEGORY,
+	             C.COMMUNITY_TITLE,
+	             C.COMMUNITY_CONTENT,
+	             C.COMMUNITY_ED,
+	             C.COMMUNITY_COUNT,
+	             C.COMMUNITY_WRITER_NO,
+	             M.MEMBER_ID
+	        FROM COMMUNITY C
+	        LEFT OUTER JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+	       WHERE C.COMMUNITY_STATUS = 'Y'
+	    ORDER BY C.COMMUNITY_ED DESC
+	  )
+	  WHERE COMMUNITY_WRITER_NO = #{memberNo}
+    </select>
+    
+    <!-- 내가 쓴 게시글 수 -->
+    <select id="selectBoardByMemberCount" parameterType="_int">
+     SELECT COUNT(*)
+       FROM COMMUNITY
+      WHERE COMMUNITY_STATUS = 'Y'
+        AND COMMUNITY_WRITER_NO = #{memberNo}
+    </select>
+    
+     <!-- 추가 -->
+       <insert id="insertBoard" parameterType="Community" useGeneratedKeys="true" keyProperty="communityNo" keyColumn="COMMUNITY_NO">
+        INSERT
+          INTO COMMUNITY
+             (
+               COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+             , COMMUNITY_TITLE
+             , COMMUNITY_CONTENT
+             , COMMUNITY_O_FILENAME
+             , COMMUNITY_R_FILENAME
+             , COMMUNITY_WRITER_NO
+             )
+        VALUES
+             (
+               SEQ_COMM_NO.NEXTVAL
+             , #{communityCategory}
+             , #{communityTitle}
+             , #{communityContent}
+             , #{communityOfileName}
+             , #{communityRfileName}
+             , #{communityWriterNo}
+             )
+     </insert>     <!-- 추가 -->
+       <insert id="insertNotice" parameterType="Community" useGeneratedKeys="true" keyProperty="communityNo" keyColumn="COMMUNITY_NO">
+        INSERT
+          INTO COMMUNITY
+             (
+               COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+             , COMMUNITY_TITLE
+             , COMMUNITY_CONTENT
+             , COMMUNITY_O_FILENAME
+             , COMMUNITY_R_FILENAME
+             , COMMUNITY_WRITER_NO
+             , NOTICE_IMPORTANT_YN
+             )
+        VALUES
+             (
+               SEQ_COMM_NO.NEXTVAL
+             , #{communityCategory}
+             , #{communityTitle}
+             , #{communityContent}
+             , #{communityOfileName}
+             , #{communityRfileName}
+             , #{communityWriterNo}
+             , #{noticeImportantYN}
+             )
+     </insert>
+     
+     <!-- 수정 -->
+     <update id="updateBoard" parameterType="Community">
+      UPDATE COMMUNITY
+      <trim prefix="SET" suffixOverrides=",">
+        <if test="communityCategory != null">
+            COMMUNITY_CATEGORY=#{communityCategory},
+        </if>
+        <if test="communityTitle != null">
+            COMMUNITY_TITLE=#{communityTitle},
+        </if>
+        <if test="communityContent != null">
+            COMMUNITY_CONTENT = #{communityContent},
+        </if>
+        <if test="communityOfileName != null">
+            COMMUNITY_O_FILENAME = #{communityOfileName},
+        </if>
+        <if test="communityRfileName != null">
+            COMMUNITY_R_FILENAME = #{communityRfileName},
+        </if>
+        <if test="noticeImportantYN != null">
+            NOTICE_IMPORTANT_YN = #{noticeImportantYN},
+        </if>
+      </trim>
+      WHERE COMMUNITY_NO = #{communityNo}
+     </update>
+     
+     <!-- 조회수 업데이트 -->
+     <update id="updateCommunityCount" parameterType="map">
+      UPDATE COMMUNITY
+      SET COMMUNITY_COUNT = #{viewsCount}
+      WHERE COMMUNITY_NO = #{no}
+     </update>
+     
+     <!-- 삭제 -->
+     <update id="updateStatus" parameterType="map">
+      UPDATE COMMUNITY
+      SET COMMUNITY_STATUS = #{status}
+      WHERE COMMUNITY_NO = #{no}
+     </update>
+     
+     <!-- 게시글 파일 삭제 -->
+     <update id="updateFileName" parameterType="_int">
+      UPDATE COMMUNITY
+      SET COMMUNITY_O_FILENAME = null
+        , COMMUNITY_R_FILENAME = null
+      WHERE COMMUNITY_NO = #{cNo}
+     </update>
+    
+</mapper>

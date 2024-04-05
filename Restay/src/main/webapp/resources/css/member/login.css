@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+}
+
+main {
+    width: 1440px;
+    height: 1023px;
+    margin: auto;
+}
+
+.login-wrap {
+    width: 1440px;
+    height: 282px;
+}
+
+.login-form {
+    width: 1440px;
+    height: 741px;
+}
+
+.login-form form {
+    width: 385px;
+    border-top: 1px solid #000;
+    margin: auto;
+    margin-top: 82px;
+}
+
+.userId, .userPw {
+    width: 385px;
+    height: 45px;
+    margin: auto;
+}
+
+.userId {
+    margin-top: 30px;
+}
+
+.userPw {
+    margin-top: 13px;
+}
+
+.login-form input {
+    width: 385px;
+    height: 44px;
+    font-size: 18px;
+    border-style: none;
+    border-bottom: 1px solid #d3d3d3;
+    outline: none;
+}
+
+.login-btn-wrap {
+    margin-top: 30px;
+}
+
+.login-btn {
+    width: 385px;
+    height: 55px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    background: rgba(9, 86, 26, 0.63);
+    border-style: none;
+    color: white;
+    cursor: pointer;
+}
+
+.enroll-btn-wrap {
+    margin-top: 10px;
+}
+
+.enroll-btn {
+    width: 385px;
+    height: 55px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+}
+
+.find-wrap {
+    width: 385px;
+    height: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+.find-wrap a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #000;
+}
+
+.sns-login {
+    width: 385px;
+    height: 116px;
+    margin-top: 80px;
+}
+
+.sns-login>div {
+    text-align: center;
+}
+
+.sns-login ul {
+    margin: auto;
+    margin-top: 35px;
+    padding: 0;
+    width: 325px;
+    height: 60px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around
+}

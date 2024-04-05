@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kr.pawpawtrip.trip.model.mapper.TripMapper">
+    <!-- 관광지 SQL 구문 -->
+    <sql id="spotListSql">
+      SELECT TRIP_CONTENTID
+           , TRIP_ADDRESS || TRIP_DETAIL_ADDRESS AS TRIP_ADDRESS
+           , TRIP_TITLE
+           , (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = 0) AS AREACODE
+           , (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = SIGUNGUCODE) AS SIGUNGUCODE
+           , (SELECT S.BIG_CATE_NAME FROM BIGCATEGORY S WHERE S.BIG_CATE_CODE = TRIP_CATEGORY1 )AS TRIP_CATEGORY1
+           , (SELECT S.MID_CATE_NAME FROM MIDCATEGORY S WHERE S.MID_CATE_CODE = TRIP_CATEGORY2 )AS TRIP_CATEGORY2
+           , (SELECT S.SML_CATE_NAME FROM SMLCATEGORY S WHERE S.SML_CATE_CODE = TRIP_CATEGORY3 )AS TRIP_CATEGORY3
+           , CASE TRIP_CONTENTTYPEID WHEN 12 THEN '관광지'
+                                     WHEN 14 THEN '문화시설'
+                                     WHEN 15 THEN '축제공연행사'
+                                     WHEN 25 THEN '여행코스'
+                                     WHEN 28 THEN '레포츠'
+                                     WHEN 32 THEN '숙박'
+                                     WHEN 38 THEN '쇼핑'
+                                     WHEN 39 THEN '음식점'
+              END AS TRIP_CONTENTTYPEID
+           , NVL(TRIP_IMAGE, '-') AS TRIP_IMAGE
+           , NVL(TRIP_TEL, '-') AS TRIP_TEL
+           , NVL(HOMEPAGE, '-') AS HOMEPAGE
+           , NVL(OVERVIEW, '-') AS OVERVIEW
+      FROM TRIP
+    </sql>
+
+    <!-- 숙소 SQL 구문 -->
+    <sql id="stayListSql">
+        SELECT STAY_CONTENTID,
+               STAY_ADDRESS || STAY_DETAIL_ADDRESS AS "STAY_ADDRESS",
+               STAY_TITLE,
+               (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = 0) AS AREACODE,
+               (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = SIGUNGUCODE) AS SIGUNGUCODE,
+               (SELECT S.BIG_CATE_NAME FROM BIGCATEGORY S WHERE S.BIG_CATE_CODE = STAY_CATEGORY1 )AS STAY_CATEGORY1,
+               (SELECT S.MID_CATE_NAME FROM MIDCATEGORY S WHERE S.MID_CATE_CODE = STAY_CATEGORY2 )AS STAY_CATEGORY2,
+               (SELECT S.SML_CATE_NAME FROM SMLCATEGORY S WHERE S.SML_CATE_CODE = STAY_CATEGORY3 )AS STAY_CATEGORY3,
+               NVL(STAY_IMAGE, '-') AS STAY_IMAGE,
+             NVL(STAY_TEL, '-') AS STAY_TEL,
+             NVL(HOMEPAGE, '-') AS HOMEPAGE,
+             NVL(OVERVIEW, '-') AS OVERVIEW
+        FROM STAY
+    </sql>
+    
+    
+    <!-- 반려동물 동반정보 SQL 구문 -->
+    <sql id="petInfoListSql">
+        SELECT PETINFO_CONTENTID
+             , TOUR_INFO
+             , ACMPY_TYPE_CD
+             , RELA_POSES_FCLTY
+             , RELA_FRNSH_PRDLST
+             , RELA_PURC_PRDLST
+             , RELA_RNTL_PRDLST
+             , ACMPY_PSBL_CPAM
+             , ETC_ACMPY_INFO
+             , ACMPY_NEED_MTR
+          FROM PETINFO
+    </sql>
+    
+    <!-- ************************************************************************************************** -->
+
+    <!-- 관광지 페이지 ResultMap -->
+    <resultMap  id="spotListResultMap" type="Spot">
+        <id     property="tripContentId"     column="TRIP_CONTENTID"     />
+        <result property="tripAddress"       column="TRIP_ADDRESS"       />
+        <result property="tripTitle"         column="TRIP_TITLE"         />
+        <result property="areaCode"          column="AREACODE"           />
+        <result property="sigunguCode"       column="SIGUNGUCODE"        />
+        <result property="tripCategory1"     column="TRIP_CATEGORY1"     />
+        <result property="tripCategory2"     column="TRIP_CATEGORY2"     />
+        <result property="tripCategory3"     column="TRIP_CATEGORY3"     />
+        <result property="tripContentTypeId" column="TRIP_CONTENTTYPEID" />
+        <result property="tripImage"         column="TRIP_IMAGE"         />
+        <result property="tripTel"           column="TRIP_TEL"           />
+        <result property="homepage"          column="HOMEPAGE"           />
+        <result property="overview"          column="OVERVIEW"           />
+        <!-- 매핑하려는 객체가 여러개(List)일 경우 collection 사용, 하나일 경우 association 사용 -->
+       <association property="petInfo" columnPrefix="P_" resultMap="petInfoResultMap"/>
+    </resultMap>
+
+    <!-- 숙소 페이지 ResultMap -->
+    <resultMap  id="stayListResultMap" type="Stay">
+        <id     property="stayContentId"     column="STAY_CONTENTID"     />
+        <result property="stayAddress"       column="STAY_ADDRESS"       />
+        <result property="stayTitle"         column="STAY_TITLE"         />
+        <result property="areaCode"          column="AREACODE"           />
+        <result property="stayCategory1"     column="STAY_CATEGORY1"     />
+        <result property="stayCategory2"     column="STAY_CATEGORY2"     />
+        <result property="stayCategory3"     column="STAY_CATEGORY3"     />
+        <result property="stayContentTypeId" column="STAY_CONTENTTYPEID" />
+        <result property="stayImage"         column="STAY_IMAGE"         />
+        <result property="stayTel"           column="STAY_TEL"           />
+        <result property="sigunguCode"       column="SIGUNGUCODE"        />
+        <result property="homepage"          column="HOMEPAGE"           />
+        <result property="overview"          column="OVERVIEW"           />
+        <association property="petInfo" columnPrefix="P_" resultMap="petInfoResultMap"/>
+    </resultMap>
+
+    <!-- 공통컨텐츠 페이지 ResultMap -->
+    <resultMap id="commListResultMap" type="Comm">
+        <!-- 기본키 -->
+        <id     property="commContentId"     column="COMM_CONTENTID"     />
+        <result property="commAddress"       column="COMM_ADDRESS"       />
+        <result property="commDetailAddress" column="COMM_DETAIL_ADDRESS"/>
+        <result property="commTitle"         column="COMM_TITLE"         />
+        <result property="areaCode"          column="AREACODE"           />
+        <result property="commCategory1"     column="COMM_CATEGORY1"     />
+        <result property="commCategory2"     column="COMM_CATEGORY2"     />
+        <result property="commCategory3"     column="COMM_CATEGORY3"     />
+        <result property="commContentTypeId" column="COMM_CONTENTTYPEID" />
+        <result property="commCreateTime"    column="COMM_CREATETIME"    />
+        <result property="commModifyTime"    column="COMM_MODIFYTIME"    />
+        <result property="commImage"         column="COMM_IMAGE"         />
+        <result property="mapX"              column="MAPX"               />
+        <result property="mapY"              column="MAPY"               />
+        <result property="mapLevel"          column="MAPLEVEL"           />
+        <result property="commTel"           column="COMM_TEL"           />
+        <result property="sigunguCode"       column="SIGUNGUCODE"        />
+        <result property="homepage"          column="HOMEPAGE"           />
+        <result property="overview"          column="OVERVIEW"           />
+    </resultMap>
+    
+    <!-- 동물동반정보테이블 ResultMap -->
+    <resultMap id="petInfoResultMap" type="PetInfo">
+        <!-- 기본키 -->
+        <id     property="petinfoContentid"  column="PETINFO_CONTENTID"/>
+        <result property="tourInfo"          column="TOUR_INFO"        />
+        <result property="acmpyTypeCd"       column="ACMPY_TYPE_CD"    />
+        <result property="relaPosesFclty"    column="RELA_POSES_FCLTY" />
+        <result property="relaFrnshPrdlst"   column="RELA_FRNSH_PRDLST"/>
+        <result property="relaPurcPrdlst"    column="RELA_PURC_PRDLST" />
+        <result property="relaRntlPrdlst"    column="RELA_RNTL_PRDLST" />
+        <result property="acmpyPsblCpam"     column="ACMPY_PSBL_CPAM"  />
+        <result property="etcAcmpyInfo"      column="ETC_ACMPY_INFO"   />
+        <result property="acmpyNeedMtr"      column="ACMPY_NEED_MTR"   />
+    </resultMap>
+    
+    <!-- 내가찜한장소 테이블 ResultMap  -->
+    <resultMap id="myTripResultMap" type="MyTrip">
+       <id         property="contentId" column="CONTENTID"/>
+       <result     property="memberNo"  column="MEMBER_NO"/>
+       <result     property="address"  column="ADDRESS"/>
+       <result     property="title"  column="TITLE"/>
+       <result     property="contentType"  column="CONTENTTYPE"/>
+       <result     property="image"  column="IMAGE"/>
+    </resultMap>
+<!--  
+       <collection property="stays" javaType="arraylist" resultMap="stayListResultMap"/>
+       <collection property="spots" javaType="arraylist" resultMap="spotListResultMap"/>
+-->   
+   <!-- ************************************************************************************** -->
+   
+   <!-- 관광지 게시물 수 조회 -->
+   <select id="selectSpotCount" resultType="_int" parameterType="string">
+      SELECT COUNT(*)
+        FROM TRIP
+     <where>
+       <if test="selectArea != ''">
+         AND AREACODE = #{selectArea}
+       </if>
+         AND (TRIP_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+          OR  TRIP_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+     </where>
+        ORDER BY TRIP_TITLE
+   </select>
+   
+   
+    <!-- 관광지 목록 전체 조회 -->
+    <select id="selectSpotList" resultMap="spotListResultMap" parameterType="string">
+        <include refid="spotListSql"/>
+        <where>
+          <if test="selectArea != ''">
+            AND AREACODE = #{selectArea}
+          </if>
+            AND (TRIP_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+             OR  TRIP_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+        </where>
+        ORDER BY TRIP_TITLE
+    </select>
+    
+    
+    <!-- 관광지 API 이미지 DB저장 (DB에서 null인 경우에만) -->
+    <update id="updateSpotApiImage"  parameterType="map">
+      UPDATE TRIP
+         SET TRIP_IMAGE = #{apiImageURL}
+       WHERE TRIP_IMAGE IS NULL
+         AND TRIP_CONTENTID = #{id}
+    </update>
+    
+    
+    <!-- 관광지 CONTENT ID 로 관광지 상세페이지 조회 -->
+   <select id="selectSpotById" parameterType="_int" resultMap="spotListResultMap">
+        SELECT T.TRIP_CONTENTID,
+             T.TRIP_ADDRESS || T.TRIP_DETAIL_ADDRESS       AS TRIP_ADDRESS,
+             T.TRIP_TITLE,
+             NVL(T.TRIP_IMAGE,        '-')                 AS TRIP_IMAGE,
+             NVL(T.TRIP_TEL,           '별도 문의')           AS TRIP_TEL,
+             NVL(T.HOMEPAGE,           '-')                   AS HOMEPAGE,
+             NVL(T.OVERVIEW,           '-')                   AS OVERVIEW,
+             NVL(P.RELA_POSES_FCLTY,  '-')                 AS P_RELA_POSES_FCLTY,
+             NVL(P.ETC_ACMPY_INFO,    '-')                    AS P_ETC_ACMPY_INFO,
+             NVL(P.RELA_RNTL_PRDLST,  '없음')                  AS P_RELA_RNTL_PRDLST,
+             NVL(P.RELA_PURC_PRDLST,  '없음')                  AS P_RELA_PURC_PRDLST,
+             NVL(P.RELA_FRNSH_PRDLST, '없음')                 AS P_RELA_FRNSH_PRDLST,
+             NVL(P.ACMPY_PSBL_CPAM,   '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
+             NVL(P.ACMPY_NEED_MTR,    '-')                    AS P_ACMPY_NEED_MTR
+        FROM TRIP T
+        INNER JOIN PETINFO P ON (T.TRIP_CONTENTID = P.PETINFO_CONTENTID)
+        WHERE T.TRIP_CONTENTID = #{id}
+   </select>
+
+
+   <!-- 숙소 게시물 수 조회 -->
+   <select id="selectStayCount" resultType="_int" parameterType="string">
+      SELECT COUNT(*)
+        FROM STAY
+     <where>
+       <if test="selectArea != ''">
+          AND AREACODE = #{selectArea}
+       </if>
+          AND (STAY_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+           OR  STAY_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+     </where>
+         ORDER BY STAY_TITLE
+   </select>   
+   
+   
+    <!-- 숙소 목록 전체 조회 -->
+    <select id="selectStaytList" resultMap="stayListResultMap" parameterType="string">
+        <include refid="stayListSql"/>
+        <where>
+          <if test="selectArea != ''">
+            AND AREACODE = #{selectArea}
+          </if>
+            AND (STAY_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+             OR  STAY_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+        </where>
+          ORDER BY STAY_TITLE
+    </select>
+
+
+    <!-- 숙소 API 이미지 DB저장 (DB에서 null인 경우에만) -->
+    <update id="updateStayApiImage"  parameterType="map">
+      UPDATE STAY
+         SET STAY_IMAGE = #{apiImageURL}
+       WHERE STAY_IMAGE IS NULL
+         AND STAY_CONTENTID = #{id}    
+    </update>
+    
+    
+    <!-- 숙소 상세 조회 -->
+    <select id="selectStayById" parameterType="_int" resultMap="stayListResultMap">
+       SELECT S.STAY_CONTENTID,
+              S.STAY_ADDRESS || STAY_DETAIL_ADDRESS               AS STAY_ADDRESS,
+              S.STAY_TITLE                                        AS STAY_TITLE,
+              NVL(S.STAY_IMAGE, '-')                              AS STAY_IMAGE,
+              NVL(S.STAY_TEL, '별도 문의')                        AS STAY_TEL,
+              NVL(S.HOMEPAGE, '-')                                AS HOMEPAGE,
+              NVL(S.OVERVIEW, '-')                                AS OVERVIEW,
+              NVL(P.RELA_POSES_FCLTY, '-')                        AS P_RELA_POSES_FCLTY,
+              NVL(P.ETC_ACMPY_INFO, '-')                          AS P_ETC_ACMPY_INFO,
+              NVL(P.RELA_RNTL_PRDLST, '없음')                     AS P_RELA_RNTL_PRDLST,
+              NVL(P.RELA_PURC_PRDLST, '없음')                     AS P_RELA_PURC_PRDLST,
+              NVL(P.RELA_FRNSH_PRDLST, '없음')                    AS P_RELA_FRNSH_PRDLST,
+              NVL(P.ACMPY_PSBL_CPAM, '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
+              NVL(P.ACMPY_NEED_MTR, '-')                          AS P_ACMPY_NEED_MTR
+         FROM STAY S
+        INNER JOIN PETINFO P ON (S.STAY_CONTENTID = P.PETINFO_CONTENTID)
+        WHERE S.STAY_CONTENTID = #{id}
+    </select>    
+   
+   <!-- 회원이 찜한 장소 갯수 조회 -->
+    <select id="selectMyTripCount" resultType="_int" parameterType="_int">
+       SELECT COUNT(*)
+        FROM (
+                SELECT STAY_CONTENTID      AS CONTENTID
+                     , STAY_ADDRESS        AS ADDRESS
+                     , STAY_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                     , STAY_TITLE          AS TITLE
+                     , STAY_CONTENTTYPEID  AS CONTENTTYPE
+                     , STAY_IMAGE          AS IMAGE
+                  FROM STAY
+                 UNION
+                SELECT TRIP_CONTENTID      AS CONTENTID
+                     , TRIP_ADDRESS        AS ADDRESS
+                     , TRIP_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                     , TRIP_TITLE          AS TITLE
+                     , TRIP_CONTENTTYPEID  AS CONTENTTYPE
+                     , TRIP_IMAGE          AS IMAGE
+                  FROM TRIP
+                )
+                WHERE CONTENTID IN (SELECT CONTENTID
+                                    FROM ZZIM
+                                  WHERE MEMBER_NO = #{memberNo})         
+    </select>
+    
+    
+    <!-- 회원이 찜한 장소 리스트 조회 -->
+      <select id="selectMyTripList" parameterType="_int" resultMap="myTripResultMap" >
+        SELECT CONTENTID
+             , ADDRESS || NVL(DETAIL_ADDRESS, '') AS ADDRESS
+             , TITLE
+             , DECODE(CONTENTTYPE  , '12', '관광지', '32', '숙소') AS CONTENTTYPE
+             , IMAGE
+          FROM (
+                SELECT STAY_CONTENTID      AS CONTENTID
+                     , STAY_ADDRESS        AS ADDRESS
+                     , STAY_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                     , STAY_TITLE          AS TITLE
+                     , STAY_CONTENTTYPEID  AS CONTENTTYPE
+                     , STAY_IMAGE          AS IMAGE
+                  FROM STAY
+                 UNION
+                SELECT TRIP_CONTENTID      AS CONTENTID
+                     , TRIP_ADDRESS        AS ADDRESS
+                     , TRIP_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                     , TRIP_TITLE          AS TITLE
+                     , TRIP_CONTENTTYPEID  AS CONTENTTYPE
+                     , TRIP_IMAGE          AS IMAGE
+                  FROM TRIP
+                )
+                WHERE CONTENTID IN (SELECT CONTENTID
+                                    FROM ZZIM
+                                  WHERE MEMBER_NO = #{memberNo})  
+      </select>
+      
+      
+      
+      
+      <!-- 회원이 찜한 관광지/숙소 조회 -->
+      <select id="selectZzimId" parameterType="map" resultType="string">
+		SELECT CONTENTID
+		  FROM ZZIM
+		 WHERE CONTENTID = #{contentId}
+           AND MEMBER_NO = #{memberNo}
+      </select>
+      
+      <!-- 회원이 찜한 관광지 추가 -->
+      <insert id="insertMyTrip" parameterType="map">
+		INSERT 
+		INTO ZZIM ( CONTENTID, MEMBER_NO )
+		VALUES ( #{contentId}, #{memberNo} )     	
+      </insert>
+      
+      
+      <!-- 회원이 찜한 관광지 삭제 -->
+      <delete id="deleteMyTrip" parameterType="map">
+		DELETE
+		FROM ZZIM 
+		WHERE MEMBER_NO = #{memberNo}
+		AND CONTENTID = #{contentId}      
+      </delete>
+      
+   <!-- ************************************************************************************* -->
+   
+    <!-- PetTour List IN절조건 조회 -->
+    <select id="selectPetInfoByContentIds" parameterType="map"  resultMap="petInfoResultMap" >
+        <include refid="petInfoListSql"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="contentIdList != ''">
+               PETINFO_CONTENTID IN
+            <foreach collection="contentIdList" item="contentId" index="index" separator="," open="(" close=")">#{contentId}</foreach>
+            </if>
+        </trim>
+    </select>
+    
+    
+    <!-- PetTour contentId 로 한건 조회 -->
+    <select id="selectPetInfoByContentId" parameterType="map"  resultMap="petInfoResultMap" >
+        <include refid="petInfoListSql"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="contentId != ''">
+               PETINFO_CONTENTID = #{contentId}
+            </if>
+        </trim>
+    </select>
+
+
+    <!-- 여행 테이블 등록 -->
+    <insert id="insertTrip" parameterType="Spot">
+        INSERT
+          INTO TRIP
+        (
+               TRIP_CONTENTID
+             , TRIP_ADDRESS
+             , TRIP_DETAIL_ADDRESS
+             , TRIP_TITLE
+             , AREACODE
+             , TRIP_CATEGORY1
+             , TRIP_CATEGORY2
+             , TRIP_CATEGORY3
+             , TRIP_CONTENTTYPEID
+             , TRIP_CREATETIME
+             , TRIP_MODIFYTIME
+             , TRIP_IMAGE
+             , MAPX
+             , MAPY
+             , MAPLEVEL
+             , TRIP_TEL
+             , SIGUNGUCODE
+             , HOMEPAGE
+             , OVERVIEW
+        )
+       VALUES
+       (
+               #{tripContentId}
+             , #{tripAddress}
+             , #{tripDetailAddress}
+             , #{tripTitle}
+             , #{areaCode}
+             , #{tripCategory1}
+             , #{tripCategory2}
+             , #{tripCategory3}
+             , #{tripContentTypeId}
+             , #{tripCreateTime}
+             , #{tripModifyTime}
+             , #{tripImage}
+             , #{mapX}
+             , #{mapY}
+             , #{mapLevel}
+             , #{tripTel}
+             , #{sigunguCode}
+             , #{homepage}
+             , #{overview}
+        )
+    </insert>
+
+    <!-- 숙소 테이블 등록 -->
+    <insert id="insertStay" parameterType="Stay">
+        INSERT
+          INTO STAY
+        (
+               STAY_CONTENTID
+             , STAY_ADDRESS
+             , STAY_DETAIL_ADDRESS
+             , STAY_TITLE
+             , AREACODE
+             , STAY_CATEGORY1
+             , STAY_CATEGORY2
+             , STAY_CATEGORY3
+             , STAY_CONTENTTYPEID
+             , STAY_CREATETIME
+             , STAY_MODIFYTIME
+             , STAY_IMAGE
+             , MAPX
+             , MAPY
+             , MAPLEVEL
+             , STAY_TEL
+             , SIGUNGUCODE
+             , HOMEPAGE
+             , OVERVIEW
+        )
+       VALUES
+       (
+               #{stayContentId} 
+             , #{stayAddress}
+             , #{stayDetailAddress}
+             , #{stayTitle}
+             , #{areaCode}
+             , #{stayCategory1}
+             , #{stayCategory2}
+             , #{stayCategory3}
+             , #{stayContentTypeId}
+             , #{stayCreateTime}
+             , #{stayModifyTime}
+             , #{stayImage}
+             , #{mapX}
+             , #{mapY}
+             , #{mapLevel}
+             , #{stayTel}
+             , #{sigunguCode}
+             , #{homepage}
+             , #{overview}
+        )
+    </insert>
+
+
+    <!-- 공통컨텐츠 테이블 등록 -->
+    <insert id="insertComm" parameterType="Comm">
+        INSERT
+          INTO COMM
+        (
+               COMM_CONTENTID
+             , COMM_ADDRESS
+             , COMM_DETAIL_ADDRESS
+             , COMM_TITLE
+             , AREACODE
+             , COMM_CATEGORY1
+             , COMM_CATEGORY2
+             , COMM_CATEGORY3
+             , COMM_CONTENTTYPEID
+             , COMM_CREATETIME
+             , COMM_MODIFYTIME
+             , COMM_IMAGE
+             , MAPX
+             , MAPY
+             , MAPLEVEL
+             , COMM_TEL
+             , SIGUNGUCODE
+             , HOMEPAGE
+             , OVERVIEW
+        )
+       VALUES
+       (
+               #{commContentId}
+             , #{commAddress}
+             , #{commDetailAddress}
+             , #{commTitle}
+             , #{areaCode}
+             , #{commCategory1}
+             , #{commCategory2}
+             , #{commCategory3}
+             , #{commContentTypeId}
+             , #{commCreateTime}
+             , #{commModifyTime}
+             , #{commImage}
+             , #{mapX}
+             , #{mapY}
+             , #{mapLevel}
+             , #{commTel}
+             , #{sigunguCode}
+             , #{homepage}
+             , #{overview}
+        )
+    </insert>
+
+
+    <!-- petTourInfo 테이블 등록 -->
+    <insert id="insertPetInfo" parameterType="PetInfo">
+        INSERT
+          INTO PETINFO
+        (
+               PETINFO_CONTENTID
+             , TOUR_INFO
+             , ACMPY_TYPE_CD
+             , RELA_POSES_FCLTY
+             , RELA_FRNSH_PRDLST
+             , RELA_PURC_PRDLST
+             , RELA_RNTL_PRDLST
+             , ACMPY_PSBL_CPAM
+             , ETC_ACMPY_INFO
+             , ACMPY_NEED_MTR
+        )
+        VALUES
+        (
+               #{petinfoContentid}
+             , #{tourInfo}
+             , #{acmpyTypeCd}
+             , #{relaPosesFclty}
+             , #{relaFrnshPrdlst}
+             , #{relaPurcPrdlst}
+             , #{relaRntlPrdlst}
+             , #{acmpyPsblCpam}
+             , #{etcAcmpyInfo}
+             , #{acmpyNeedMtr}
+        )
+    </insert>
+</mapper>

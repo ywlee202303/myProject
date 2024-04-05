@@ -1,0 +1,40 @@
+input::placeholder {
+    color: gray;
+}
+
+.notice-text > a {
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.board-text > a {
+	color: #B29254;
+	font-weight: bold;
+}
+
+.community-btn {
+    padding: 0;
+    width: 90px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #B29254;
+    background-color: white;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.community-btn:hover {
+	border-width: 2px;
+}
+
+/* tr { */
+/*     border: 1px solid #E8E8E8; */
+/* } */
+
+/* td { */
+/*     white-space: nowrap; */
+/*     overflow: hidden; */
+/*     text-overflow: ellipsis; */
+/* } */

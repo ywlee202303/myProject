@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+input::placeholder {
+    color: gray;
+    font-size: 14px;
+}
+
+.notice-text > a {
+	color: #B29254;
+	font-weight: bold;
+}
+
+.board-text > a {
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+}
+
+.community-btn {
+    padding: 0;
+    width: 90px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #B29254;
+    background-color: white;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.community-btn:hover {
+	border-width: 2px;
+}

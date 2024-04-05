@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+input::placeholder {
+    color: gray;
+}
+
+.board-text > a {
+    color: #B29254;
+}
+
+.community-detail-sideMenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    display: block;
+}
+
+/* 버튼 */
+.community-btn {
+    padding: 0;
+    width: 90px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #B29254;
+    background-color: white;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+tr {
+    border: 1px solid #E8E8E8;
+}
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

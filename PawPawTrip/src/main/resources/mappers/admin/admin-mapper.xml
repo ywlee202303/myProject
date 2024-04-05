@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kr.pawpawtrip.admin.model.mapper.AdminMapper">
+
+<!--     <sql id="selectMemberSql"> -->
+<!--         SELECT MEMBER_NO, -->
+<!--                MEMBER_ID, -->
+<!--                MEMBER_NAME, -->
+<!--                MEMBER_PW, -->
+<!--                MEMBER_ROLE, -->
+<!--                MEMBER_PHONE, -->
+<!--                MEMBER_EMAIL, -->
+<!--                MEMBER_BIRTH, -->
+<!--                MEMBER_PET_NAME, -->
+<!--                MEMBER_PET_TYPE, -->
+<!--                MEMBER_STATUS, -->
+<!--                MEMBER_ED, -->
+<!--                MEMBER_MD, -->
+<!--                MRKT_AGREE_YN, -->
+<!--                RECV_AGREE_YN, -->
+<!--                LOCA_AGREE_YN -->
+<!--         FROM MEMBER -->
+<!--     </sql> -->
+    
+    <resultMap  id="communityRankResultMap"   type="CommunityRank"        >
+        <id     property="communityNo"       column="COMMUNITY_NO"       />
+        <result property="rownum"            column="ROWNUM"             />
+        <result property="communityTitle"    column="COMMUNITY_TITLE"    />
+        <result property="communityCount"    column="COMMUNITY_COUNT"    />
+        <result property="communityWriterNo" column="COMMUNITY_WRITER_NO"/>
+        <result property="memberId"          column="MEMBER_ID"          />
+        <result property="communityCategory" column="COMMUNITY_CATEGORY" />
+    </resultMap>
+    
+    <resultMap  id="accsLogResultMap"         type="MemberAccsLog">
+        <result property="memberNo"          column="MEMBER_NO"          />
+        <result property="accessAddr"        column="ACCESS_ADDR"        />
+        <result property="accessDate"        column="ACCESS_DATE"        />
+        <result property="accessPath"        column="ACCESS_PATH"        />
+    </resultMap>
+    
+    <resultMap  id="mypetRatioResultMap"      type="Pet">
+        <result property="petType"           column="MEMBER_PET_TYPE" />
+        <result property="petCount"          column="PET_COUNT"       />
+    </resultMap>
+    
+    <resultMap  id="logCountResultMap"        type ="LogCount">
+        <result property="accessDate"        column="ACCESS_DATE" />
+        <result property="count"             column="COUNT"       />
+    </resultMap>
+    
+    <resultMap  id="favorSiteResultMap"       type="FavorSite">
+        <id     property="contentid"         column="CONTENTID"    />
+        <result property="address"           column="ADDRESS"      />
+        <result property="title"             column="TITLE"        />
+        <result property="contenttype"       column="CONTENTTYPE"  />
+        <result property="image"             column="IMAGE"        />
+        <result property="tel"               column="TEL"          />
+        <result property="favorRcmdYn"       column="FAVOR_RCMD_YN"/>
+    </resultMap>
+    
+    <resultMap id="weatherAreaListMap" type="WeatherArea">
+    	<result property="areaGrpCode" column="AREA_GRP_CODE" />
+    	<result property="areaGrpName" column="AREA_GRP_NAME" />
+    	<result property="areaCode" column="AREA_CODE" />
+    	<result property="areaName" column="AREA_NAME" />
+    </resultMap>
+    
+    <select    id="selectCommunityRanks" resultMap="communityRankResultMap">
+        SELECT ROWNUM 
+             , COMMUNITY_TITLE
+             , COMMUNITY_COUNT
+             , COMMUNITY_WRITER_NO
+             , MEMBER_ID
+             , COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+          FROM (
+               SELECT C.COMMUNITY_TITLE
+                    , C.COMMUNITY_COUNT
+                    , C.COMMUNITY_WRITER_NO
+                    , M.MEMBER_ID
+                    , C.COMMUNITY_NO
+                    , C.COMMUNITY_CATEGORY
+                 FROM COMMUNITY           C
+                INNER JOIN
+                      MEMBER              M
+                   ON M.MEMBER_NO        = C.COMMUNITY_WRITER_NO
+                WHERE COMMUNITY_CATEGORY &lt;&gt; '[공지사항]'
+                ORDER BY 
+                      C.COMMUNITY_COUNT DESC NULLS LAST
+                ) 
+          WHERE ROWNUM &lt;= 7
+    </select>
+    <select id="selectMypetRatio" resultMap="mypetRatioResultMap">
+        SELECT NVL(MEMBER_PET_TYPE, 'N/A') AS MEMBER_PET_TYPE
+             , COUNT(*) AS PET_COUNT
+          FROM MEMBER
+         GROUP BY 
+               MEMBER_PET_TYPE
+     </select>
+       <select id="selectAllFavorSite" resultMap="favorSiteResultMap">
+        SELECT CONTENTID
+             , ADDRESS || NVL(DETAIL_ADDRESS, '') AS ADDRESS
+             , TITLE
+             , DECODE(CONTENTTYPE  , '12', '관광지', '32', '숙소') AS CONTENTTYPE
+             , IMAGE
+             , NVL(TEL, '') AS TEL
+             , FAVOR_RCMD_YN
+          FROM (
+               SELECT STAY_CONTENTID      AS CONTENTID
+                    , STAY_ADDRESS        AS ADDRESS
+                    , STAY_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                    , STAY_TITLE          AS TITLE
+                    , STAY_CONTENTTYPEID  AS CONTENTTYPE
+                    , STAY_IMAGE          AS IMAGE
+                    , STAY_TEL            AS TEL
+                    , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN
+                    , STAY_MODIFYTIME     AS MODIFYTIME
+                 FROM STAY
+                UNION
+               SELECT TRIP_CONTENTID      AS CONTENTID
+                    , TRIP_ADDRESS        AS ADDRESS
+                    , TRIP_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                    , TRIP_TITLE          AS TITLE
+                    , TRIP_CONTENTTYPEID  AS CONTENTTYPE
+                    , TRIP_IMAGE          AS IMAGE
+                    , TRIP_TEL            AS TEL
+                    , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN
+                    , TRIP_MODIFYTIME     AS MODIFYTIME
+                 FROM TRIP
+               )
+         WHERE 1 = 1
+           <if test="search != ''">
+           AND TITLE   LIKE '%' || #{search} || '%'
+           </if>
+           <if test="select != ''">
+           AND CONTENTTYPE      = #{select} 
+           </if>
+         ORDER BY MODIFYTIME DESC
+    </select>
+    <select id="selectFavorSiteCount" parameterType="map">
+        SELECT COUNT(*) AS COUNT
+          FROM (
+               SELECT STAY_CONTENTID      AS CONTENTID
+                    , STAY_ADDRESS        AS ADDRESS
+                    , STAY_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                    , STAY_TITLE          AS TITLE
+                    , STAY_CONTENTTYPEID  AS CONTENTTYPE
+                    , STAY_IMAGE          AS IMAGE
+                    , STAY_TEL            AS TEL
+                    , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN
+                    , STAY_MODIFYTIME     AS MODIFYTIME
+                 FROM STAY
+                UNION
+               SELECT TRIP_CONTENTID      AS CONTENTID
+                    , TRIP_ADDRESS        AS ADDRESS
+                    , TRIP_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                    , TRIP_TITLE          AS TITLE
+                    , TRIP_CONTENTTYPEID  AS CONTENTTYPE
+                    , TRIP_IMAGE          AS IMAGE
+                    , TRIP_TEL            AS TEL
+                    , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN
+                    , TRIP_MODIFYTIME     AS MODIFYTIME
+                 FROM TRIP
+               )
+         WHERE 1 = 1
+           <if test="search != ''">
+           AND TITLE   LIKE '%' || #{search} || '%'
+           </if>
+           <if test="select != ''">
+           AND CONTENTTYPE      = #{select} 
+           </if>
+         ORDER BY MODIFYTIME DESC
+    </select>
+    <select id="selectFavoriteTopThree" parameterType="map" resultMap="favorSiteResultMap">
+        SELECT CONTENTID
+             , ADDRESS || NVL(DETAIL_ADDRESS, '') AS ADDRESS
+             , TITLE
+             , DECODE(CONTENTTYPE  , '12', '관광지', '32', '숙소') AS CONTENTTYPE
+             , IMAGE
+             , NVL(TEL, '') AS TEL
+             , FAVOR_RCMD_YN
+          FROM (
+               SELECT STAY_CONTENTID      AS CONTENTID
+                    , STAY_ADDRESS        AS ADDRESS
+                    , STAY_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                    , STAY_TITLE          AS TITLE
+                    , STAY_CONTENTTYPEID  AS CONTENTTYPE
+                    , STAY_IMAGE          AS IMAGE
+                    , STAY_TEL            AS TEL
+                    , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN
+                    , STAY_MODIFYTIME     AS MODIFYTIME
+                 FROM STAY
+                UNION
+               SELECT TRIP_CONTENTID      AS CONTENTID
+                    , TRIP_ADDRESS        AS ADDRESS
+                    , TRIP_DETAIL_ADDRESS AS DETAIL_ADDRESS
+                    , TRIP_TITLE          AS TITLE
+                    , TRIP_CONTENTTYPEID  AS CONTENTTYPE
+                    , TRIP_IMAGE          AS IMAGE
+                    , TRIP_TEL            AS TEL
+                    , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN
+                    , TRIP_MODIFYTIME     AS MODIFYTIME
+                 FROM TRIP
+               )
+         WHERE FAVOR_RCMD_YN = 'Y'
+         ORDER BY MODIFYTIME DESC
+    </select>
+    <select id="selectWeatherAreaList" resultMap="weatherAreaListMap">
+    	SELECT AREA_GRP_CODE,
+    	       AREA_GRP_NAME,
+    	       AREA_CODE,
+    	       AREA_NAME
+    	  FROM WEATHER_AREA
+    	  ORDER BY AREA_NAME ASC
+    </select>
+    
+    <update id="updateFavoriteTripInit" parameterType="map">
+        UPDATE TRIP
+           SET FAVOR_RCMD_YN = 'N'
+    </update>
+    <update id="updateFavoriteStayInit" parameterType="map">
+        UPDATE STAY
+           SET FAVOR_RCMD_YN = 'N'
+    </update>
+    <update id="updateFavoriteTrip" parameterType="list">
+        UPDATE TRIP
+           SET FAVOR_RCMD_YN = 'Y'
+         WHERE TRIP_CONTENTID IN
+         <foreach collection="contentIds" item="contentId" index="index" separator="," open="(" close=")">
+              #{contentId}
+         </foreach> 
+    </update>
+    <update id="updateFavoriteStay" parameterType="list">
+        UPDATE STAY
+           SET FAVOR_RCMD_YN = 'Y'
+         WHERE STAY_CONTENTID IN
+         <foreach collection="contentIds" item="contentId" index="index" separator="," open="(" close=")">
+              #{contentId}
+         </foreach> 
+    </update>
+    
+    <!-- 인터셉터에서 로그정보 insert -->
+    <insert id="insertMemberAccsLog" parameterType="MemberAccsLog">
+        INSERT 
+          INTO MEMBER_ACCS_LOG
+        (
+               MEMBER_NO
+             , ACCESS_ADDR
+             , ACCESS_PATH
+        )
+        VALUES
+        (
+              #{memberNo}
+             ,#{accessAddr}
+             ,#{accessPath}
+        )
+    </insert>
+    
+    <!-- 인터셉터에서 조회할 쿼리 -->
+    <select id="selectMemberAccsLog" parameterType="MemberAccsLog" resultMap="accsLogResultMap">
+        SELECT MEMBER_NO
+             , ACCESS_ADDR
+             , ACCESS_DATE
+             , ACCESS_PATH
+          FROM MEMBER_ACCS_LOG
+         WHERE TO_CHAR(ACCESS_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+           AND ACCESS_ADDR                      = #{accessAddr}
+           AND ACCESS_PATH                      = #{accessPath}
+           AND MEMBER_NO                        = #{memberNo}
+    </select>
+    
+    <select id="selectAccessMemberCount" resultMap="logCountResultMap">
+        SELECT ACCESS_DATE   AS ACCESS_DATE
+             , COUNT(*)      AS COUNT
+          FROM (
+               SELECT TO_CHAR(ACCESS_DATE, 'YYYY-MM-DD') AS ACCESS_DATE
+                    , ACCESS_ADDR                        AS ACCESS_ADDR
+                    , MEMBER_NO                          AS MEMBER_NO
+                 FROM MEMBER_ACCS_LOG
+                GROUP BY
+                      TO_CHAR(ACCESS_DATE, 'YYYY-MM-DD')
+                    , ACCESS_ADDR
+                    , MEMBER_NO
+                ORDER BY
+                      ACCESS_DATE
+                    , ACCESS_ADDR
+                    , MEMBER_NO
+               )
+         GROUP BY
+               ACCESS_DATE
+         ORDER BY
+               ACCESS_DATE
+    </select>
+    
+</mapper>

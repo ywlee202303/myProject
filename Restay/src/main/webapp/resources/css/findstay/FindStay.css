@@ -1,0 +1,243 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+*{
+    margin: 0;
+    border: 0;
+    padding: 0;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* font-size: 15px; */
+    /* font-weight: normal; */
+    font-family: 'Spoqa Han Sans Neo','Noto Sans KR', sans-serif;
+    color: #101010;
+    /* box-sizing: border-box; */
+    list-style: none;
+    /* position: relative; */
+    word-wrap: break-word;
+    text-decoration: none;
+}
+
+main {
+    width: 1440px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    /* 추가 속성 */
+    font-size: 15px;
+    font-weight: normal;
+}
+/* ------------------------------------------------------------------------------------------ */
+/* 페이지 상단(서브 타이틀, 장소/일정 버튼) */
+.section1 {
+    display: block;
+    margin: 0 auto;
+    width: 100%; 
+    height: auto;
+}
+
+/* 1. 서브 타이틀 */
+.subTitle_img {
+    display: block;
+    width: 443px;
+    height: 150px;
+    margin: 66px auto;
+    text-align: center;
+    background-image: url(https://i.ibb.co/DC5c6Kx/findstay-Title.png);
+}
+
+/* 2. 일정/장소 선택 버튼 */
+.select_frame {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    width: 600px;
+    height: 45px;
+    border: 2px solid #808080;
+    border-radius: 10px;
+    margin: 46px auto;
+}
+
+.select_box {
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    float: left;
+    width: 300px;
+    height: 43px; 
+    text-align: center;
+    border-right: 2px #808080 solid; 
+    margin: 0 auto;
+    cursor: pointer;
+    padding: 10px;
+}
+
+#place {
+	display: inline-block;
+	position: absolute;
+    border: none;
+    right: 0;
+}
+
+.select_box>img {
+    display: block;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    margin-left: 107px;
+    margin-top: 3px;
+}
+
+.line {
+    display: block;
+    width: 1120px;
+    height: 0;
+    margin: 0 auto;
+    border: 1px solid #808080;
+}
+/* ------------------------------------------------------------------------------------------ */
+/* 페이지 중앙부 */
+.container_findstay_bottom {
+    display: block;
+    width: 1120px;
+    /* height: 2400px; */
+    margin: 0 auto;
+}
+
+.flist_wrap {
+    display: flex;
+    width: 1200px;
+    margin-left: -82px;
+    flex-wrap: wrap;
+    clear: both;
+    align-content: flex-start;
+}
+
+/* stay 박스 */
+.flist_box {
+    display: block;
+    width: 510px; 
+    height: 330px; 
+    padding: 70px 0px 45px 90px; 
+    align-items: flex-start;
+}
+
+/* stay 박스 내부 */
+.flist_box_contents {
+    display: block;
+    width: 100%;
+    height: 285px; 
+
+    position: relative;
+}
+
+.flist_box_contents>a {
+    display: block;
+    width: 100%; 
+    height: 110px;
+    text-decoration: none;
+    outline: none;
+}
+
+.stay_Info_wrapper {
+    display: block;
+    width: 100%;
+    height: inherit;
+    position: relative;
+}
+
+.stayName {
+    display: block;
+    width: 510px; 
+    height: 110px; 
+    position: absolute; 
+    font-size: 32px; 
+    font-weight: 500;
+    line-height: normal; 
+    z-index: 10;
+}
+
+/* 숙소 예약 정보 */
+.stay_info {
+    display: block;
+    float: left;
+    height: 174px;
+    width: 158px;
+    top: 110px; 
+    position: absolute;
+}
+/* 주소 */
+.address_info {
+    display: block;
+    width: 158px; 
+    height: 100px; 
+    margin-top: 25px;
+    line-height: 2;
+    font-size: 14px; 
+    font-weight: 400; 
+    
+}
+
+/* 인원, 할인 후 가격(1박 당 금액) */
+.address_info>span {
+    display: inline;
+    line-height: 2;
+    
+}
+
+/* 할인 전 가격 */
+.address_info>del {
+    display: inline;
+    font-size: 13px;
+    text-decoration: line-through;
+    color: #C6C4C4;
+    margin-right: 8px;
+    margin-left: 0px;
+}
+
+/* 예약하기 버튼 */
+.btn_more {
+    display: inline-block;
+    background: #EBEBEB; 
+    color: #777;
+    height: 30px; 
+    width: 80px;
+    line-height: 30px;
+    font-size: 13;
+    font-weight: bold;
+    text-align: center; 
+    border-radius: 10px;
+    border: 0;
+    margin-top: 19px;
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* 페이지 하단(페이지 넘버) */
+.container_pageNum {
+    display: block;
+    height: 84px; 
+    text-align: center;
+    align-items: center;
+    top: 20px;
+    margin: 0 auto;
+}
+
+.pageNum_box {
+    display: flex;
+    height: max-content;
+    width: fit-content;
+    padding: 0;
+    justify-content: center;
+    gap: 17px;
+    margin:auto;
+}
+
+.pageNum_box>li {
+    display: block;
+    height: max-content;
+    width: max-content;
+    font-weight: 500;
+    font-size: 20px;
+    margin: 0 auto;
+    cursor: pointer;
+}

@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+
+input::placeholder {
+    color: gray;
+}
+
+.mypet-graph {
+    width: 400px;
+    /* margin-top: 35px; */
+    /* margin-left: 10px; */
+    border: 1px solid #e8e8e8;
+
+    float: left;
+}
+
+.mypet-graph > p {
+    width: 375px;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 12px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.mypet-graph > canvas {
+    margin-left: 5px;
+}
+
+.board-ranking {
+    width: 401px;
+    border: 1px solid #e8e8e8;
+    /* margin-top: 35px; */
+    margin-left: 10px;
+    padding-bottom: 4px;
+
+    float: left;
+}
+
+.board-ranking > p {
+    width: 355px;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 19px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+tr {
+    border: 1px solid #E8E8E8;
+}
+
+td {
+    height: 41px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.board-ranking > table {
+    width: 375px;
+    margin: 31px 0 20px 12px;
+    border-collapse: collapse;
+    border: 1px solid #e8e8e8;
+    table-layout: fixed;
+}
+
+.board-ranking > table tr td:nth-of-type(1) {
+    width: 40px;
+    text-align: center;
+}
+
+.board-ranking > table tr td:nth-of-type(2) {
+    width: 60px;
+    text-align: center;
+}
+
+.board-ranking > table tr td:nth-of-type(3) {
+    width: 200px;
+    text-align: left;
+}
+
+.board-ranking > table tr td:nth-of-type(4) {
+    width: 50px;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.board-ranking > table tr td a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+.user-graph {
+    clear: both;
+    /* width: 500px; */
+    padding-top: 35px;
+    margin-left: 35px;
+    margin-bottom: 35px;
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kr.pawpawtrip.common.model.mapper.CommonMapper">
+    <!-- 카테고리 정보테이블 ResultMap -->
+    <resultMap id="categoryResultMap" type="Category">
+        <!-- 기본키 -->
+        <id     property="smlCateCode"   column="SML_CATE_CODE"/>
+        <result property="smlCateName"   column="SML_CATE_NAME"/>
+        <result property="midCateCode"   column="MID_CATE_CODE"/>
+        <result property="midCateName"   column="MID_CATE_NAME"/>
+        <result property="bigCateCode"   column="BIG_CATE_CODE"/>
+        <result property="bigCateName"   column="BIG_CATE_NAME"/>
+    </resultMap>
+    
+    <!-- 지역 정보테이블 ResultMap -->
+     <resultMap id="commonAreaResultMap" type="CommonArea">
+        <!-- 기본키 -->
+        <result property="cityCode"     column="CITY_CODE"/>
+        <result property="cityName"     column="CITY_NAME"/>
+        <result property="sigunguCode"  column="SIGUNGU_CODE"/>
+        <result property="areaName"     column="AREA_NAME"/>
+    </resultMap>
+
+    <!-- 카테고리 전체 조회 -->
+    <select id="selectCategoryGroupBySml" parameterType="map" resultMap="categoryResultMap">
+        SELECT BIG_CATE_CODE
+             , BIG_CATE_NAME
+             , MID_CATE_CODE
+             , MID_CATE_NAME
+             , SML_CATE_CODE
+             , SML_CATE_NAME
+          FROM SMLCATEGORY
+          LEFT OUTER JOIN
+               MIDCATEGORY
+            ON SML_CATE_CODE LIKE  MID_CATE_CODE || '%'
+          LEFT OUTER JOIN
+               BIGCATEGORY
+            ON MID_CATE_CODE LIKE  BIG_CATE_CODE || '%'
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="smlCategory != ''">
+               SML_CATE_CODE = #{smlCategory}
+            </if>
+        </trim>
+    </select>
+
+    <!-- 지역 이름 단일 조회 -->
+    <select id="selectCommonArea" parameterType="string" resultMap="commonAreaResultMap">
+        SELECT CITY.SIGUNGU_CODE   AS CITY_CODE
+             , CITY.AREA_NAME      AS CITY_NAME
+             , AREA.SIGUNGU_CODE   AS SIGUNGU_CODE
+             , AREA.AREA_NAME      AS AREA_NAME
+          FROM AREA                CITY
+         RIGHT OUTER JOIN
+               AREA                AREA
+            ON CITY.AREA_CODE      = AREA.AREA_CODE
+           AND CITY.SIGUNGU_CODE   = 0
+         WHERE CITY.AREA_CODE    = #{areaCode}
+           AND AREA.SIGUNGU_CODE = #{sigunguCode}
+    </select>
+
+    <!-- 지역 이름 다 건 조회 -->
+    <select id="selectAreaByCode" parameterType="string" resultMap="commonAreaResultMap">
+        SELECT CITY.AREA_CODE      AS CITY_CODE
+             , CITY.AREA_NAME      AS CITY_NAME
+             , AREA.SIGUNGU_CODE   AS SIGUNGU_CODE
+             , AREA.AREA_NAME      AS AREA_NAME
+          FROM AREA                CITY
+         RIGHT OUTER JOIN
+               AREA                AREA
+            ON CITY.AREA_CODE      = AREA.AREA_CODE
+           AND CITY.SIGUNGU_CODE   = 0
+            <if test="areaCode != '00'">
+         WHERE CITY.AREA_CODE || AREA.SIGUNGU_CODE   = #{areaCode}
+            </if>
+            <if test="areaCode == '00'">
+         WHERE AREA.SIGUNGU_CODE   = '0'
+            </if>
+    </select>
+
+</mapper>

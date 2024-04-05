@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+/* 모바일처럼 보이게 할때 */
+@media (min-width: 500px) 
+{
+	.member-content {
+	    margin: 50px auto;
+	    width: 100%;
+	}
+	.member-content.member-login {
+	    margin: 20px auto;
+	    width:100%;
+	}
+	body>.container-fluid>.container{
+		margin:0px;
+		max-width: 100%;
+	}
+}
+/* 데스크탑처럼 보이게 할때 */
+@media (min-width: 992px) 
+{
+	.member-content {
+	    margin: 50px auto;
+	    width: 750px;
+	}
+	.member-content.member-login {
+	    margin: 20px auto;
+	    width: 650px;
+	}
+}
+@media (min-width: 1200px)
+{
+	.member-content {
+	    margin: 50px auto;
+	    width: 750px;
+	}
+	.member-content.member-login {
+	    margin: 20px auto;
+	    width: 650px;
+	}
+}
