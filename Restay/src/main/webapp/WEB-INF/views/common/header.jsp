@@ -36,7 +36,7 @@
 				<ul>
 					<li><a href="${ path }/about">ABOUT</a></li>
 					<li><a href="${ path }/findstay">FIND STAY</a></li>
-					<li><a href="${ path }/promotion">TRAVEL</a></li>
+					<li><a href="${ path }/travel">TRAVEL</a></li>
 					<li><a href="${ path }/notice">CUSTOMER</a></li>
 				</ul>
 			</div>

@@ -12,12 +12,11 @@ body {
 main {
     width: 1440px;
     margin: auto;
-    border: 1px solid;
+    margin-bottom: 110px;
 }
 
 .only-restay-wrap {
 	width: 1320px;
-	border: 1px solid;
 	margin: auto;
     margin-top: 110px;
 }
@@ -27,7 +26,7 @@ main {
     justify-content: space-between;
 }
 
-.comm-title {
+.only-restay-title {
     font-size: 16px;
     letter-spacing: 8px;
     margin-left: 560px;
@@ -40,31 +39,85 @@ main {
     cursor: pointer;
 }
 
-.only-restay-list {
+.only-restay-list, .overseas-restay-list, .travel-restay-list {
 	display: flex;
     justify-content: center;
     gap: 45px;
 }
 
-.only-restay-img img {
+.only-restay-img img, .overseas-restay-img img {
 	width: 410px;
 	height: 250px;
 }
 
-.only-restay-content p {
+.only-restay-content p, .overseas-restay-content p {
 	text-align: center;
 }
 
-.only-restay-content p:nth-of-type(1) {
+.only-restay-content p:nth-of-type(1),
+.overseas-restay-content p:nth-of-type(1) {
 	font-size: 20px;
 }
 
 .only-restay-content p:nth-of-type(2), 
-.only-restay-content p:nth-of-type(3)
+.only-restay-content p:nth-of-type(3),
+.overseas-restay-content p:nth-of-type(2),
+.overseas-restay-content p:nth-of-type(3)
 {
 	font-weight: 300;	
 }
 
-.only-restay-content p:nth-of-type(3) a {
+.only-restay-content p:nth-of-type(3) a,
+.overseas-restay-content p:nth-of-type(3) a {
 	color: black;
+}
+
+.overseas-restay-wrap, .travel-restay-wrap {
+	width: 1320px;
+	border-top: 1px solid lightgray;
+	margin: auto;
+    margin-top: 110px;
+}
+
+.overseas-restay, .travel-restay {
+	display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.overseas-restay-title {
+	font-size: 16px;
+    letter-spacing: 8px;
+    margin-left: 530px;
+    margin-bottom: 50px;
+}
+
+.travel-restay-title {
+	font-size: 16px;
+    letter-spacing: 8px;
+    margin-left: 618px;
+    margin-bottom: 50px;
+}
+
+.travel-restay-img img {
+	width: 410px;
+	height: 410px;
+}
+
+.travel-restay-content p:nth-of-type(1),
+.travel-restay-content p:nth-of-type(4) {
+	font-size: 14px;
+	font-weight: 300;
+}
+
+.travle-restay-content p:nth-of-type(2) {
+	font-size: 20px;
+}
+
+.travel-restay-content p:nth-of-type(3) {
+	font-size: 14px;
+	font-weight: 300;
+	color: gray;
+	text-align: left;
+    line-height: 25px;
 }

@@ -1,0 +1,25 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+main {
+	width: 1440px;
+	margin: auto;
+	margin-bottom: 110px;
+}
+
+.travel-logo {
+    width: 1440px;
+    height: 282px;
+}
+
+.travel-restay-wrap {
+	width: 1320px;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.travel-restay-list2 {
+	display: flex;
+    justify-content: center;
+    gap: 45px;
+}

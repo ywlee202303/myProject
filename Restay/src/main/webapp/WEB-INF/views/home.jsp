@@ -68,7 +68,7 @@
     <div>
         <div class="only-restay-wrap">
         	<div class="only-restay">
-	            <div class="comm-title">
+	            <div class="only-restay-title">
 	            	오직 리스테이에서만
 	            </div>
 	            <div>
@@ -82,7 +82,7 @@
             		</div>
             		<div class="only-restay-content">
             			<p>선현재</p>
-            			<p>제주 / 제주시 ￦272,000 ~</p>
+            			<p>제주 / 제주시 ₩272,000 ~</p>
             			<p>
             				<a href="#">예약하기</a>
             			</p>
@@ -94,7 +94,7 @@
             		</div>
             		<div class="only-restay-content">
             			<p>선현재</p>
-            			<p>제주 / 제주시 ￦272,000 ~</p>
+            			<p>제주 / 제주시 ₩272,000 ~</p>
             			<p>
             				<a href="#">예약하기</a>
             			</p>
@@ -106,7 +106,7 @@
             		</div>
             		<div class="only-restay-content">
             			<p>선현재</p>
-            			<p>제주 / 제주시 ￦272,000 ~</p>
+            			<p>제주 / 제주시 ₩272,000 ~</p>
             			<p>
             				<a href="#">예약하기</a>
             			</p>
@@ -114,7 +114,102 @@
             	</div>
             </div>
         </div>
+        <div class="overseas-restay-wrap">
+        	<div class="overseas-restay">
+            	<div class="overseas-restay-title">
+            		해외 여행도 리스테이에서
+            	</div>
+            	<div>
+            		<button class="all-view">전체 보기</button>
+            	</div>
+        	</div>
+            <div class="overseas-restay-list">
+            	<div>
+            		<div class="overseas-restay-img">
+	            		<img src="${ path }/img/Shinjuku.jpg">
+            		</div>
+            		<div class="overseas-restay-content">
+            			<p>온센 료칸 유엔 신주쿠</p>
+            			<p>칸토 / 도쿄 ₩101,280 ~</p>
+            			<p>
+            				<a href="#">예약하기</a>
+            			</p>
+            		</div>
+            	</div>
+            	<div>
+            		<div class="overseas-restay-img">
+	            		<img src="${ path }/img/Shinjuku.jpg">
+            		</div>
+            		<div class="overseas-restay-content">
+            			<p>온센 료칸 유엔 신주쿠</p>
+            			<p>칸토 / 도쿄 ₩101,280 ~</p>
+            			<p>
+            				<a href="#">예약하기</a>
+            			</p>
+            		</div>
+            	</div>
+            	<div>
+            		<div class="overseas-restay-img">
+	            		<img src="${ path }/img/Shinjuku.jpg">
+            		</div>
+            		<div class="overseas-restay-content">
+            			<p>온센 료칸 유엔 신주쿠</p>
+            			<p>칸토 / 도쿄 ₩101,280 ~</p>
+            			<p>
+            				<a href="#">예약하기</a>
+            			</p>
+            		</div>
+            	</div>
+            </div>
+        </div>
+        <div class="travel-restay-wrap">
+        	<div class="travel-restay">
+            	<div class="travel-restay-title">
+            		TRAVEL
+            	</div>
+            	<div>
+            		<button class="all-view">전체 보기</button>
+            	</div>
+        	</div>
+            <div class="travel-restay-list">
+            	<div>
+            		<div class="travel-restay-img">
+	            		<img src="${ path }/img/Gangneung.jpeg">
+            		</div>
+            		<div class="travel-restay-content">
+            			<p>호지 > 강원 / 강릉시</p>
+            			<p>자전거 타고 여행하는 스테이 6곳</p>
+            			<p>자전거를 준비해 둔 스테이에는 낭만이 있습니다. 친숙한 모습의 골목 모퉁이에서도 작은 모험이 시작된다는 것을 알고 있거든요.</p>
+            			<p>by. 리스테이</p>
+            		</div>
+            	</div>
+            	<div>
+            		<div class="travel-restay-img">
+	            		<img src="${ path }/img/Gangneung.jpeg">
+            		</div>
+            		<div class="travel-restay-content">
+            			<p>호지 > 강원 / 강릉시</p>
+            			<p>자전거 타고 여행하는 스테이 6곳</p>
+            			<p>자전거를 준비해 둔 스테이에는 낭만이 있습니다. 친숙한 모습의 골목 모퉁이에서도 작은 모험이 시작된다는 것을 알고 있거든요.</p>
+            			<p>by. 리스테이</p>
+            		</div>
+            	</div>
+            	<div>
+            		<div class="travel-restay-img">
+	            		<img src="${ path }/img/Gangneung.jpeg">
+            		</div>
+            		<div class="travel-restay-content">
+            			<p>호지 > 강원 / 강릉시</p>
+            			<p>자전거 타고 여행하는 스테이 6곳</p>
+            			<p>자전거를 준비해 둔 스테이에는 낭만이 있습니다. 친숙한 모습의 골목 모퉁이에서도 작은 모험이 시작된다는 것을 알고 있거든요.</p>
+            			<p>by. 리스테이</p>
+            		</div>
+            	</div>
+            </div>
+        </div>
     </div>
 </main>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
