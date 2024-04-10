@@ -12,14 +12,14 @@ main {
     height: 282px;
 }
 
-.travel-restay-wrap {
+.travel-restay-container {
 	width: 1320px;
 	margin: auto;
 	margin-top: 50px;
 }
 
-.travel-restay-list2 {
-	display: flex;
-    justify-content: center;
+.travel-restay-container-list {
+	display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(410px, 1fr));
     gap: 45px;
 }
