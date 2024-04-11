@@ -37,6 +37,7 @@ main {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
+    cursor: pointer;
 }
 
 .customer-restay-menu-li:nth-of-type(1),
@@ -45,16 +46,74 @@ main {
 	border-right: 1px solid lightgray;
 }
 
-.customer-restay-notice-ul {
+.customer-restay-notice-ul,
+.customer-restay-board-ul,
+.customer-restay-question-ul
+{
 	list-style: none;
     padding-left: 5px;
     font-size: 16px;
 }
 
-.customer-restay-notice-li {
+.customer-restay-notice-li,
+.customer-restay-board-li,
+.customer-restay-question-li
+{
 	border-bottom: 1px solid lightgray;
 	padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.customer-restay-inquiry-list {
+	margin-top: 75px;
+}
+
+.customer-restay-inquiry-list label,
+.customer-restay-inquiry-list input,
+.customer-restay-inquiry-list textarea
+{
+	font-size: 16px;
+	border: none;
+}
+
+.customer-restay-inquiry-table {
+	border-collapse: collapse;
+	width: 1100px;
+	margin: auto;
+	margin-bottom: 30px;
+}
+
+.customer-restay-inquiry-table th {
+	background-color: #f7f8f9;
+	width: 150px;
+}
+
+#inquiry-title:focus,
+#inquiry-content:focus
+{
+	outline:none;
+}
+
+#inquiry-content {
+	width: 940px;
+    height: 340px;
+    resize: none;
+}
+
+.inquiry-btn {
+	width: 1100px;
+	margin: auto;
+	text-align: right;
+}
+
+.inquiry-btn button {
+	width: 55px;
+	height: 45px;
+	background-color: rgb(11 86 26 / 63%);
+	color: white;
+	border: none;
+	font-size: 14px;
+	cursor: pointer;
 }
 
 .customer-restay-page-number {
