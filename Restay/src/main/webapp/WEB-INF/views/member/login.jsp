@@ -19,7 +19,7 @@
 	<div class="login-form">
 		<form action="${ path }/login" method="POST">
 			<div class="userId">
-				<input type="email" name="userId" placeholder="이메일 아이디">
+				<input type="text" name="userId" placeholder="아이디">
 			</div>
 			<div class="userPw">
 				<input type="password" name="userPw" id="userPw" placeholder="비밀번호">

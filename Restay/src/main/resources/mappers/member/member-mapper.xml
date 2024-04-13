@@ -5,7 +5,39 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.practice.restay.member.model.mapper.MemberMapper">
-	<select id="selectCount" resultType="_int">
-		SELECT COUNT(*) FROM MEMBER
+
+	<!-- 중복 쿼리 -->
+	<sql id="selectMemberSql">
+		SELECT MEMBER_NO,
+		       MEMBER_ID,
+		       MEMBER_PW,
+		       MEMBER_ROLE,
+		       MEMBER_NAME,
+		       MEMBER_EMAIL,
+		       MEMBER_PHONE,
+		       MEMBER_ED,
+		       MEMBER_MD,
+		       MEMBER_STATUS
+		FROM MEMBER
+	</sql>
+	
+	<!-- 쿼리 매핑 -->
+	<resultMap id="memberResultMap" type="Member">
+		<id property="memberNo" column="MEMBER_NO" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberRole" column="MEMBER_ROLE" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="memberEmail" column="MEMBER_EMAIL" />
+		<result property="memberPhone" column="MEMBER_PHONE" />
+		<result property="memberEd" column="MEMBER_ED" />
+		<result property="memberMd" column="MEMBER_MD" />
+		<result property="memberStatus" column="MEMBER_STATUS" />
+	</resultMap>
+		
+	<select id="selectMemberId" resultMap="memberResultMap" parameterType="string" >
+		<include refid="selectMemberSql" />
+		WHERE MEMBER_STATUS = 'Y'
+		AND LOWER(MEMBER_ID) = LOWER(#{memberId})
 	</select>
 </mapper>

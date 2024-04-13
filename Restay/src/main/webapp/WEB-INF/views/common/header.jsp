@@ -49,18 +49,18 @@
 				<span>언제 떠날까요?</span>
 			</div>
 			<div class="main-login-wrap">
-				<c:if test="${ empty loginClient }">
+				<c:if test="${ empty loginMember }">
 					<!-- 로그인 전 -->
 					<div class="login-before" onclick="location.href='${ path }/login'">
 						<img src="${ path }/img/login.png" alt=""> <span>Login</span>
 					</div>
 				</c:if>
 
-				<c:if test="${ not empty loginClient }">
+				<c:if test="${ not empty loginMember }">
 					<!-- 로그인 후 -->
-					<div class="login-after"
-						onclick="location.href='${ path }/mypage/reservation'">
-						<img src="${ path }/img/mypage.png" alt=""> <span>Mypage</span>
+					<div class="login-after" onclick="location.href='${ path }/mypage/reservation'">
+						<img src="${ path }/img/mypage.png" alt=""> 
+						<span>Mypage</span>
 						<ul class="myPage">
 							<li><a href="${ path }/mypage/reservation">예약 정보</a></li>
 							<li><a href="${ path }/mypage/cancel">취소 내역</a></li>

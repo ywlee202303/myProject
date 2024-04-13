@@ -25,29 +25,97 @@
 		</div>
 		<div class="customer-restay-notice-list">
 			<ul class="customer-restay-notice-ul">
-				<li class="customer-restay-notice-li">[공지사항] 공지사항 테스트1</li>
-				<li class="customer-restay-notice-li">[공지사항] 공지사항 테스트2</li>
-				<li class="customer-restay-notice-li">[공지사항] 공지사항 테스트3</li>
-				<li class="customer-restay-notice-li">[공지사항] 공지사항 테스트4</li>
-				<li class="customer-restay-notice-li">[공지사항] 공지사항 테스트5</li>
+				<li class="customer-restay-notice-li">
+					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트1</p>
+					<p class="customer-restay-notice-content">공지사항 내용 테스트1</p>
+				</li>
+				<li class="customer-restay-notice-li">
+					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트2</p>
+					<p class="customer-restay-notice-content">공지사항 내용 테스트2</p>
+				</li>
+				<li class="customer-restay-notice-li">
+					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트3</p>
+					<p class="customer-restay-notice-content">공지사항 내용 테스트3</p>
+				</li>
+				<li class="customer-restay-notice-li">
+					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트4</p>
+					<p class="customer-restay-notice-content">공지사항 내용 테스트4</p>
+				</li>
+				<li class="customer-restay-notice-li">
+					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트5</p>
+					<p class="customer-restay-notice-content">공지사항 내용 테스트5</p>
+				</li>
 			</ul>
 		</div>
 		<div class="customer-restay-board-list">
-			<ul class="customer-restay-board-ul">
-				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트1</li>
-				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트2</li>
-				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트3</li>
-				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트4</li>
-				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트5</li>
-			</ul>
+<!-- 			<ul class="customer-restay-board-ul"> -->
+<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트1</li> -->
+<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트2</li> -->
+<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트3</li> -->
+<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트4</li> -->
+<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트5</li> -->
+<!-- 			</ul> -->
+			<table border="1" class="customer-restay-board-table">
+				<tr>
+					<th style="width: 50px;">번호</th>
+					<th>제목</th>
+					<th style="width: 150px;">작성자</th>
+					<th style="width: 110px;">등록일</th>
+				<tr>
+				<tr>
+					<td>5</td>
+					<td>자유게시판 테스트5</td>
+					<td>test5</td>
+					<td>2024-04-13</td>
+				<tr>
+				<tr>
+					<td>4</td>
+					<td>자유게시판 테스트4</td>
+					<td>test4</td>
+					<td>2024-04-13</td>
+				<tr>
+				<tr>
+					<td>3</td>
+					<td>자유게시판 테스트3</td>
+					<td>test3</td>
+					<td>2024-04-13</td>
+				<tr>
+				<tr>
+					<td>2</td>
+					<td>자유게시판 테스트2</td>
+					<td>test2</td>
+					<td>2024-04-13</td>
+				<tr>
+				<tr>
+					<td>1</td>
+					<td>자유게시판 테스트1</td>
+					<td>test1</td>
+					<td>2024-04-13</td>
+				<tr>
+			</table>
 		</div>
 		<div class="customer-restay-question-list">
 			<ul class="customer-restay-question-ul">
-				<li class="customer-restay-question-li">[자주 묻는 질문] 자주 묻는 질문 테스트1</li>
-				<li class="customer-restay-question-li">[자주 묻는 질문] 자주 묻는 질문 테스트2</li>
-				<li class="customer-restay-question-li">[자주 묻는 질문] 자주 묻는 질문 테스트3</li>
-				<li class="customer-restay-question-li">[자주 묻는 질문] 자주 묻는 질문 테스트4</li>
-				<li class="customer-restay-question-li">[자주 묻는 질문] 자주 묻는 질문 테스트5</li>
+				<li class="customer-restay-question-li">
+					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트1</p>
+					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트1</p>
+				</li>
+				<li class="customer-restay-question-li">
+					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트2</p>
+					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트2</p>
+				</li>
+				<li class="customer-restay-question-li">
+					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트3</p>
+					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트3</p>
+				</li>
+				<li class="customer-restay-question-li">
+					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트4</p>
+					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트4</p>
+				</li>
+				<li class="customer-restay-question-li">
+					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트5</p>
+					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트5</p>
+				</li>
 			</ul>			
 		</div>
 		<div class="customer-restay-inquiry-list">
@@ -58,7 +126,7 @@
 							<label for="inquiry-title">제목</label>
 						</th>
 						<td>
-							<input type="text" name="inquiry-title" id="inquiry-title" />
+							<input type="text" name="inquiry-title" id="inquiry-title" style="width: 945px;" />
 						</td>
 					</tr>
 					<tr>
@@ -110,6 +178,8 @@
         	
         	$('.customer-restay-notice-list').css('display', 'block');
         	
+        	$('.customer-restay-page-number').css('display', 'block');
+        	
         	$('#notice-menu').css({
         		'color': 'green',
         		'font-weight': 'bold'
@@ -139,6 +209,8 @@
         	
         	$('.customer-restay-board-list').css('display', 'block');
         	
+        	$('.customer-restay-page-number').css('display', 'block');
+        	
         	$('#notice-menu').css({
         		'color': 'black',
         		'font-weight': 'normal'
@@ -167,6 +239,8 @@
     		$('.customer-restay-inquiry-list').css('display', 'none');
     		
         	$('.customer-restay-question-list').css('display', 'block');
+        	
+        	$('.customer-restay-page-number').css('display', 'block');
         	
         	$('#notice-menu').css({
         		'color': 'black',
@@ -218,6 +292,16 @@
         		'color': 'green',
         		'font-weight': 'bold'
         	});
+    	});
+    	
+    	// 공지사항 내용 토글 효과
+    	$('.customer-restay-notice-title').click((e) => {
+    		$(e.target).next().toggle();
+    	});
+    	
+    	// 자주 묻는 질문 토글 효과
+    	$('.customer-restay-question-title').click((e) => {
+    		$(e.target).next().toggle();
     	});
     	
     });

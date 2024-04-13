@@ -10,6 +10,15 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${ path }/css/member/enroll.css">
 
+<style>
+	.duplication_check {
+		background-color: #e8f1e5;
+		width: 70px;
+		height: 45px;
+		cursor: pointer;
+	}
+</style>
+
 <body>
     <main>
         <section class="section1">
@@ -22,10 +31,13 @@
             <form action="${ path }/enroll" method="post">
                 <div class="input_wrap">
                     
-                    <!-- 이메일 -->
+                    <!-- 아이디 -->
                     <div class="input_box">
-                        <label for="userEmail">이메일</label>
-                        <input type="email" name="userEmail" id="userEmail" placeholder="'@'까지 정확하게 이메일을 입력하세요." required>
+                        <label for="userId">아이디</label>
+                        <div style="display: flex; justify-content: space-between;">
+	                        <input style="width: 500px;" type="text" name="userId" id="userId" placeholder="아이디를 입력하세요." required>
+	                        <button type="button" class="duplication_check">중복확인</button>
+                        </div>
                     </div>
 
 
@@ -51,7 +63,7 @@
                                 <li>숫자</li>
                                 <li>8자 이상 20자 이하</li>
                             </ul>
-                            <input type="password" name="pwdChecked" id="pwdChecked" maxlength="20" minlength="8" placeholder="비밀번호를 한 번 더 입력하세요." required >
+                            <input type="password" name="userPwd2" id="userPwd2" maxlength="20" minlength="8" placeholder="비밀번호를 한 번 더 입력하세요." required >
                             <input type="button" class="img-button">
                     </div>
                             <div id="passwordMismatch">비밀번호가 일치하지 않습니다.</div>	
@@ -106,5 +118,59 @@
         </section>
     </main>
 </body>
+
+<script>
+	$(document).ready(() => {
+		// 아이디 중복 체크
+		$('.duplication_check').click(() => {
+			let userId = $('#userId').val();
+			// 공백 체크
+			let spaceCheck = /\s/g;
+			
+			console.log(userId);
+			
+			if(userId && !userId.match(spaceCheck)) {
+				$.ajax({
+					url: '${ path }/enroll/duplication_check',
+					type: 'post',
+					data: {
+						userId
+					},
+					success: function(data) {
+						if(data === 'available') {
+							alert('사용 가능한 아이디입니다.');
+						} else {
+							alert('중복된 아이디입니다.');
+						}
+					}
+				});
+			} else {
+				alert('아이디를 입력해주세요.');
+			}
+		});
+		
+		// 입력란에 공백 유/무 체크
+		$('.btn_join').click(() => {
+			alert('회원 가입 버튼 클릭');
+			
+			let userPwd = $('#userPwd').val();
+			let userPwd2 = $('#userPwd2').val();
+			
+			let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+			
+			console.log(userPwd);
+			console.log(userPwd2);
+			
+			// 비밀번호 정규표현식
+			if(passwordRegex.test(userPwd)) {
+				alert('통과');
+			} else {
+				alert('실패');
+			}
+			
+			
+		});
+	});
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
