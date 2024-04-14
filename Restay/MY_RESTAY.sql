@@ -59,7 +59,7 @@ WHERE MEMBER_ID = 'admin';
 
 select *
 from member
-where LOWER(MEMBER_ID) = LOWER('admin');
+where LOWER(MEMBER_ID) = LOWER('test02');
 
 
 INSERT INTO MEMBER
@@ -67,3 +67,5 @@ VALUES(SEQ_MEMBER_NO.NEXTVAL, 'admin', '1234', 'ROLE_ADMIN', '관리자', 'NULL'
 
 INSERT INTO MEMBER
 VALUES(SEQ_MEMBER_NO.NEXTVAL, 'test04', '1234', 'ROLE_user', 'test04', 'NULL', 'NULL', SYSDATE, SYSDATE, 'Y');
+
+COMMIT;
