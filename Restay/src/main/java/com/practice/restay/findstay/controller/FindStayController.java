@@ -12,4 +12,11 @@ public class FindStayController {
 		
 		return "findstay/FindStay";
 	}
+	
+	// 숙소 예약 패이지
+	@GetMapping("/findstay/room")
+	public String Room() {
+		
+		return "findstay/room";
+	}
 }

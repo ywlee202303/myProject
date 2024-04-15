@@ -1,0 +1,30 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+main {
+	width: 1440px;
+	margin: auto;
+	margin-bottom: 110px;
+}
+
+.findstay-logo-wrap {
+	margin: 66px 0 66px 0;
+}
+
+.findstay-logo {
+	width: 443px;
+    height: 150px;
+    margin: auto;
+    background-image: url(https://i.ibb.co/DC5c6Kx/findstay-Title.png);
+}
+
+.findstayRoom-restay-container {
+	width: 1320px;
+	margin: auto;
+}
+
+.findstayRoom-restay-reservtext {
+	font-size: 18px;
+	letter-spacing: 14px;
+	text-align: center;
+}

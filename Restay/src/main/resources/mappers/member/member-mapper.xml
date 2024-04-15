@@ -34,10 +34,32 @@
 		<result property="memberMd" column="MEMBER_MD" />
 		<result property="memberStatus" column="MEMBER_STATUS" />
 	</resultMap>
-		
+	
+	<!-- 로그인, 아이디 조회 -->
 	<select id="selectMemberId" resultMap="memberResultMap" parameterType="string" >
 		<include refid="selectMemberSql" />
 		WHERE MEMBER_STATUS = 'Y'
 		AND LOWER(MEMBER_ID) = LOWER(#{memberId})
 	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="Member" useGeneratedKeys="true" 
+		keyColumn="MEMBER_NO" keyProperty="memberNo">
+		INSERT INTO MEMBER
+		(
+			MEMBER_NO,
+			MEMBER_ID,
+			MEMBER_PW,
+			MEMBER_NAME,
+			MEMBER_PHONE
+		)
+		VALUES
+		(
+			SEQ_MEMBER_NO.NEXTVAL,
+			#{memberId},
+			#{memberPw},
+			#{memberName},
+			#{memberPhone}
+		)
+	</insert>
 </mapper>

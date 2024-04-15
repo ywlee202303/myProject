@@ -89,4 +89,53 @@ public class MemberController {
 		
 		return "member/enroll";
 	}
+	
+	@PostMapping("/enroll")
+	public ModelAndView enroll(
+			ModelAndView modelAndView,
+			Member member
+	) {
+		
+		int result = 0;
+		
+		result = memberService.save(member);
+		
+		if(result > 0) {
+			// 회원가입 성공
+			modelAndView.addObject("msg", "회원가입에 성공하였습니다.");
+			modelAndView.addObject("location", "/login");
+			modelAndView.setViewName("common/msg");
+		} else {
+			// 회원가입 실패
+			modelAndView.addObject("msg", "회원가입에 실패하였습니다.");
+			modelAndView.addObject("location", "/enroll");
+			modelAndView.setViewName("common/msg");
+		}
+		
+		return modelAndView;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,152 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
-<c:set var="path" value="${ pageContext.request.contextPath }"/>
+<c:set var="path" value="${ pageContext.request.contextPath }" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${ path }/css/member/enroll.css">
 
 <style>
-	.duplication_check {
-		background-color: black;
-		color: white;
-		width: 70px;
-		height: 45px;
-		cursor: pointer;
-		border: 1px solid lightgray;
-	}
-	
-	.availableId,
-	.notAvailableId,
-	.duplicateId
-	{
-		display: none;
-	}
-	
-	#passwordCheck {
-		display: none;
-		color: red;
-	}
-	
-	#nameCheck {
-		display: none;
-		color: red;
-	}
+.duplication_check {
+	background-color: black;
+	color: white;
+	width: 70px;
+	height: 45px;
+	cursor: pointer;
+	border: 1px solid lightgray;
+}
+
+.availableId, .notAvailableId, .duplicateId {
+	display: none;
+	font-size: 14px;
+}
+
+#passwordCheck {
+	display: none;
+	color: red;
+	font-size: 14px;
+}
+
+#nameCheck {
+	display: none;
+	color: red;
+	font-size: 14px;
+}
 </style>
 
-<body>
-    <main>
-        <section class="section1">
-            <div class="join_title"></div>
-            <hr>
-        </section>
+<main>
+	<section class="section1">
+		<div class="join_title"></div>
+		<hr>
+	</section>
 
-        <!-- 회원가입 사용자 정보 입력 부분  -->
-        <section class="section2">
-            <form action="${ path }/enroll" method="post">
-                <div class="input_wrap">
-                    
-                    <!-- 아이디 -->
-                    <div>
-	                    <div class="input_box">
-	                        <label for="userId">아이디</label>
-	                        <div style="display: flex; justify-content: space-between;">
-		                        <input style="width: 500px;" type="text" name="userId" id="userId" placeholder="아이디를 입력하세요." required>
-		                        <button type="button" id="idCheckBtn" class="duplication_check">중복확인</button>
-	                        </div>
-	                    </div>
-	                    <span class="availableId">사용 가능한 아이디입니다.</span>
-	                    <span class="notAvailableId">아이디: 5~20자의 영문 소문자, 숫자만 사용 가능합니다.</span>
-	                    <span class="duplicateId">중복된 아이디입니다.</span>
+	<!-- 회원가입 사용자 정보 입력 부분  -->
+	<section class="section2">
+		<form action="${ path }/enroll" method="post">
+			<div class="input_wrap">
+
+				<!-- 아이디 -->
+				<div>
+					<div class="input_box">
+						<label for="userId">아이디</label>
+						<div style="display: flex; justify-content: space-between;">
+							<input style="width: 500px;" type="text" name="memberId"
+								id="userId" placeholder="아이디를 입력하세요." required>
+							<button type="button" id="idCheckBtn" class="duplication_check">중복확인</button>
+						</div>
 					</div>
-		
-					<div>
-	                    <div class="input_box">
-	                        <!-- 이름 -->
-	                        <label for="userName">이름</label>
-	                        <input type="text" name="userName" id="userName" placeholder="이름을 입력하세요." required>
-	                    </div>
-	                    <span id="nameCheck">공백을 제외한 이름을 입력해주세요.</span>
-                    </div>
+					<span class="availableId">사용 가능한 아이디입니다.</span> <span
+						class="notAvailableId">아이디: 5~20자의 영문 소문자, 숫자만 사용 가능합니다.</span> <span
+						class="duplicateId">중복된 아이디입니다.</span>
+				</div>
 
-					<div>
-						<div class="input_box">
-	                        <!-- 비밀번호 -->
-	                        <label for="userPwd">비밀번호</label>
-	                        <input type="password" name="userPwd" id="userPwd" maxlength="20" minlength="8" placeholder="비밀번호를 입력하세요." required >
-	                        <input type="button" class="img-button">
-	                    </div>
-	                    <span id="passwordCheck">비밀번호: 8~20자의 영문, 숫자를 사용해주세요.</span>
+				<div>
+					<div class="input_box">
+						<!-- 이름 -->
+						<label for="userName">이름</label> <input type="text"
+							name="memberName" id="userName" placeholder="이름을 입력하세요." required>
 					</div>
-					
-    				
-    
-                    <div class="input_box">
-                        <!-- 비밀번호 조건 pwd_checked -->
-                        <ul class="pwd_checked">
-                            <li id="enCheck">영문</li>
-                            <li id="noCheck">숫자</li>
-                            <li id="sizeCheck">8자 이상 20자 이하</li>
-                        </ul>
-                        <input type="password" name="userPwd2" id="userPwd2" maxlength="20" minlength="8" placeholder="비밀번호를 한 번 더 입력하세요." required >
-                        <input type="button" class="img-button">
-                    </div>
-                    <div id="passwordMismatch">비밀번호가 일치하지 않습니다.</div>	
+					<span id="nameCheck">공백을 제외한 이름을 입력해주세요.</span>
+				</div>
+
+				<div>
+					<div class="input_box">
+						<!-- 비밀번호 -->
+						<label for="userPwd">비밀번호</label> <input type="password"
+							name="memberPw" id="userPwd" maxlength="20" minlength="8"
+							placeholder="비밀번호를 입력하세요." required> <input
+							type="button" class="img-button">
+					</div>
+					<span id="passwordCheck">비밀번호: 8~20자의 영문, 숫자를 사용해주세요.</span>
+				</div>
 
 
-                    <div class="input_box">
-                        <!-- 휴대폰 번호 -->
-                        <label for="userPhone">휴대폰번호</label>
-                        <input type="tel" name="userPhone" id="userPhone" placeholder="- 없이 휴대폰번호를 입력하세요." required>
-                    </div>
-                </div>
 
-                <!-- 인증번호 버튼 -->
-                <button type="button" onclick="" class="btn_phoneChecked">인증번호 발송</button>
+				<div class="input_box">
+					<!-- 비밀번호 조건 pwd_checked -->
+					<ul class="pwd_checked">
+						<li id="enCheck">영문</li>
+						<li id="noCheck">숫자</li>
+						<li id="sizeCheck">8자 이상 20자 이하</li>
+					</ul>
+					<input type="password" name="memberPw2" id="userPwd2"
+						maxlength="20" minlength="8" placeholder="비밀번호를 한 번 더 입력하세요."
+						required> <input type="button" class="img-button">
+				</div>
+				<div id="passwordMismatch">비밀번호가 일치하지 않습니다.</div>
 
-                <!-- 약관 동의 -->
-                <div class="agree">
-                    <ul class="agree_wrap">
-                        <li class="agree_all">
-                            <label class="check_skin" for="check_all">
-                                <input class="agree_check" type="checkbox" id="check_all" value="all" required>
-                                사용자 약관 전체 동의
-                            </label>
-                        </li>
 
-                        <li>
-                            <label class="check_skin" for="check_service">
-                                <input class="agree_check" type="checkbox" id="check_service" value="serviceAgree" required>
-                                서비스 이용 약관 동의(필수)
-                            </label>
-                        </li>
+				<div class="input_box">
+					<!-- 휴대폰 번호 -->
+					<label for="userPhone">휴대폰번호</label> <input type="tel"
+						name="memberPhone" id="userPhone" placeholder="- 없이 휴대폰번호를 입력하세요."
+						required>
+				</div>
+			</div>
 
-                        <li>
-                            <label class="check_skin" for="check_privacy">
-                                <input class="agree_check" type="checkbox" id="check_privacy" value="privacyAgree" required>
-                                개인정보 수집 이용 동의 (필수)
-                            </label>
-                        </li>
+			<!-- 인증번호 버튼 -->
+			<button type="button" onclick="" class="btn_phoneChecked">인증번호
+				발송</button>
 
-                        <li>
-                            <label class="check_skin" for="check_above">
-                                <input class="agree_check" type="checkbox" id="check_above" value="aboveAree" required>
-                                만 14세 이상 확인 (필수)
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+			<!-- 약관 동의 -->
+			<div class="agree">
+				<ul class="agree_wrap">
+					<li class="agree_all"><label class="check_skin"
+						for="check_all"> <input class="agree_check"
+							type="checkbox" id="check_all" value="all"> 사용자 약관 전체 동의
+					</label></li>
 
-                <!-- 회원가입 버튼 -->
-                <button type="submit" class="btn_join">회원가입</button>
-            </form>
-        </section>
-    </main>
-</body>
+					<li><label class="check_skin" for="check_service"> <input
+							class="agree_check" type="checkbox" id="check_service"
+							value="serviceAgree"> 서비스 이용 약관 동의(필수)
+					</label></li>
+
+					<li><label class="check_skin" for="check_privacy"> <input
+							class="agree_check" type="checkbox" id="check_privacy"
+							value="privacyAgree"> 개인정보 수집 이용 동의 (필수)
+					</label></li>
+
+					<li><label class="check_skin" for="check_above"> <input
+							class="agree_check" type="checkbox" id="check_above"
+							value="aboveAree"> 만 14세 이상 확인 (필수)
+					</label></li>
+				</ul>
+			</div>
+
+			<!-- 회원가입 버튼 -->
+			<button type="submit" class="btn_join">회원가입</button>
+		</form>
+	</section>
+</main>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script>
 	$(document).ready(() => {
@@ -182,7 +180,6 @@
 							if(data === 'available') {
 								$('.availableId').css({
 									'display': 'block',
-									'padding-top': '10px',
 									'color': 'green'
 								});
 								
@@ -193,7 +190,6 @@
 							} else {
 								$('.duplicateId').css({
 									'display': 'block',
-									'padding-top': '10px',
 									'color': 'red'
 								});
 								
@@ -207,7 +203,6 @@
 				} else {
 					$('.notAvailableId').css({
 						'display': 'block',
-						'padding-top': '10px',
 						'color': 'red'
 					});
 					
@@ -237,8 +232,6 @@
 			const noResult = userPwd.match(/[0-9]/g);
 			const sizeResult = userPwd.match(/^[a-zA-Z0-9]{8,20}$/);
 			
-			console.log(userPwd);
-			
 			// 영문
 			if(enResult) {
 				$('#enCheck').css({'color': 'green'});
@@ -266,6 +259,8 @@
 			
 			let checkAll = $('#check_all');
 			
+			console.log(checkAll.is(':checked'));
+			
 			if(checkAll.is(':checked')) {
 				$('.agree_check').attr('checked', true);
 			} else {
@@ -281,6 +276,11 @@
 			userName = $('#userName').val();
 			userPhone = $('#userPhone').val();
 			
+			let checkService = $('#check_service');
+			let checkPrivacy = $('#check_privacy');
+			let checkAbove = $('#check_above');
+			
+			
 			
 			console.log('동의 : ' + $('.agree_check').prop("checked"));
 			
@@ -292,9 +292,6 @@
 			// 영문, 숫자 8~20자
 			let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 			
-			console.log(userPwd);
-			console.log(userPwd2);
-			
 			// 아이디 정규표현식
 			if(!checkcheck || checkcheck === '') {
 				alert('아이디를 확인해주세요.');
@@ -304,14 +301,14 @@
 			
 			// 이름 확인
 			if(userName.match(nameSpaceCheck) || userName === '') {
-				$('#nameCheck').css({'display': 'block', 'padding-top': '10px'});
+				$('#nameCheck').css({'display': 'block'});
 				
 				return false;
 			}
 			
 			// 비밀번호 정규표현식
 			if(!passwordRegex.test(userPwd)) {
-				$('#passwordCheck').css({'display': 'block', 'padding-top': '10px'});
+				$('#passwordCheck').css({'display': 'block'});
 				
 				return false;
 			}
@@ -330,9 +327,14 @@
 				return false;
 			}
 			
+			// 체크리스트 체크 여부 확인
+			if(!checkService.is(':checked') || !checkPrivacy.is(':checked') || !checkAbove.is(':checked')) {
+				alert('필수 동의 사항을 체크해주세요.');
+				
+				return false;
+			}
+			
 		});
 		
 	});
 </script>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />

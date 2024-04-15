@@ -10,4 +10,7 @@ public interface MemberService {
 	// 아이디 중복 체크
 	Member memberIdCheck(String userId);
 
+	// 회원가입
+	int save(Member member);
+
 }
