@@ -27,6 +27,7 @@ main {
 }
 
 .only-restay-title {
+	color: #181818;
     font-size: 16px;
     letter-spacing: 8px;
     margin-left: 560px;
@@ -86,6 +87,7 @@ main {
 }
 
 .overseas-restay-title {
+	color: #181818;
 	font-size: 16px;
     letter-spacing: 8px;
     margin-left: 530px;
@@ -93,6 +95,7 @@ main {
 }
 
 .travel-restay-title {
+	color: #181818;
 	font-size: 16px;
     letter-spacing: 8px;
     margin-left: 618px;

@@ -18,6 +18,11 @@
 	<div class="findstayRoom-restay-container">
 		<div>
 			<p class="findstayRoom-restay-reservtext">BOOKING</p>
+			<div class="findstayRoom-restay-title">
+				<div class="findstayRoom-restay-title-name">선현재</div>
+				<div class="findstayRoom-restay-title-date">날짜를 선택해주세요.</div>
+				<button class="findstayRoom-restay-title-pay">결제하기</button>
+			</div>
 		</div>
 	</div>
 </main>

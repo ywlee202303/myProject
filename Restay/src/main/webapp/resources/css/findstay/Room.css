@@ -28,3 +28,32 @@ main {
 	letter-spacing: 14px;
 	text-align: center;
 }
+
+.findstayRoom-restay-title {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 50px;
+	padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    align-items: center;
+}
+
+.findstayRoom-restay-title-name {
+	font-size: 26px;
+	font-weight: 500;
+}
+
+.findstayRoom-restay-title-date {
+	font-size: 16px;
+	font-weight: 300;
+}
+
+.findstayRoom-restay-title-pay {
+	width: 240px;
+	height: 40px;
+	font-size: 16px;
+	background-color: rgba(9, 86, 26, 0.63);
+	border: none;
+	color: white;
+	cursor: pointer;	
+}
