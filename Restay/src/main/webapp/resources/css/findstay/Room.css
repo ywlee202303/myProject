@@ -123,21 +123,25 @@ main {
     align-items: center;
     padding-top: 30px;
     padding-bottom: 30px;
+    padding-left: 45px;
     border-bottom: 1px solid lightgray;
 }
 
 .findstayRoom-restay-content3 ul {
 	margin: 0;
 	padding: 0;
+	padding-left: 50px;
 	list-style: none;
 	font-size: 14px;
 	color: #848181;
 }
 
 .findstayRoom-restay-content3 li {
-	display: inline-block;
+	display: inline-flex;
 	width: 100px;
     height: 50px;
     text-align: center;
     font-size: 14px;
+    align-items: center;
+    justify-content: center;
 }
