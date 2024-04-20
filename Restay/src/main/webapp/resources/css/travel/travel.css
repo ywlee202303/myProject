@@ -23,3 +23,19 @@ main {
     grid-template-columns: repeat(auto-fill, minmax(410px, 1fr));
     gap: 45px;
 }
+
+.travel-restay-container-page {
+	margin-top: 50px;
+}
+
+.travel-restay-container-page ul {
+	display: flex;
+    list-style: none;
+    justify-content: center;
+    gap: 20px;
+}
+
+.travel-restay-container-page a {
+	color: black;
+    text-decoration: none;
+}

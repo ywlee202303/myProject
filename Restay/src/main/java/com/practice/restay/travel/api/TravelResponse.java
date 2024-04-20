@@ -72,7 +72,7 @@ public class TravelResponse {
 			travelItems.add(travelItem);
 		}
 		
-		System.out.println("TravelItems : " + travelItems);
+//		System.out.println("TravelItems : " + travelItems);
 		
 	}
 	

@@ -19,15 +19,15 @@ public class TravelApiClient {
 	private String baseURL = "https://apis.data.go.kr/B551011/KorService1/";
 	private String serviceKey = "fy5UCawbCcSeqWlDOgrzesPXX5yVrPvrNEia06ga%2BrMarGll244o1Bpbuha11tFV8gXGce5J%2ByBGmJgA%2FMrqyw%3D%3D";
 	
-	public TravelResponse areaBasedList() throws RestClientException, URISyntaxException {
+	public TravelResponse areaBasedList(int pageNo) throws RestClientException, URISyntaxException {
 		
 		StringBuilder urlBuilder = null;
 		
 		urlBuilder = new StringBuilder(baseURL + "areaBasedList1");
 		
 		urlBuilder.append("?serviceKey=").append(serviceKey);
-		urlBuilder.append("&numOfRows=").append(10);
-		urlBuilder.append("&pageNo=").append(1);
+		urlBuilder.append("&numOfRows=").append(15);
+		urlBuilder.append("&pageNo=").append(pageNo);
 		urlBuilder.append("&MobileOS=").append("ETC");
 		urlBuilder.append("&MobileApp=").append("AppTest");
 		urlBuilder.append("&_type=").append("json");
