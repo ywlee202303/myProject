@@ -19,11 +19,11 @@ public class TravelApiClient {
 	private String baseURL = "https://apis.data.go.kr/B551011/KorService1/";
 	private String serviceKey = "fy5UCawbCcSeqWlDOgrzesPXX5yVrPvrNEia06ga%2BrMarGll244o1Bpbuha11tFV8gXGce5J%2ByBGmJgA%2FMrqyw%3D%3D";
 	
-	public String areaBasedSyncList() throws RestClientException, URISyntaxException {
+	public TravelResponse areaBasedList() throws RestClientException, URISyntaxException {
 		
 		StringBuilder urlBuilder = null;
 		
-		urlBuilder = new StringBuilder(baseURL + "areaBasedSyncList1");
+		urlBuilder = new StringBuilder(baseURL + "areaBasedList1");
 		
 		urlBuilder.append("?serviceKey=").append(serviceKey);
 		urlBuilder.append("&numOfRows=").append(10);
@@ -31,17 +31,14 @@ public class TravelApiClient {
 		urlBuilder.append("&MobileOS=").append("ETC");
 		urlBuilder.append("&MobileApp=").append("AppTest");
 		urlBuilder.append("&_type=").append("json");
-		urlBuilder.append("&showflag=").append(1);
 		urlBuilder.append("&listYN=").append("Y");
 		urlBuilder.append("&arrange=").append("A");
 		urlBuilder.append("&contentTypeId=").append(25);
-		// 지역코드 반복해서 꺼내올것.
-		urlBuilder.append("&areaCode=").append(4);
-		urlBuilder.append("&sigunguCode=").append(4);
+		urlBuilder.append("&cat1=").append("C01");
 		
 		log.info("Request URL : {}", urlBuilder.toString());
 		
-		return restTemplate.getForObject(new URI(urlBuilder.toString()), String.class);
+		return restTemplate.getForObject(new URI(urlBuilder.toString()), TravelResponse.class);
 	}
 	
 }

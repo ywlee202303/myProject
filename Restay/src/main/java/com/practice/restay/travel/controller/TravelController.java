@@ -21,7 +21,7 @@ public class TravelController {
 	@GetMapping("/travel")
 	public String Travel() throws RestClientException, URISyntaxException {
 		
-		travelApiClient.areaBasedSyncList();
+		travelApiClient.areaBasedList();
 		
 		return "travel/travel";
 	}
