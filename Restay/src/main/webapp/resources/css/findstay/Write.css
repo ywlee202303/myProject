@@ -1,0 +1,78 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+main {
+	width: 1440px;
+	margin: auto;
+	margin-bottom: 110px;
+}
+
+.findstay-logo-wrap {
+	margin: 66px 0 66px 0;
+}
+
+.findstay-logo {
+	width: 443px;
+    height: 150px;
+    margin: auto;
+    background-image: url(https://i.ibb.co/DC5c6Kx/findstay-Title.png);
+}
+
+.findstayWrite-restay-container {
+	width: 1100px;
+	margin: auto;
+}
+
+table {
+	font-size: 16px;
+    border-collapse: collapse;
+    width: 1100px;
+}
+
+th {
+	width: 150px;
+	background-color: #f7f8f9;
+}
+
+th, td {
+	height: 50px;
+}
+
+input {
+	border: none;
+	outline: none;
+}
+
+input[type="text"] {
+	width: 1000px;
+	height: 45px;
+	font-size: 16px;
+}
+input[type="number"] {
+	height: 45px;
+	font-size: 16px;
+}
+
+input[type="file"] {
+	padding-top: 5px;
+}
+
+select {
+	height: 30px;
+	font-size: 16px;
+}
+
+.write-btn {
+	text-align: right;
+    margin-top: 30px;
+}
+
+.write-btn button {
+	width: 55px;
+    height: 45px;
+    background-color: rgb(11 86 26 / 63%);
+    color: white;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}

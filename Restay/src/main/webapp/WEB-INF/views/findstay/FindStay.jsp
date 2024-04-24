@@ -264,6 +264,10 @@
 				</div>
 			</div>
 		</div>
+		<!-- 숙소 등록 버튼 -->
+		<div class="add-restay-btn">
+			<button onclick="location.href='${ path }/findstay/write'">등록</button>
+		</div>
 	</section>
 
 

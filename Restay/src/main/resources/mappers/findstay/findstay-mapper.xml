@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="com.practice.restay.findstay.model.mapper.FindStayMapper">
+
+	<!-- 쿼리 매핑 -->
+	<!-- 지역 테이블 매핑 -->
+	<resultMap id="areaResultMap" type="Area">
+		<result property="areaCode" column="AREA_CODE" />
+		<result property="areaName" column="AREA_NAME" />
+		<result property="sigunguCode" column="SIGUNGU_CODE" />
+		<result property="sigunguName" column="SIGUNGU_NAME" />
+	</resultMap>
+	
+	<!-- 지역 조회 -->
+	<select id="selectAreaName" resultMap="areaResultMap">
+		SELECT DISTINCT AREA_CODE,
+		       AREA_NAME
+		FROM AREAINFO
+	</select>
+
+</mapper>
