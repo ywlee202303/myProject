@@ -21,5 +21,46 @@
 		       AREA_NAME
 		FROM AREAINFO
 	</select>
+	
+	<select id="selectSigunguName" resultMap="areaResultMap" parameterType="_int">
+		SELECT SIGUNGU_CODE,
+		       SIGUNGU_NAME
+		FROM AREAINFO
+		WHERE AREA_CODE = #{areaCode}
+	</select>
 
+	<select id="selectAreaInfo" resultMap="areaResultMap" parameterType="map">
+		SELECT AREA_NAME,
+		       SIGUNGU_NAME
+		FROM AREAINFO
+		WHERE AREA_CODE = #{areaCode}
+		  AND SIGUNGU_CODE = #{sigunguCode}
+	</select>
+	
+	<!-- 숙소 등록 -->
+	<insert id="insertHouseInfo" parameterType="House" useGeneratedKeys="true" keyProperty="houseCode" keyColumn="H_CODE">
+		INSERT INTO HOUSE
+		(
+			H_CODE,
+			H_NAME,
+			H_ADDRESS,
+			H_TEL,
+			H_EMAIL,
+			H_IMG,
+			H_AREA,
+			H_SIGUNGU
+		)
+		VALUES
+		(
+			'H' || SEQ_HOUSE_CODE.NEXTVAL,
+			#{houseName},
+			#{houseAddress},
+			#{houseTel},
+			#{houseEmail},
+			#{houseImg},
+			#{houseArea},
+			#{houseSigungu}
+		)
+	</insert>
+	
 </mapper>

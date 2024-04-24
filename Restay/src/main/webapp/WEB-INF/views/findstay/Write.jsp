@@ -17,45 +17,53 @@
 	</div>
 	
 	<div class="findstayWrite-restay-container">
-		<form action="${ path }/findstay/write" method="post">
+		<form action="${ path }/findstay/write" method="post" enctype="multipart/form-data">
 			<table border="1">
 				<tr>
 					<th>
 						<label for="house-name">숙소명</label>
 					</th>
 					<td>
-						<input type="text" id="house-name" name="house-name" />
+						<input type="text" id="house-name" name="houseName" />
 					</td>
 				</tr>
 				<tr>
 					<th>지역</th>
 					<td>
 						<select id="area" name="area">
-							<option value="seoul">서울
-							<option value="gyeonggi">경기
-							<option value="incheon">인천
+							<option value="">-- 선택 --</option>
+							<c:forEach var="area" items="${ areas }">
+								<option value="${ area.areaCode }">${ area.areaName }</option>
+							</c:forEach>
 						</select>
-						<select>
-							<option value="gangnam">강남구
-							<option value="gangbuk">강북구
-							<option value="seocho">서초구
+						
+						<select id="sigungu" name="sigungu">
+							<option value="">-- 선택 --</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>
-						인원
+						<label for="house-address">상세주소</label>
 					</th>
 					<td>
-						기준 2명 (최대 4명)
+						<input type="text" id="house-address" name="houseAddress" />
 					</td>
 				</tr>
 				<tr>
 					<th>
-						<label for="house-price">가격</label>
+						<label for="house-tel">전화번호</label>
 					</th>
 					<td>
-						<input type="number" id="house-price" name="house-price" min="1" />
+						<input type="tel" id="house-tel" name="houseTel" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="house-email">이메일</label>
+					</th>
+					<td>
+						<input type="email" id="house-email" name="houseEmail" />
 					</td>
 				</tr>
 				<tr>
@@ -82,12 +90,34 @@
 
 <script>
 	$(document).ready(() => {
-		$.ajax({
-			url: '${ path }/findstay/write/areas',
-			type: 'post',
-			success: (res) => {
-				console.log(res);
-			}
+		$('#area').on('change', (e) => {
+			let areaCode = $(e.target).val();
+			
+			console.log(areaCode);
+			
+			// 시군구 조회
+			$.ajax({
+				url: '${ path }/findstay/write/sigungus',
+				type: 'post',
+				data: {
+					areaCode
+				},
+				success: (res) => {
+					console.log(res);
+					
+					let element = $('#sigungu');
+					
+					element.empty();
+					
+					for(let i = 0; i < res.length; i++) {
+						element.append(
+							'<option value="' + res[i].sigunguCode + '">' +
+								res[i].sigunguName +
+							'</option>'		
+						);
+					}
+				}
+			});
 		});
 	});
 </script>
