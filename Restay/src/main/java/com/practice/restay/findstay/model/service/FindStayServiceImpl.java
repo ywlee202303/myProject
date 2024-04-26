@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.practice.restay.findstay.model.mapper.FindStayMapper;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
+import com.practice.restay.findstay.model.vo.HouseImage;
 
 import lombok.RequiredArgsConstructor;
 
@@ -60,6 +61,28 @@ public class FindStayServiceImpl implements FindStayService {
 		}
 		
 		return result;
+	}
+
+	// 숙소 이미지 등록 수정
+	@Override
+	public int saveHouseImageInfo(HouseImage houseImage) {
+		
+		int result = 0;
+		
+		if(houseImage.getHouseImageCode() != null) {
+			// update
+		} else {
+			// insert
+			result = findStayMapper.insertHouseImageInfo(houseImage);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<HouseImage> getHouseImageList() {
+		
+		return findStayMapper.selectHouseImageList();
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
+import com.practice.restay.findstay.model.vo.HouseImage;
 
 public interface FindStayService {
 
@@ -21,5 +22,10 @@ public interface FindStayService {
 	
 	// 숙소 등록/수정
 	int saveHouseInfo(House house);
+
+	// 숙소 이미지 등록/수정
+	int saveHouseImageInfo(HouseImage houseImage);
+
+	List<HouseImage> getHouseImageList();
 	
 }

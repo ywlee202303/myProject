@@ -425,6 +425,8 @@ public class CommunityController
             try
             {
                 location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
+                
+                System.out.println("경로 : " + location);
 
                 renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
 

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
+import com.practice.restay.findstay.model.vo.HouseImage;
 
 @Mapper
 public interface FindStayMapper {
@@ -20,4 +21,8 @@ public interface FindStayMapper {
 	List<House> selectHouseList();
 	
 	int insertHouseInfo(House house);
+	
+	int insertHouseImageInfo(HouseImage houseImage);
+	
+	List<HouseImage> selectHouseImageList();
 }

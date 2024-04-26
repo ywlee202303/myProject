@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.practice.restay.common.util.MultipartFileUtil;
 import com.practice.restay.findstay.model.service.FindStayService;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
+import com.practice.restay.findstay.model.vo.HouseImage;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +36,17 @@ public class FindStayController {
 	@GetMapping("/findstay")
 	public ModelAndView findStay(ModelAndView modelAndView) {
 		
-		// 숙소 조회
+		// 숙소 조회(이미지 포함)
 		List<House> houseList = findStayService.getHouseList();
+		
+		// 숙소 이미지 조회
+		List<HouseImage> houseImageList = findStayService.getHouseImageList();
+		
+		log.info("House Image List : {}", houseImageList);
 		
 		log.info("House List : {}", houseList);
 		
+		modelAndView.addObject("houseList", houseList);
 		modelAndView.setViewName("findstay/FindStay");
 		
 		return modelAndView;
@@ -72,13 +80,14 @@ public class FindStayController {
 			@RequestParam("area") int areaCode,
 			@RequestParam("sigungu") int sigunguCode,
 			@RequestParam("imgFiles") List<MultipartFile> imgFiles,
+//			@RequestParam("imgFiles") MultipartFile imgFiles,
 			House house
 	) {
 		
 		int result = 0;
+		int imgResult = 0;
 		String location = null;
-		String str = "";
-		List<String> originalFileNames = new ArrayList<>();
+		String renamedFileName = null;
 		
 		/*
 		 * ResourceLoader
@@ -90,51 +99,60 @@ public class FindStayController {
 		 * - 리소스의 경로를 문자열로 반환
 		 */
 		
+		// 1 - 지역코드, 시군구 코드로 시,도 / 시군구 조회
+		Area area = findStayService.getAreaInfo(areaCode, sigunguCode);
+		
+		// 2 - Parameter로 넘어온 값들 DB에 저장
+		// House 객체에 지역, 시군구, 이미지 저장
+		house.setHouseArea(area.getAreaName());
+		house.setHouseSigungu(area.getSigunguName());
+		
+		result = findStayService.saveHouseInfo(house);
+		
+		System.out.println("숙소 객체 조회 : " + house);
+		
+		// 3 - Parameter로 넘어온 이미지 파일 DB에 저장
 		try {
 			location = resourceLoader.getResource("resources/upload/findstay").getFile().getPath();
 			
-			System.out.println("파일 경로 : " + location);
-			
 			for (MultipartFile multipartFile : imgFiles) {
-				System.out.println("업파일 : " + multipartFile.getOriginalFilename());
 				
-				originalFileNames.add(multipartFile.getOriginalFilename());
-				
-				File folder = new File(location);
-				
-				if(!folder.exists()) {
-					folder.mkdirs();
+				// 빈파일 저장 방지
+				if(!multipartFile.isEmpty()) {
+					renamedFileName = MultipartFileUtil.save(multipartFile, location);
+					
+					HouseImage houseImage = new HouseImage();
+					
+					houseImage.setHouseCode(house.getHouseCode());
+					houseImage.setHouseImageOriginalFileName(multipartFile.getOriginalFilename());
+					houseImage.setHouseImageRenamedFileName(renamedFileName);
+					
+					// 숙소 이미지 저장
+					imgResult = findStayService.saveHouseImageInfo(houseImage);
+					
+					System.out.println("HouseImage 객체 : " + houseImage);
 				}
 				
-				multipartFile.transferTo(new File(location + "/" + originalFileNames));
+				System.out.println(multipartFile);
+				System.out.println(multipartFile.isEmpty());
 			}
+			
+			System.out.println("location : " + location);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		// List 타입을 문자열로 저장하기 위해 String 타입으로 변경
-		// House 객체에서 houseImg 필드에 저장하기 위함
-		for (String string : originalFileNames) {
-			str = str + string + ",";
-		}
-		
-		// 지역코드, 시군구 코드로 시,도 / 시군구 조회
-		Area area = findStayService.getAreaInfo(areaCode, sigunguCode);
-		
-		// House 객체에 지역, 시군구, 이미지 저장
-		house.setHouseArea(area.getAreaName());
-		house.setHouseSigungu(area.getSigunguName());
-		house.setHouseImg(str);
-		
-		System.out.println("숙소 객체 조회 : " + house);
-		
-		// DB에 숙소 정보 저장
-		result = findStayService.saveHouseInfo(house);
-		
 		if(result > 0) {
-			// 게시글 정상 등록
-			modelAndView.addObject("msg", "게시글 등록 성공");
-			modelAndView.addObject("location", "/findstay");
+			if(imgResult > 0) {
+				// 게시글 정상 등록
+				modelAndView.addObject("msg", "게시글 등록 성공");
+				modelAndView.addObject("location", "/findstay");
+			} else {
+				// 게시글 등록 실패
+				modelAndView.addObject("msg", "게시글 등록 실패");
+				modelAndView.addObject("location", "/findstay/write");
+			}
 		} else {
 			// 게시글 등록 실패
 			modelAndView.addObject("msg", "게시글 등록 실패");

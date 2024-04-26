@@ -30,9 +30,6 @@ public class House {
 	// 숙소 좋아요 여부(Y/N)
 	private String likeStatus;
 	
-	// 숙소 이미지
-	private String houseImg;
-	
 	// 숙소 지역명
 	private String houseArea;
 	
@@ -44,5 +41,8 @@ public class House {
 	
 	// 숙소 시군구
 	private String houseSigungu;
+	
+	// 숙소 이미지
+	private List<HouseImage> houseImages;
 	
 }

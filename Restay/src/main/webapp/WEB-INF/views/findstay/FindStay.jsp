@@ -76,193 +76,38 @@
 	<!-- 2. 페이지 중앙 -->
 	<section class="container_findstay_bottom">
 		<div class="flist_wrap">
-			<div class="flist_box" id="${ stay.stayCode }">
-				<div class="flist_box_contents">
-					<div class="stay_Info_wrapper">
-						<div class="stayName" id="stay1_name">선현재</div>
-						<div class="stay_info">
-							<p class="address_info">
-								<span>제주 / 제주시</span> <br> 기준 2명 (최대 4명) <br> <span
-									style="font-weight: bold; font-size: 16px"> ₩272,000 ~ </span>
-							</p>
-							<p class="btn_more" onclick="location.href='${ path }/findstay/room'">예약하기</p>
-						</div>
-					</div>
-
-					<div class="swiper flist_slider">
-						<div class="swiper-wrapper flist_slider_wrap">
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae1.jpg"
-									alt="슬라이드 이미지1">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae2.jpg"
-									alt="슬라이드 이미지2">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae3.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae4.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae5.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae6.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-						</div>
-						<div class="swiper-button-next"></div>
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-pagination"></div>
-					</div>
-				</div>
-			</div>
 			
-			<div class="flist_box" id="${ stay.stayCode }">
-				<div class="flist_box_contents">
-					<div class="stay_Info_wrapper">
-						<div class="stayName" id="stay1_name">선현재</div>
-						<div class="stay_info">
-							<p class="address_info">
-								<span>제주 / 제주시</span> <br> 기준 2명 (최대 4명) <br> <span
-									style="font-weight: bold; font-size: 16px"> ₩272,000 ~ </span>
-							</p>
-							<p class="btn_more">예약하기</p>
-						</div>
-					</div>
-
-					<div class="swiper flist_slider">
-						<div class="swiper-wrapper flist_slider_wrap">
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae1.jpg"
-									alt="슬라이드 이미지1">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae2.jpg"
-									alt="슬라이드 이미지2">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae3.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae4.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae5.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae6.jpg"
-									alt="슬라이드 이미지3">
+			<c:forEach var="house" items="${ houseList }">
+				<div class="flist_box" id="${ house.houseCode }">
+					<div class="flist_box_contents">
+						<div class="stay_Info_wrapper">
+							<div class="stayName" id="stay1_name">${ house.houseName }</div>
+							<div class="stay_info">
+								<p class="address_info">
+									<span>${ house.houseArea } / ${ house.houseSigungu }</span> <br> 기준 2명 (최대 4명) <br> <span
+										style="font-weight: bold; font-size: 16px"> 개발예정 </span>
+								</p>
+								<p class="btn_more" onclick="location.href='${ path }/findstay/room'">예약하기</p>
 							</div>
 						</div>
-						<div class="swiper-button-next"></div>
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-pagination"></div>
+	
+						
+						<div class="swiper flist_slider">
+							<div class="swiper-wrapper flist_slider_wrap">
+								<c:forEach var="houseImage" items="${ house.houseImages }">
+									<div class="swiper-slide">
+										<img src="${ path }/upload/findstay/${ houseImage.houseImageRenamedFileName }"
+											alt="슬라이드 이미지1">
+									</div>
+								</c:forEach>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-pagination"></div>
+						</div>
 					</div>
 				</div>
-			</div>
-			
-			<div class="flist_box" id="${ stay.stayCode }">
-				<div class="flist_box_contents">
-					<div class="stay_Info_wrapper">
-						<div class="stayName" id="stay1_name">선현재</div>
-						<div class="stay_info">
-							<p class="address_info">
-								<span>제주 / 제주시</span> <br> 기준 2명 (최대 4명) <br> <span
-									style="font-weight: bold; font-size: 16px"> ₩272,000 ~ </span>
-							</p>
-							<p class="btn_more">예약하기</p>
-						</div>
-					</div>
-
-					<div class="swiper flist_slider">
-						<div class="swiper-wrapper flist_slider_wrap">
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae1.jpg"
-									alt="슬라이드 이미지1">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae2.jpg"
-									alt="슬라이드 이미지2">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae3.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae4.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae5.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae6.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-						</div>
-						<div class="swiper-button-next"></div>
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-pagination"></div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="flist_box" id="${ stay.stayCode }">
-				<div class="flist_box_contents">
-					<div class="stay_Info_wrapper">
-						<div class="stayName" id="stay1_name">선현재</div>
-						<div class="stay_info">
-							<p class="address_info">
-								<span>제주 / 제주시</span> <br> 기준 2명 (최대 4명) <br> <span
-									style="font-weight: bold; font-size: 16px"> ₩272,000 ~ </span>
-							</p>
-							<p class="btn_more">예약하기</p>
-						</div>
-					</div>
-
-					<div class="swiper flist_slider">
-						<div class="swiper-wrapper flist_slider_wrap">
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae1.jpg"
-									alt="슬라이드 이미지1">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae2.jpg"
-									alt="슬라이드 이미지2">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae3.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae4.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae5.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-							<div class="swiper-slide">
-								<img src="${ path }/img/house/sunhyeonjae/sunhyeonjae6.jpg"
-									alt="슬라이드 이미지3">
-							</div>
-						</div>
-						<div class="swiper-button-next"></div>
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-pagination"></div>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 		<!-- 숙소 등록 버튼 -->
 		<div class="add-restay-btn">

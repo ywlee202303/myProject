@@ -23,11 +23,27 @@
 		<result property="houseTel" column="H_TEL" />
 		<result property="houseEmail" column="H_EMAIL" />
 		<result property="likeStatus" column="LIKE_STATE" />
-		<result property="houseImg" column="H_IMG" />
 		<result property="houseArea" column="H_AREA" />
 		<result property="houseEnrollDate" column="H_ENROLLDATE" />
 		<result property="houseStatus" column="H_STATUS" />
 		<result property="houseSigungu" column="H_SIGUNGU" />
+	</resultMap>
+	
+	<!-- 숙소 이미지 매핑 -->
+	<resultMap id="houseImageResultMap" type="HouseImage">
+		<id property="houseCode" column="H_CODE" />
+		<id property="houseImageCode" column="H_IMAGE_CODE" />
+		<result property="houseImageOriginalFileName" column="H_IMAGE_ORIGINALFILENAME" />
+		<result property="houseImageRenamedFileName" column="H_IMAGE_RENAMEDFILENAME" />
+	</resultMap>
+	
+	<!-- 숙소 테이블, 숙소 이미지 조인 매핑 -->
+	<resultMap id="houseDetailResultMap" type="House" 
+		extends="houseResultMap">
+	
+		<collection property="houseImages" javaType="arrayList"
+		 	columnPrefix="HI_" resultMap="houseImageResultMap" />	
+		
 	</resultMap>
 	
 	<!-- 지역 조회 -->
@@ -53,20 +69,48 @@
 	</select>
 	
 	<!-- 숙소 조회 -->
-	<select id="selectHouseList" resultMap="houseResultMap">
+<!-- 	<select id="selectHouseList" resultMap="houseResultMap"> -->
+<!-- 		SELECT H_CODE, -->
+<!-- 		       H_NAME, -->
+<!-- 		       H_ADDRESS, -->
+<!-- 		       H_TEL, -->
+<!-- 		       H_EMAIL, -->
+<!-- 		       LIKE_STATE, -->
+<!-- 		       H_AREA, -->
+<!-- 		       H_ENROLLDATE, -->
+<!-- 		       H_STATUS, -->
+<!-- 		       H_SIGUNGU -->
+<!-- 		FROM HOUSE -->
+<!-- 		WHERE H_STATUS = 'Y' -->
+<!-- 	</select> -->
+	
+	<select id="selectHouseList" resultMap="houseDetailResultMap">
+		SELECT H.H_CODE,
+		       H.H_NAME,
+		       H.H_ADDRESS,
+		       H.H_TEL,
+		       H.H_EMAIL,
+		       H.LIKE_STATE,
+		       H.H_AREA,
+		       H.H_ENROLLDATE,
+		       H.H_STATUS,
+		       H.H_SIGUNGU,
+		       HI.H_IMAGE_CODE AS HI_H_IMAGE_CODE,
+		       HI.H_IMAGE_ORIGINALFILENAME AS HI_H_IMAGE_ORIGINALFILENAME,
+		       HI.H_IMAGE_RENAMEDFILENAME AS HI_H_IMAGE_RENAMEDFILENAME
+		FROM HOUSE H
+		LEFT OUTER JOIN HOUSE_IMAGE HI ON (H.H_CODE = HI.H_CODE)
+		WHERE H.H_STATUS = 'Y'
+		ORDER BY H_IMAGE_RENAMEDFILENAME
+	</select>
+	
+	<!-- 숙소 이미지 조회 -->
+	<select id="selectHouseImageList" resultMap="houseImageResultMap">
 		SELECT H_CODE,
-		       H_NAME,
-		       H_ADDRESS,
-		       H_TEL,
-		       H_EMAIL,
-		       LIKE_STATE,
-		       H_IMG,
-		       H_AREA,
-		       H_ENROLLDATE,
-		       H_STATUS,
-		       H_SIGUNGU
-		FROM HOUSE
-		WHERE H_STATUS = 'Y'
+			   H_IMAGE_CODE,
+			   H_IMAGE_ORIGINALFILENAME,
+			   H_IMAGE_RENAMEDFILENAME
+		FROM HOUSE_IMAGE
 	</select>
 	
 	<!-- 숙소 등록 -->
@@ -78,7 +122,6 @@
 			H_ADDRESS,
 			H_TEL,
 			H_EMAIL,
-			H_IMG,
 			H_AREA,
 			H_SIGUNGU
 		)
@@ -89,9 +132,26 @@
 			#{houseAddress},
 			#{houseTel},
 			#{houseEmail},
-			#{houseImg},
 			#{houseArea},
 			#{houseSigungu}
+		)
+	</insert>
+	
+	<!-- 숙소 이미지 등록 -->
+	<insert id="insertHouseImageInfo" parameterType="HouseImage">
+		INSERT INTO HOUSE_IMAGE
+		(
+			H_CODE,
+			H_IMAGE_CODE,
+			H_IMAGE_ORIGINALFILENAME,
+			H_IMAGE_RENAMEDFILENAME
+		)
+		VALUES
+		(
+			#{houseCode},
+			'HIMG' || SEQ_HOUSE_IMG_CODE.NEXTVAL,
+			#{houseImageOriginalFileName},
+			#{houseImageRenamedFileName}
 		)
 	</insert>
 	
