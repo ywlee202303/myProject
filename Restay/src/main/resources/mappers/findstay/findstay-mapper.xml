@@ -15,6 +15,21 @@
 		<result property="sigunguName" column="SIGUNGU_NAME" />
 	</resultMap>
 	
+	<!-- 숙소 테이블 매핑 -->
+	<resultMap id="houseResultMap" type="House">
+		<id property="houseCode" column="H_CODE" />
+		<result property="houseName" column="H_NAME" />
+		<result property="houseAddress" column="H_ADDRESS" />
+		<result property="houseTel" column="H_TEL" />
+		<result property="houseEmail" column="H_EMAIL" />
+		<result property="likeStatus" column="LIKE_STATE" />
+		<result property="houseImg" column="H_IMG" />
+		<result property="houseArea" column="H_AREA" />
+		<result property="houseEnrollDate" column="H_ENROLLDATE" />
+		<result property="houseStatus" column="H_STATUS" />
+		<result property="houseSigungu" column="H_SIGUNGU" />
+	</resultMap>
+	
 	<!-- 지역 조회 -->
 	<select id="selectAreaName" resultMap="areaResultMap">
 		SELECT DISTINCT AREA_CODE,
@@ -35,6 +50,23 @@
 		FROM AREAINFO
 		WHERE AREA_CODE = #{areaCode}
 		  AND SIGUNGU_CODE = #{sigunguCode}
+	</select>
+	
+	<!-- 숙소 조회 -->
+	<select id="selectHouseList" resultMap="houseResultMap">
+		SELECT H_CODE,
+		       H_NAME,
+		       H_ADDRESS,
+		       H_TEL,
+		       H_EMAIL,
+		       LIKE_STATE,
+		       H_IMG,
+		       H_AREA,
+		       H_ENROLLDATE,
+		       H_STATUS,
+		       H_SIGUNGU
+		FROM HOUSE
+		WHERE H_STATUS = 'Y'
 	</select>
 	
 	<!-- 숙소 등록 -->

@@ -17,5 +17,7 @@ public interface FindStayMapper {
 	
 	Area selectAreaInfo(@Param("areaCode") int areaCode, @Param("sigunguCode") int sigunguCode);
 	
+	List<House> selectHouseList();
+	
 	int insertHouseInfo(House house);
 }

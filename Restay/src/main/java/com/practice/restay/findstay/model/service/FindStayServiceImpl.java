@@ -37,6 +37,13 @@ public class FindStayServiceImpl implements FindStayService {
 		
 		return findStayMapper.selectAreaInfo(areaCode, sigunguCode);
 	}
+	
+	// 숙소 조회
+	@Override
+	public List<House> getHouseList() {
+		
+		return findStayMapper.selectHouseList();
+	}
 
 	// 숙소 등록 수정
 	@Override

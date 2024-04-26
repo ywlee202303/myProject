@@ -52,10 +52,10 @@
 				</tr>
 				<tr>
 					<th>
-						<label for="house-tel">전화번호</label>
+						<label for="house-tel">전화번호<br>("-포함")</label>
 					</th>
 					<td>
-						<input type="tel" id="house-tel" name="houseTel" />
+						<input type="text" id="house-tel" name="houseTel" />
 					</td>
 				</tr>
 				<tr>
@@ -71,16 +71,16 @@
 						이미지
 					</th>
 					<td style="padding-bottom: 5px;">
-						<input type="file" name="house-img-1" /><br>
-						<input type="file" name="house-img-2" /><br>
-						<input type="file" name="house-img-3" /><br>
-						<input type="file" name="house-img-4" /><br>
-						<input type="file" name="house-img-5" />
+						<input type="file" id="house-img1" name="imgFiles" /><br>
+						<input type="file" id="house-img2" name="imgFiles" /><br>
+						<input type="file" id="house-img3" name="imgFiles" /><br>
+						<input type="file" id="house-img4" name="imgFiles" /><br>
+						<input type="file" id="house-img5" name="imgFiles" />
 					</td>
 				</tr>
 			</table>
 			<div class="write-btn">
-				<button type="submit">등록</button>
+				<button id="writeBtn" type="submit">등록</button>
 			</div>
 		</form>
 	</div>
@@ -90,34 +90,98 @@
 
 <script>
 	$(document).ready(() => {
+		$('#writeBtn').click(() => {
+			// 숙소명
+			if($('#house-name').val() === '') {
+				alert('숙소명을 입력해주세요.');
+				
+				return false;
+			}
+			
+			// 지역 선택
+			if($('#area').val() === '') {
+				alert('지역을 선택해주세요.');
+				
+				return false;
+			}
+			
+			// 상세 주소
+			if($('#house-address').val() === '') {
+				alert('상세 주소를 입력해주세요.');
+				
+				return false;
+			}
+			
+			// 전화 번호
+			if($('#house-tel').val() === '') {
+				alert('전화번호를 입력해주세요.');
+				
+				return false;
+			}
+			
+			// 이메일
+			if($('#house-email').val() === '') {
+				alert('이메일을 입력해주세요.');
+				
+				return false;
+			}
+			
+			// 이미지
+			if(
+				$('#house-img1').val() === '' &&
+				$('#house-img2').val() === '' &&
+				$('#house-img3').val() === '' &&
+				$('#house-img4').val() === '' &&
+				$('#house-img5').val() === ''
+			) {
+				alert('1개 이상의 파일을 등록해주세요.');
+				
+				return false;
+			}
+			
+			
+		})
+		
 		$('#area').on('change', (e) => {
 			let areaCode = $(e.target).val();
 			
 			console.log(areaCode);
 			
-			// 시군구 조회
-			$.ajax({
-				url: '${ path }/findstay/write/sigungus',
-				type: 'post',
-				data: {
-					areaCode
-				},
-				success: (res) => {
-					console.log(res);
-					
-					let element = $('#sigungu');
-					
-					element.empty();
-					
-					for(let i = 0; i < res.length; i++) {
-						element.append(
-							'<option value="' + res[i].sigunguCode + '">' +
-								res[i].sigunguName +
-							'</option>'		
-						);
+			if($('#area').val() !== '') {
+				
+				// 시군구 조회
+				$.ajax({
+					url: '${ path }/findstay/write/sigungus',
+					type: 'post',
+					data: {
+						areaCode
+					},
+					success: (res) => {
+						console.log(res);
+						
+						let element = $('#sigungu');
+						
+						element.empty();
+						
+						for(let i = 0; i < res.length; i++) {
+							element.append(
+								'<option value="' + res[i].sigunguCode + '">' +
+									res[i].sigunguName +
+								'</option>'		
+							);
+						}
 					}
-				}
-			});
+				});
+			} else {
+				let element = $('#sigungu');
+				
+				element.empty();
+				
+				element.append(
+					'<option value="">' + '--선택--' + '</option>'	
+				);
+			}
+			
 		});
 	});
 </script>

@@ -31,7 +31,7 @@ public class House {
 	private String likeStatus;
 	
 	// 숙소 이미지
-	private List<String> houseImg;
+	private String houseImg;
 	
 	// 숙소 지역명
 	private String houseArea;
