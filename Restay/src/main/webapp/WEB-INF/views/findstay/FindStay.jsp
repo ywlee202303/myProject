@@ -84,8 +84,8 @@
 							<div class="stayName" id="stay1_name">${ house.houseName }</div>
 							<div class="stay_info">
 								<p class="address_info">
-									<span>${ house.houseArea } / ${ house.houseSigungu }</span> <br> 기준 2명 (최대 4명) <br> <span
-										style="font-weight: bold; font-size: 16px"> 개발예정 </span>
+									<span>${ house.houseArea } / ${ house.houseSigungu }</span> <br> 기준 2명 (최대 4명) <br> 
+									<span style="font-weight: 300; font-size: 14px" class="houseMinPrice" id="houseMinPrice">${ house.houseMinPrice }</span>
 								</p>
 								<p class="btn_more" onclick="location.href='${ path }/findstay/room'">예약하기</p>
 							</div>
@@ -146,6 +146,24 @@
 
 
 <script>
+	let houseMinPrice = document.querySelectorAll('.houseMinPrice');
+	
+	
+	for(let i = 0; i < houseMinPrice.length; i++) {
+		console.log(parseInt(houseMinPrice[i].innerHTML).toLocaleString());
+		
+		// 문자열 -> 숫자 타입변환
+		// let numMinPrice = parseInt(minPrice);
+		
+		// 숫자 타입으로 변환한 변수에 컴마 추가
+		// console.log(numMinPrice.toLocaleString());
+		
+		// minPrice.textContent = numMinPrice;
+		
+		houseMinPrice[i].innerHTML = '₩' + parseInt(houseMinPrice[i].innerHTML).toLocaleString() + ' ~';
+		
+	}
+
 	var swiper = new Swiper(".flist_slider", {
 		slidesPerView : 1,
 		spaceBetween : 30,

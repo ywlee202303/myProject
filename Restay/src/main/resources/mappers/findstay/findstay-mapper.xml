@@ -27,6 +27,7 @@
 		<result property="houseEnrollDate" column="H_ENROLLDATE" />
 		<result property="houseStatus" column="H_STATUS" />
 		<result property="houseSigungu" column="H_SIGUNGU" />
+		<result property="houseMinPrice" column="H_MIN_PRICE" />
 	</resultMap>
 	
 	<!-- 숙소 이미지 매핑 -->
@@ -69,21 +70,6 @@
 	</select>
 	
 	<!-- 숙소 조회 -->
-<!-- 	<select id="selectHouseList" resultMap="houseResultMap"> -->
-<!-- 		SELECT H_CODE, -->
-<!-- 		       H_NAME, -->
-<!-- 		       H_ADDRESS, -->
-<!-- 		       H_TEL, -->
-<!-- 		       H_EMAIL, -->
-<!-- 		       LIKE_STATE, -->
-<!-- 		       H_AREA, -->
-<!-- 		       H_ENROLLDATE, -->
-<!-- 		       H_STATUS, -->
-<!-- 		       H_SIGUNGU -->
-<!-- 		FROM HOUSE -->
-<!-- 		WHERE H_STATUS = 'Y' -->
-<!-- 	</select> -->
-	
 	<select id="selectHouseList" resultMap="houseDetailResultMap">
 		SELECT H.H_CODE,
 		       H.H_NAME,
@@ -95,6 +81,7 @@
 		       H.H_ENROLLDATE,
 		       H.H_STATUS,
 		       H.H_SIGUNGU,
+		       H.H_MIN_PRICE,
 		       HI.H_IMAGE_CODE AS HI_H_IMAGE_CODE,
 		       HI.H_IMAGE_ORIGINALFILENAME AS HI_H_IMAGE_ORIGINALFILENAME,
 		       HI.H_IMAGE_RENAMEDFILENAME AS HI_H_IMAGE_RENAMEDFILENAME

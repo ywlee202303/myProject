@@ -42,6 +42,9 @@ public class House {
 	// 숙소 시군구
 	private String houseSigungu;
 	
+	// 숙소 최저 가격
+	private int houseMinPrice;
+	
 	// 숙소 이미지
 	private List<HouseImage> houseImages;
 	

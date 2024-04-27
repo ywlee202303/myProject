@@ -68,6 +68,14 @@
 				</tr>
 				<tr>
 					<th>
+						<label for="house-min-price">최저 가격</label>
+					</th>
+					<td>
+						<input type="number" id="house-min-price" name="houseMinPrice" />
+					</td>
+				</tr>
+				<tr>
+					<th>
 						이미지
 					</th>
 					<td style="padding-bottom: 5px;">
