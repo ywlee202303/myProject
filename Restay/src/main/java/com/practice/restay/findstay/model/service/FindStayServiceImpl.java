@@ -2,9 +2,11 @@ package com.practice.restay.findstay.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.findstay.model.mapper.FindStayMapper;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
@@ -39,11 +41,23 @@ public class FindStayServiceImpl implements FindStayService {
 		return findStayMapper.selectAreaInfo(areaCode, sigunguCode);
 	}
 	
+	// 숙소 리스트 수
+	@Override
+	public int getHouseListCount() {
+		
+		return findStayMapper.selectHouseListCount();
+	}
+	
 	// 숙소 조회
 	@Override
-	public List<House> getHouseList() {
+	public List<House> getHouseList(PageInfo pageInfo) {
 		
-		return findStayMapper.selectHouseList();
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1) * limit;
+		
+		RowBounds bounds = new RowBounds(offset, limit);
+		
+		return findStayMapper.selectHouseList(bounds);
 	}
 
 	// 숙소 등록 수정
@@ -77,12 +91,6 @@ public class FindStayServiceImpl implements FindStayService {
 		}
 		
 		return result;
-	}
-
-	@Override
-	public List<HouseImage> getHouseImageList() {
-		
-		return findStayMapper.selectHouseImageList();
 	}
 
 }

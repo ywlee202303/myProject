@@ -1,8 +1,6 @@
 package com.practice.restay.findstay.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.io.ResourceLoader;
@@ -11,11 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.practice.restay.common.util.MultipartFileUtil;
+import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.findstay.model.service.FindStayService;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
@@ -34,18 +32,25 @@ public class FindStayController {
 
 	// 숙소 조회 페이지
 	@GetMapping("/findstay")
-	public ModelAndView findStay(ModelAndView modelAndView) {
+	public ModelAndView findStay(
+			ModelAndView modelAndView,
+			@RequestParam(defaultValue = "1") int page
+		) {
+		
+		int listCount = 0;
+		PageInfo pageInfo = null;
+		
+		// 페이징 처리
+		listCount = findStayService.getHouseListCount();
+		pageInfo = new PageInfo(page, 5, listCount, 10);
 		
 		// 숙소 조회(이미지 포함)
-		List<House> houseList = findStayService.getHouseList();
+		List<House> houseList = findStayService.getHouseList(pageInfo);
 		
-		// 숙소 이미지 조회
-		List<HouseImage> houseImageList = findStayService.getHouseImageList();
-		
-		log.info("House Image List : {}", houseImageList);
-		
+		log.info("HouseList Count : {}", listCount);
 		log.info("House List : {}", houseList);
 		
+		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("houseList", houseList);
 		modelAndView.setViewName("findstay/FindStay");
 		
@@ -80,7 +85,6 @@ public class FindStayController {
 			@RequestParam("area") int areaCode,
 			@RequestParam("sigungu") int sigunguCode,
 			@RequestParam("imgFiles") List<MultipartFile> imgFiles,
-//			@RequestParam("imgFiles") MultipartFile imgFiles,
 			House house
 	) {
 		

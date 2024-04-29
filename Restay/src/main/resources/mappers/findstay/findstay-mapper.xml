@@ -69,6 +69,12 @@
 		  AND SIGUNGU_CODE = #{sigunguCode}
 	</select>
 	
+	<!-- 숙소 리스트 수 -->
+	<select id="selectHouseListCount">
+		SELECT COUNT(*)
+		FROM HOUSE
+	</select>
+	
 	<!-- 숙소 조회 -->
 	<select id="selectHouseList" resultMap="houseDetailResultMap">
 		SELECT H.H_CODE,
@@ -92,13 +98,13 @@
 	</select>
 	
 	<!-- 숙소 이미지 조회 -->
-	<select id="selectHouseImageList" resultMap="houseImageResultMap">
-		SELECT H_CODE,
-			   H_IMAGE_CODE,
-			   H_IMAGE_ORIGINALFILENAME,
-			   H_IMAGE_RENAMEDFILENAME
-		FROM HOUSE_IMAGE
-	</select>
+<!-- 	<select id="selectHouseImageList" resultMap="houseImageResultMap"> -->
+<!-- 		SELECT H_CODE, -->
+<!-- 			   H_IMAGE_CODE, -->
+<!-- 			   H_IMAGE_ORIGINALFILENAME, -->
+<!-- 			   H_IMAGE_RENAMEDFILENAME -->
+<!-- 		FROM HOUSE_IMAGE -->
+<!-- 	</select> -->
 	
 	<!-- 숙소 등록 -->
 	<insert id="insertHouseInfo" parameterType="House" useGeneratedKeys="true" keyProperty="houseCode" keyColumn="H_CODE">
@@ -110,7 +116,8 @@
 			H_TEL,
 			H_EMAIL,
 			H_AREA,
-			H_SIGUNGU
+			H_SIGUNGU,
+			H_MIN_PRICE
 		)
 		VALUES
 		(
@@ -120,7 +127,8 @@
 			#{houseTel},
 			#{houseEmail},
 			#{houseArea},
-			#{houseSigungu}
+			#{houseSigungu},
+			#{houseMinPrice}
 		)
 	</insert>
 	

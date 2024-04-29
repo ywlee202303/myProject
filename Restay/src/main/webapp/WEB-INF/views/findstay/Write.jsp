@@ -134,6 +134,13 @@
 				return false;
 			}
 			
+			// 가격
+			if($('#house-min-price').val() === '') {
+				alert('최저 가격을 입력해주세요.');
+				
+				return false;
+			}
+			
 			// 이미지
 			if(
 				$('#house-img1').val() === '' &&

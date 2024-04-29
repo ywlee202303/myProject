@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
@@ -18,11 +19,12 @@ public interface FindStayMapper {
 	
 	Area selectAreaInfo(@Param("areaCode") int areaCode, @Param("sigunguCode") int sigunguCode);
 	
-	List<House> selectHouseList();
+	int selectHouseListCount();
+	
+	List<House> selectHouseList(RowBounds bounds);
 	
 	int insertHouseInfo(House house);
 	
 	int insertHouseImageInfo(HouseImage houseImage);
 	
-	List<HouseImage> selectHouseImageList();
 }
