@@ -2,5 +2,4 @@
 
 * 구현 목록
 
-![pawpawtrip](<img src=")https://github.com/yawooch/KHFinalProject/blob/main/pawpawtripImage.png")
-
+![Re:Stay](https://github.com/ywlee202303/myProject/blob/main/Restay/src/main/webapp/resources/img/RestayMainPage.png)

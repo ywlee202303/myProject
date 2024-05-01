@@ -1,8 +1,11 @@
 # myProject
 * PawPawTrip
 <img src="https://github.com/yawooch/KHFinalProject/blob/main/pawpawtripImage.png" width="300" alt="pawpawtrip"  />/
+
+
 * Restay
-<img src="https://github.com/yawooch/KHFinalProject/blob/main/pawpawtripImage.png" width="300" alt="pawpawtrip"  />/
+<img src="https://github.com/ywlee202303/myProject/blob/main/Restay/src/main/webapp/resources/img/RestayMainPage.png" width="300" alt="Restay"  />/
+
 
 참조자료 : [Re:Stay- 발표자료.pdf](https://github.com/ywlee202303/SemiPjt/blob/main/RE_STAY/1%EC%A1%B0%20-%20%EC%A0%84%EC%9E%AC%EC%82%B01%EC%A1%B0.pdf)
 
