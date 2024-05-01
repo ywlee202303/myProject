@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style>
-	.swiper {
+    .swiper {
         display: block;
         width: 350px;
         height: 230px;
