@@ -48,16 +48,30 @@ public class FindStayServiceImpl implements FindStayService {
 		return findStayMapper.selectHouseListCount();
 	}
 	
-	// 숙소 조회
+	// 숙소 조회(숙소만)
 	@Override
-	public List<House> getHouseList(PageInfo pageInfo) {
+	public List<House> getOnlyHouseList(PageInfo pageInfo) {
 		
 		int limit = pageInfo.getListLimit();
 		int offset = (pageInfo.getCurrentPage() - 1) * limit;
 		
-		RowBounds bounds = new RowBounds(offset, limit);
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return findStayMapper.selectHouseList(bounds);
+		return findStayMapper.selectOnlyHouseList(rowBounds);
+	}
+	
+	// 숙소 조회(이미지 포함)
+	@Override
+	public List<House> getHouseList(List<String> houseCode) {
+		
+		return findStayMapper.selectHouseList(houseCode);
+	}
+	
+	// 숙소 이미지 조회
+	@Override
+	public List<HouseImage> getHouseImageList(List<String> houseCode) {
+		
+		return findStayMapper.selectHouseImageList(houseCode);
 	}
 
 	// 숙소 등록 수정

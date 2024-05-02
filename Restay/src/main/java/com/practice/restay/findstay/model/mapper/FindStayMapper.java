@@ -21,7 +21,11 @@ public interface FindStayMapper {
 	
 	int selectHouseListCount();
 	
-	List<House> selectHouseList(RowBounds bounds);
+	List<House> selectOnlyHouseList(RowBounds rowBounds);
+	
+	List<House> selectHouseList(List<String> houseCode);
+	
+	List<HouseImage> selectHouseImageList(List<String> houseCode);
 	
 	int insertHouseInfo(House house);
 	

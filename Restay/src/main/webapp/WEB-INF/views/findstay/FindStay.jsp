@@ -11,9 +11,15 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <link rel="stylesheet" href="${path}/css/findstay/FindStay.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style>
+	.disable {
+		color: green !important;
+		font-weight: bold;
+	}
+
 	.swiper {
         display: block;
         width: 350px;
@@ -133,7 +139,8 @@
     </section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> -->
+<script src="https://fastly.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
     let houseMinPrice = document.querySelectorAll('.houseMinPrice');

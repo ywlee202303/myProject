@@ -1,6 +1,7 @@
 package com.practice.restay.findstay.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.io.ResourceLoader;
@@ -39,16 +40,31 @@ public class FindStayController {
 		
 		int listCount = 0;
 		PageInfo pageInfo = null;
+		List<String> houseCode = new ArrayList<>();
 		
 		// 페이징 처리
 		listCount = findStayService.getHouseListCount();
 		pageInfo = new PageInfo(page, 5, listCount, 10);
 		
+		// 숙소 조회(숙소만)
+		List<House> onlyHouseList = findStayService.getOnlyHouseList(pageInfo);
+		
+		for (House house : onlyHouseList) {
+			houseCode.add(house.getHouseCode());
+		}
+		
 		// 숙소 조회(이미지 포함)
-		List<House> houseList = findStayService.getHouseList(pageInfo);
+		List<House> houseList = findStayService.getHouseList(houseCode);
+		
+		// 숙소 이미지 조회
+		List<HouseImage> houseImageList = findStayService.getHouseImageList(houseCode);
+		
+		System.out.println("테스트 : " + houseCode);
 		
 		log.info("HouseList Count : {}", listCount);
+		log.info("Only House List : {}", onlyHouseList);
 		log.info("House List : {}", houseList);
+		log.info("HouseImage List : {}", houseImageList);
 		
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("houseList", houseList);

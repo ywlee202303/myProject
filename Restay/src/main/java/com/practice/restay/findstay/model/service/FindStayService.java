@@ -21,13 +21,21 @@ public interface FindStayService {
 	// 숙소 리스트 수
 	int getHouseListCount();
 	
-	// 숙소 조회
-	List<House> getHouseList(PageInfo pageInfo);
+	// 숙소 조회(숙소만)
+	List<House> getOnlyHouseList(PageInfo pageInfo);
+	
+	// 숙소 조회(이미지 포함)
+	List<House> getHouseList(List<String> houseCode);
+	
+	// 숙소 이미지 조회
+	List<HouseImage> getHouseImageList(List<String> houseCode);
 	
 	// 숙소 등록/수정
 	int saveHouseInfo(House house);
 
 	// 숙소 이미지 등록/수정
 	int saveHouseImageInfo(HouseImage houseImage);
+
+
 	
 }
