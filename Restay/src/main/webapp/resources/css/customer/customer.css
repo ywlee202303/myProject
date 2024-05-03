@@ -56,10 +56,6 @@ main {
 	margin: auto;
 }
 
-.customer-restay-board-list {
-	margin-top: 75px;
-}
-
 .customer-restay-notice-ul,
 .customer-restay-board-ul,
 .customer-restay-question-ul
@@ -70,6 +66,7 @@ main {
 }
 
 .customer-restay-notice-li,
+.customer-restay-board-li,
 .customer-restay-question-li
 {
 	border-bottom: 1px solid lightgray;
@@ -77,47 +74,22 @@ main {
     padding-bottom: 20px;
 }
 
-.customer-restay-board-table {
-	width: 1100px;
-	border-collapse: collapse;
-}
-
-.customer-restay-board-table th {
-	height: 45px;
-	background-color: #f7f8f9;
-	text-align: center;
-}
-
-.customer-restay-board-table td {
-	height: 45px;
-}
-
-.customer-restay-board-table td:nth-of-type(1),
-.customer-restay-board-table td:nth-of-type(3),
-.customer-restay-board-table td:nth-of-type(4)
-{
-	text-align: center;
-}
-
-.customer-restay-board-table td:nth-of-type(2) {
-	text-align: left;
-	padding-left: 5px;
-	cursor: pointer;
-}
-
 .customer-restay-notice-li p,
+.customer-restay-board-li p,
 .customer-restay-question-li p
 {
 	margin: 0;
 }
 
 .customer-restay-notice-title,
+.customer-restay-board-title,
 .customer-restay-question-title
 {
 	cursor: pointer;
 }
 
 .customer-restay-notice-content,
+.customer-restay-board-content,
 .customer-restay-question-content 
 {
 	display: none;
@@ -174,6 +146,12 @@ main {
 	border: none;
 	font-size: 14px;
 	cursor: pointer;
+}
+
+.customer-submit-btn {
+    width: 1100px;
+    margin: auto;
+	text-align: right;
 }
 
 .customer-restay-page-number {

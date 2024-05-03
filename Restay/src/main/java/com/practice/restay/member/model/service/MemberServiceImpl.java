@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		// matches 메소드를 사용하면 내부적으로 복호화해서 
 		// 나온 결과 값에 솔트값을 땐 나머지 값과 원문을 비교
-		if(loginMember == null || encoder.matches(userPw, loginMember.getMemberPw())) {
+		if(loginMember == null || !encoder.matches(userPw, loginMember.getMemberPw())) {
 			return null;
 		}
 		

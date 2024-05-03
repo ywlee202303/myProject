@@ -108,9 +108,11 @@
             </c:forEach>
         </div>
         <!-- 숙소 등록 버튼 -->
-        <div class="add-restay-btn">
-            <button onclick="location.href='${path}/findstay/write'">등록</button>
-        </div>
+        <c:if test="${ loginMember.memberRole == 'ROLE_ADMIN' }">
+	        <div class="add-restay-btn">
+	            <button onclick="location.href='${path}/findstay/write'">등록</button>
+	        </div>
+        </c:if>
     </section>
 
     <!-- 3. 페이지 넘버 -->

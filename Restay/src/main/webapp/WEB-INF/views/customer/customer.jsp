@@ -8,7 +8,7 @@
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<link rel="stylesheet" href="${ path }/css/customer/customer.css">
+<link rel="stylesheet" href="${ path }/css/customer/Customer.css">
 
 <main>
 	<div class="customer-logo">
@@ -48,51 +48,28 @@
 			</ul>
 		</div>
 		<div class="customer-restay-board-list">
-<!-- 			<ul class="customer-restay-board-ul"> -->
-<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트1</li> -->
-<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트2</li> -->
-<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트3</li> -->
-<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트4</li> -->
-<!-- 				<li class="customer-restay-board-li">[자유게시판] 자유게시판 테스트5</li> -->
-<!-- 			</ul> -->
-			<table border="1" class="customer-restay-board-table">
-				<tr>
-					<th style="width: 50px;">번호</th>
-					<th>제목</th>
-					<th style="width: 150px;">작성자</th>
-					<th style="width: 110px;">등록일</th>
-				<tr>
-				<tr>
-					<td>5</td>
-					<td>자유게시판 테스트5</td>
-					<td>test5</td>
-					<td>2024-04-13</td>
-				<tr>
-				<tr>
-					<td>4</td>
-					<td>자유게시판 테스트4</td>
-					<td>test4</td>
-					<td>2024-04-13</td>
-				<tr>
-				<tr>
-					<td>3</td>
-					<td>자유게시판 테스트3</td>
-					<td>test3</td>
-					<td>2024-04-13</td>
-				<tr>
-				<tr>
-					<td>2</td>
-					<td>자유게시판 테스트2</td>
-					<td>test2</td>
-					<td>2024-04-13</td>
-				<tr>
-				<tr>
-					<td>1</td>
-					<td>자유게시판 테스트1</td>
-					<td>test1</td>
-					<td>2024-04-13</td>
-				<tr>
-			</table>
+			<ul class="customer-restay-board-ul">
+				<li class="customer-restay-board-li">
+					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트1</p>
+					<p class="customer-restay-board-content">자유게시판 내용 테스트1</p>
+				</li>
+				<li class="customer-restay-board-li">
+					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트2</p>
+					<p class="customer-restay-board-content">자유게시판 내용 테스트2</p>
+				</li>
+				<li class="customer-restay-board-li">
+					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트3</p>
+					<p class="customer-restay-board-content">자유게시판 내용 테스트3</p>
+				</li>
+				<li class="customer-restay-board-li">
+					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트4</p>
+					<p class="customer-restay-board-content">자유게시판 내용 테스트4</p>
+				</li>
+				<li class="customer-restay-board-li">
+					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트5</p>
+					<p class="customer-restay-board-content">자유게시판 내용 테스트5</p>
+				</li>
+			</ul>
 		</div>
 		<div class="customer-restay-question-list">
 			<ul class="customer-restay-question-ul">
@@ -142,6 +119,9 @@
 					<button type="submit">등록</button>
 				</div>
 			</form>
+		</div>
+		<div class="customer-submit-btn">
+			<button onclick="location.href='${ path }/customer/write'">등록</button>
 		</div>
 		<div class="customer-restay-page-number">
 			<ul class="customer-restay-page-number-ul">
@@ -296,6 +276,11 @@
     	
     	// 공지사항 내용 토글 효과
     	$('.customer-restay-notice-title').click((e) => {
+    		$(e.target).next().toggle();
+    	});
+    	
+    	// 자유게시판 내용 토글 효과
+    	$('.customer-restay-board-title').click((e) => {
     		$(e.target).next().toggle();
     	});
     	
