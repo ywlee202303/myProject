@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		int result = 0;
 		
-		if(member.getMemberNo() != null) {
+		if(member.getMemberNo() > 0) {
 			// update
 		} else {
 			// insert

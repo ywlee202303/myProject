@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="com.practice.restay.customer.model.mapper.CustomerMapper">
+
+	<!-- 고객센터 글 등록 -->
+	<insert id="insertCustomerInfo" keyProperty="customerNo" keyColumn="CUSTOMER_NO">
+		INSERT INTO CUSTOMER
+		(
+			CUSTOMER_NO,
+			CUSTOMER_TITLE,
+			CUSTOMER_CATEGORY,
+			CUSTOMER_CONTENT,
+			CUSTOMER_ORIGINALFILENAME,
+			CUSTOMER_RENAMEDFILENAME,
+			MEMBER_NO
+		)
+		VALUES
+		(
+			'C' || SEQ_CUSTOMER_NO.NEXTVAL,
+			#{customerTitle},
+			#{customerCategory},
+			#{customerContent},
+			#{customerOriginalFileName},
+			#{customerRenamedFileName},
+			#{memberNo}
+		)
+	</insert>
+</mapper>

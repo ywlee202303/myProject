@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Member {
 
 	// 회원번호
-	private String memberNo;
+	private int memberNo;
 	
 	// 회원아이디
 	private String memberId;

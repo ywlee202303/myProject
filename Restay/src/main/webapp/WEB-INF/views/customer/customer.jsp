@@ -24,6 +24,7 @@
 			</ul>
 		</div>
 		<div class="customer-restay-notice-list">
+			<input type="hidden" id="role" value="${ loginMember.memberRole }" />
 			<ul class="customer-restay-notice-ul">
 				<li class="customer-restay-notice-li">
 					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트1</p>
@@ -72,6 +73,7 @@
 			</ul>
 		</div>
 		<div class="customer-restay-question-list">
+			<input type="hidden" id="role" value="${ loginMember.memberRole }" />
 			<ul class="customer-restay-question-ul">
 				<li class="customer-restay-question-li">
 					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트1</p>
@@ -120,9 +122,11 @@
 				</div>
 			</form>
 		</div>
+		
 		<div class="customer-submit-btn">
 			<button onclick="location.href='${ path }/customer/write'">등록</button>
 		</div>
+		
 		<div class="customer-restay-page-number">
 			<ul class="customer-restay-page-number-ul">
 				<li><a href="#">&lt;</a></li>
@@ -140,6 +144,20 @@
 <script>
     $(document).ready(() => {
     	
+    	let role = $('#role').val();
+    	
+    	console.log(role);
+    	
+    	if(role === 'ROLE_ADMIN') {
+        	$('.customer-submit-btn').css({
+        		'display': 'block'
+        	})
+    	} else {
+    		$('.customer-submit-btn').css({
+        		'display': 'none'
+        	})
+    	}
+    	
     	// 고객센터 페이지 최초 화면
     	$('.customer-restay-board-list').css('display', 'none');
     	$('.customer-restay-question-list').css('display', 'none');
@@ -152,6 +170,8 @@
     	
     	// 공지사항 클릭
     	$('#notice-menu').click(() => {
+    		let role = $('#role').val();
+    		
     		$('.customer-restay-board-list').css('display', 'none');
         	$('.customer-restay-question-list').css('display', 'none');
         	$('.customer-restay-inquiry-list').css('display', 'none');
@@ -179,6 +199,18 @@
         		'color': 'black',
         		'font-weight': 'normal'
         	});
+        	
+        	// 관리자만 공지사항 등록 가능
+        	if(role === 'ROLE_ADMIN') {
+	        	$('.customer-submit-btn').css({
+	        		'display': 'block'
+	        	})
+        	} else {
+        		$('.customer-submit-btn').css({
+	        		'display': 'none'
+	        	})
+        	}
+        	
     	});
     	
     	// 자유게시판 메뉴 클릭
@@ -210,6 +242,10 @@
         		'color': 'black',
         		'font-weight': 'normal'
         	});
+        	
+        	$('.customer-submit-btn').css({
+        		'display': 'block'
+        	})
     	});
     	
     	// 자주 묻는 질문 메뉴 클릭
@@ -241,6 +277,21 @@
         		'color': 'black',
         		'font-weight': 'normal'
         	});
+        	
+        	$('.customer-submit-btn').css({
+        		'display': 'block'
+        	})
+        	
+        	// 관리자만 자주 묻는 질문 등록 가능
+        	if(role === 'ROLE_ADMIN') {
+	        	$('.customer-submit-btn').css({
+	        		'display': 'block'
+	        	})
+        	} else {
+        		$('.customer-submit-btn').css({
+	        		'display': 'none'
+	        	})
+        	}
     	});
     	
     	// 1:1문의 메뉴 클릭
@@ -272,6 +323,10 @@
         		'color': 'green',
         		'font-weight': 'bold'
         	});
+        	
+        	$('.customer-submit-btn').css({
+        		'display': 'none'
+        	})
     	});
     	
     	// 공지사항 내용 토글 효과
