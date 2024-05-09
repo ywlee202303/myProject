@@ -1,6 +1,7 @@
 package com.practice.restay.customer.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,32 @@ public class CustomerController {
 
 	// 고객센터 페이지
 	@GetMapping("/customer")
-	public String customer() {
+	public ModelAndView customer(ModelAndView modelAndView) {
 		
-		return "customer/Customer";
+		List<Customer> noticeList = null;
+		List<Customer> boardList = null;
+		List<Customer> questionList = null;
+		
+		// 공지사항
+		noticeList = customerService.getNoticeList();
+		
+		// 자유게시판
+		boardList = customerService.getBoardList();
+		
+		// 자주 묻는 질문
+		questionList = customerService.getQuestionList();
+		
+		log.info("공지사항 리스트 : {}", noticeList);
+		log.info("자유게시판 리스트 : {}", boardList);
+		log.info("자주 묻는 질문 리스트 : {}", questionList);
+		
+		modelAndView.addObject("noticeList", noticeList);
+		modelAndView.addObject("boardList", boardList);
+		modelAndView.addObject("questionList", questionList);
+		
+		modelAndView.setViewName("customer/Customer");
+		
+		return modelAndView;
 	}
 	
 	// 고객센터 등록 페이지(공지사항, 자유게시판, 자주묻는질문)

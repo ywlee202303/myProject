@@ -88,13 +88,13 @@ main {
 	cursor: pointer;
 }
 
-.customer-restay-notice-content,
-.customer-restay-board-content,
-.customer-restay-question-content 
-{
-	display: none;
-	padding-top: 20px;
-}
+/* .customer-restay-notice-content, */
+/* .customer-restay-board-content, */
+/* .customer-restay-question-content  */
+/* { */
+/* 	display: none; */
+/* 	padding-top: 20px; */
+/* } */
 
 .customer-restay-inquiry-list {
 	margin-top: 75px;
@@ -156,13 +156,17 @@ main {
 
 .customer-restay-page-number {
 	margin-top: 30px;
+	width: 1100px;
+    margin: auto;
 }
 
 .customer-restay-page-number-ul {
 	display: flex;
     list-style: none;
     justify-content: center;
-    gap: 20px
+    gap: 20px;
+    padding: 0;
+    margin-top: 50px;
 }
 
 .customer-restay-page-number-ul a {

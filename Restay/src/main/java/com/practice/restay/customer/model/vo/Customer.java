@@ -2,6 +2,8 @@ package com.practice.restay.customer.model.vo;
 
 import java.time.LocalDate;
 
+import com.practice.restay.member.model.vo.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,5 +45,8 @@ public class Customer {
 	
 	// 회원번호
 	private int memberNo;
+	
+	// 회원 아이디
+	private Member memberId;
 	
 }

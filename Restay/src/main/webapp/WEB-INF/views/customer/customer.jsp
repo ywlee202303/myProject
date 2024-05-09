@@ -23,80 +23,61 @@
 				<li class="customer-restay-menu-li" id="inquiry-menu">1:1문의</li>
 			</ul>
 		</div>
+		
+		<!-- 공지사항 -->
 		<div class="customer-restay-notice-list">
 			<input type="hidden" id="role" value="${ loginMember.memberRole }" />
+			<c:if test="${ empty noticeList }">
+				<div style="text-align: center;">
+					<p style="font-size: 18px;">조회된 데이터가 없습니다.</p>
+				</div>
+			</c:if>
+			
 			<ul class="customer-restay-notice-ul">
-				<li class="customer-restay-notice-li">
-					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트1</p>
-					<p class="customer-restay-notice-content">공지사항 내용 테스트1</p>
-				</li>
-				<li class="customer-restay-notice-li">
-					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트2</p>
-					<p class="customer-restay-notice-content">공지사항 내용 테스트2</p>
-				</li>
-				<li class="customer-restay-notice-li">
-					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트3</p>
-					<p class="customer-restay-notice-content">공지사항 내용 테스트3</p>
-				</li>
-				<li class="customer-restay-notice-li">
-					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트4</p>
-					<p class="customer-restay-notice-content">공지사항 내용 테스트4</p>
-				</li>
-				<li class="customer-restay-notice-li">
-					<p class="customer-restay-notice-title">[공지사항] 공지사항 테스트5</p>
-					<p class="customer-restay-notice-content">공지사항 내용 테스트5</p>
-				</li>
+				<c:forEach var="notice" items="${ noticeList }">
+					<li class="customer-restay-notice-li">
+						<p class="customer-restay-notice-title">${ notice.customerCategory } ${ notice.customerTitle }</p>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
+		
+		<!-- 자유게시판 -->
 		<div class="customer-restay-board-list">
+			<c:if test="${ empty boardList }">
+				<div style="text-align: center;">
+					<p style="font-size: 18px;">조회된 데이터가 없습니다.</p>
+				</div>
+			</c:if>
+			
 			<ul class="customer-restay-board-ul">
-				<li class="customer-restay-board-li">
-					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트1</p>
-					<p class="customer-restay-board-content">자유게시판 내용 테스트1</p>
-				</li>
-				<li class="customer-restay-board-li">
-					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트2</p>
-					<p class="customer-restay-board-content">자유게시판 내용 테스트2</p>
-				</li>
-				<li class="customer-restay-board-li">
-					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트3</p>
-					<p class="customer-restay-board-content">자유게시판 내용 테스트3</p>
-				</li>
-				<li class="customer-restay-board-li">
-					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트4</p>
-					<p class="customer-restay-board-content">자유게시판 내용 테스트4</p>
-				</li>
-				<li class="customer-restay-board-li">
-					<p class="customer-restay-board-title">[자유게시판] 자유게시판 테스트5</p>
-					<p class="customer-restay-board-content">자유게시판 내용 테스트5</p>
-				</li>
+				<c:forEach var="board" items="${ boardList }">
+					<li class="customer-restay-board-li">
+						<p class="customer-restay-board-title">${ board.customerCategory } ${ board.customerTitle }</p>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
+		
+		<!-- 자주 묻는 질문 -->
 		<div class="customer-restay-question-list">
 			<input type="hidden" id="role" value="${ loginMember.memberRole }" />
+			<c:if test="${ empty questionList }">
+				<div style="text-align: center;">
+					<p style="font-size: 18px;">조회된 데이터가 없습니다.</p>
+				</div>
+			</c:if>
+			
 			<ul class="customer-restay-question-ul">
-				<li class="customer-restay-question-li">
-					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트1</p>
-					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트1</p>
-				</li>
-				<li class="customer-restay-question-li">
-					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트2</p>
-					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트2</p>
-				</li>
-				<li class="customer-restay-question-li">
-					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트3</p>
-					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트3</p>
-				</li>
-				<li class="customer-restay-question-li">
-					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트4</p>
-					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트4</p>
-				</li>
-				<li class="customer-restay-question-li">
-					<p class="customer-restay-question-title">[자주 묻는 질문] 자주 묻는 질문 테스트5</p>
-					<p class="customer-restay-question-content">자주 묻는 질문 내용 테스트5</p>
-				</li>
+				<c:forEach var="question" items="${ questionList }">
+					<li class="customer-restay-question-li">
+						<p class="customer-restay-question-title">${ question.customerCategory } $[ question.customerTitle ]</p>
+					</li>
+				</c:forEach>
 			</ul>			
 		</div>
+		
+		<!-- 1:1 문의 -->
 		<div class="customer-restay-inquiry-list">
 			<form action="" method="post">
 				<table border="1" class="customer-restay-inquiry-table">
@@ -123,10 +104,12 @@
 			</form>
 		</div>
 		
+		<!-- 고객센터 글 작성 -->
 		<div class="customer-submit-btn">
 			<button onclick="location.href='${ path }/customer/write'">등록</button>
 		</div>
 		
+		<!-- 페이징 -->
 		<div class="customer-restay-page-number">
 			<ul class="customer-restay-page-number-ul">
 				<li><a href="#">&lt;</a></li>
@@ -330,19 +313,19 @@
     	});
     	
     	// 공지사항 내용 토글 효과
-    	$('.customer-restay-notice-title').click((e) => {
-    		$(e.target).next().toggle();
-    	});
+//     	$('.customer-restay-notice-title').click((e) => {
+//     		$(e.target).next().toggle();
+//     	});
     	
-    	// 자유게시판 내용 토글 효과
-    	$('.customer-restay-board-title').click((e) => {
-    		$(e.target).next().toggle();
-    	});
+//     	// 자유게시판 내용 토글 효과
+//     	$('.customer-restay-board-title').click((e) => {
+//     		$(e.target).next().toggle();
+//     	});
     	
-    	// 자주 묻는 질문 토글 효과
-    	$('.customer-restay-question-title').click((e) => {
-    		$(e.target).next().toggle();
-    	});
+//     	// 자주 묻는 질문 토글 효과
+//     	$('.customer-restay-question-title').click((e) => {
+//     		$(e.target).next().toggle();
+//     	});
     	
     });
 </script>

@@ -6,6 +6,86 @@
 	
 <mapper namespace="com.practice.restay.customer.model.mapper.CustomerMapper">
 
+	<!-- 쿼리 매핑 -->
+	<resultMap id="customerResultMap" type="Customer">
+		<id property="customerNo" column="CUSTOMER_NO"/>
+		<result property="customerTitle" column="CUSTOMER_TITLE" />
+		<result property="customerCategory" column="CUSTOMER_CATEGORY" />
+		<result property="customerEnrollDate" column="CUSTOMER_ENROLLDATE" />
+		<result property="customerModifyDate" column="CUSTOMER_MODIFYDATE" />
+		<result property="customerContent" column="CUSTOMER_CONTENT" />
+		<result property="customerOriginalFileName" column="CUSTOMER_ORIGINALFILENAME" />
+		<result property="customerRenamedFileName" column="CUSTOMER_RENAMEDFILENAME" />
+		<result property="customerCount" column="CUSTOMER_COUNT" />
+		<result property="customerStatus" column="CUSTOMER_STATUS" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<association property="memberId" javaType="Member" 
+			columnPrefix="M_" resultMap="com.practice.restay.member.model.mapper.MemberMapper.memberResultMap"/>
+	</resultMap>
+	
+	<!-- 고객센터(공지사항 리스트) -->
+	<select id="selectNoticeList" resultMap="customerResultMap">
+		SELECT C.CUSTOMER_NO,
+		       C.CUSTOMER_TITLE,
+		       C.CUSTOMER_CATEGORY,
+		       C.CUSTOMER_ENROLLDATE,
+		       C.CUSTOMER_MODIFYDATE,
+		       C.CUSTOMER_CONTENT,
+		       C.CUSTOMER_ORIGINALFILENAME,
+		       C.CUSTOMER_RENAMEDFILENAME,
+		       C.CUSTOMER_COUNT,
+		       C.CUSTOMER_STATUS,
+		       C.MEMBER_NO,
+		       M.MEMBER_ID AS M_MEMBER_ID
+		FROM CUSTOMER C
+		LEFT OUTER JOIN MEMBER M ON (C.MEMBER_NO = M.MEMBER_NO)
+		WHERE CUSTOMER_STATUS = 'Y' 
+		  AND CUSTOMER_CATEGORY = '[공지사항]'
+		ORDER BY CUSTOMER_ENROLLDATE DESC
+	</select>
+	
+	<!-- 고객센터(자유게시판 리스트) -->
+	<select id="selectBoardList" resultMap="customerResultMap">
+		SELECT C.CUSTOMER_NO,
+		       C.CUSTOMER_TITLE,
+		       C.CUSTOMER_CATEGORY,
+		       C.CUSTOMER_ENROLLDATE,
+		       C.CUSTOMER_MODIFYDATE,
+		       C.CUSTOMER_CONTENT,
+		       C.CUSTOMER_ORIGINALFILENAME,
+		       C.CUSTOMER_RENAMEDFILENAME,
+		       C.CUSTOMER_COUNT,
+		       C.CUSTOMER_STATUS,
+		       C.MEMBER_NO,
+		       M.MEMBER_ID
+		FROM CUSTOMER C
+		LEFT OUTER JOIN MEMBER M ON (C.MEMBER_NO = M.MEMBER_NO)
+		WHERE CUSTOMER_STATUS = 'Y' 
+		  AND CUSTOMER_CATEGORY = '[자유게시판]'
+		ORDER BY CUSTOMER_ENROLLDATE DESC
+	</select>
+	
+	<!-- 고객센터(자주 묻는 질문 리스트) -->
+	<select id="selectQuestionList" resultMap="customerResultMap">
+		SELECT C.CUSTOMER_NO,
+		       C.CUSTOMER_TITLE,
+		       C.CUSTOMER_CATEGORY,
+		       C.CUSTOMER_ENROLLDATE,
+		       C.CUSTOMER_MODIFYDATE,
+		       C.CUSTOMER_CONTENT,
+		       C.CUSTOMER_ORIGINALFILENAME,
+		       C.CUSTOMER_RENAMEDFILENAME,
+		       C.CUSTOMER_COUNT,
+		       C.CUSTOMER_STATUS,
+		       C.MEMBER_NO,
+		       M.MEMBER_ID
+		FROM CUSTOMER C
+		LEFT OUTER JOIN MEMBER M ON (C.MEMBER_NO = M.MEMBER_NO)
+		WHERE CUSTOMER_STATUS = 'Y' 
+		  AND CUSTOMER_CATEGORY = '[자주 묻는 질문]'
+		ORDER BY CUSTOMER_ENROLLDATE DESC
+	</select>
+
 	<!-- 고객센터 글 등록 -->
 	<insert id="insertCustomerInfo" keyProperty="customerNo" keyColumn="CUSTOMER_NO">
 		INSERT INTO CUSTOMER
