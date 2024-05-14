@@ -61,7 +61,6 @@ public class FindStayController {
 		
 		System.out.println("테스트 : " + houseCode);
 		
-		log.info("HouseList Count : {}", listCount);
 		log.info("Only House List : {}", onlyHouseList);
 		log.info("House List : {}", houseList);
 		log.info("HouseImage List : {}", houseImageList);

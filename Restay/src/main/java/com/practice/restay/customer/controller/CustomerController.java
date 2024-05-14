@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.practice.restay.common.util.MultipartFileUtil;
+import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.customer.model.service.CustomerService;
 import com.practice.restay.customer.model.vo.Customer;
 import com.practice.restay.member.model.vo.Member;
@@ -30,30 +31,51 @@ public class CustomerController {
 
 	// 고객센터 페이지
 	@GetMapping("/customer")
-	public ModelAndView customer(ModelAndView modelAndView) {
+	public ModelAndView customer(
+			ModelAndView modelAndView,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "notice") String menu
+		) {
 		
-		List<Customer> noticeList = null;
-		List<Customer> boardList = null;
-		List<Customer> questionList = null;
+		System.out.println("메뉴 : " + menu);
 		
-		// 공지사항
-		noticeList = customerService.getNoticeList();
+		PageInfo pageInfo = null;
 		
-		// 자유게시판
-		boardList = customerService.getBoardList();
+		List<Customer> customerList = null;
 		
-		// 자주 묻는 질문
-		questionList = customerService.getQuestionList();
+		int customerCount = 0;
+			
+		customerCount = customerService.getCustomerCount(menu);
 		
-		log.info("공지사항 리스트 : {}", noticeList);
-		log.info("자유게시판 리스트 : {}", boardList);
-		log.info("자주 묻는 질문 리스트 : {}", questionList);
+		System.out.println("카운트  :" + customerCount);
 		
-		modelAndView.addObject("noticeList", noticeList);
-		modelAndView.addObject("boardList", boardList);
-		modelAndView.addObject("questionList", questionList);
+		pageInfo = new PageInfo(page, 5, customerCount, 10);
+		
+		customerList = customerService.getCustomerList(pageInfo, menu);
+		
+		System.out.println("수정 공지 : " + customerList);
+		
+		modelAndView.addObject("pageInfo", pageInfo);
+		modelAndView.addObject("menu", menu);
+		modelAndView.addObject("customerList", customerList);
 		
 		modelAndView.setViewName("customer/Customer");
+		
+		return modelAndView;
+	}
+	
+	// 고객센터(1:1문의 페이지)
+	@GetMapping("/customer/inquiry")
+	public String inquiry() {
+		
+		return "customer/inquiry";
+	}
+	
+	@PostMapping("/customer/inquiry")
+	public ModelAndView inquiry(ModelAndView modelAndView) {
+		
+		modelAndView.addObject("msg", "테스트");
+		modelAndView.setViewName("common/msg");
 		
 		return modelAndView;
 	}

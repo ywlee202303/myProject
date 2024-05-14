@@ -36,8 +36,6 @@ public class TravelApiClient {
 		urlBuilder.append("&contentTypeId=").append(25);
 		urlBuilder.append("&cat1=").append("C01");
 		
-		log.info("Request URL : {}", urlBuilder.toString());
-		
 		return restTemplate.getForObject(new URI(urlBuilder.toString()), TravelResponse.class);
 	}
 	

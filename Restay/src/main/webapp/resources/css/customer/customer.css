@@ -47,54 +47,32 @@ main {
 	border-right: 1px solid lightgray;
 }
 
-.customer-restay-notice-list,
-.customer-restay-board-list,
-.customer-restay-question-list,
+.customer-restay-customer-list,
 .customer-restay-inquiry-list
 {
 	width: 1100px;
 	margin: auto;
 }
 
-.customer-restay-notice-ul,
-.customer-restay-board-ul,
-.customer-restay-question-ul
+.customer-restay-customer-ul
 {
 	list-style: none;
     padding-left: 5px;
     font-size: 16px;
 }
 
-.customer-restay-notice-li,
-.customer-restay-board-li,
-.customer-restay-question-li
+.customer-restay-customer-li
 {
 	border-bottom: 1px solid lightgray;
 	padding-top: 20px;
     padding-bottom: 20px;
 }
 
-.customer-restay-notice-li p,
-.customer-restay-board-li p,
-.customer-restay-question-li p
+.customer-restay-customer-title
 {
 	margin: 0;
-}
-
-.customer-restay-notice-title,
-.customer-restay-board-title,
-.customer-restay-question-title
-{
 	cursor: pointer;
 }
-
-/* .customer-restay-notice-content, */
-/* .customer-restay-board-content, */
-/* .customer-restay-question-content  */
-/* { */
-/* 	display: none; */
-/* 	padding-top: 20px; */
-/* } */
 
 .customer-restay-inquiry-list {
 	margin-top: 75px;

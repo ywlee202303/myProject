@@ -72,8 +72,6 @@ public class TravelResponse {
 			travelItems.add(travelItem);
 		}
 		
-//		System.out.println("TravelItems : " + travelItems);
-		
 	}
 	
 }
