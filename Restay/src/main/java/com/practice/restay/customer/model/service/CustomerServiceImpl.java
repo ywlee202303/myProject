@@ -18,14 +18,21 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	private final CustomerMapper customerMapper;
 	
-	// 고객센터 (공지사항, 자유게시판, 자주 묻는 질문 카운트)
+	// 고객센터(공지사항, 자유게시판, 자주 묻는 질문 카운트)
 	@Override
 	public int getCustomerCount(String menu) {
 		
 		return customerMapper.selectCustomerCount(menu);
 	}
 	
-	// 고객센터(공지사항 리스트)
+	// 고객센터(1:1문의 카운트)
+	@Override
+	public int getCustomerInquiryCount() {
+		
+		return customerMapper.selectCustomerInquiryCount();
+	}
+	
+	// 고객센터(공지사항, 자유게시판, 자주 묻는 질문 리스트)
 	@Override
 	public List<Customer> getCustomerList(PageInfo pageInfo, String menu) {
 		
@@ -35,6 +42,25 @@ public class CustomerServiceImpl implements CustomerService {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return customerMapper.selectCustomerList(rowBounds, menu);
+	}
+	
+	// 고객센터(1:1문의)
+	@Override
+	public List<Customer> getCustomerInquiryList(PageInfo pageInfo) {
+		
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return customerMapper.selectCustomerInquiryList(rowBounds);
+	}
+	
+	// 고객센터(상세 조회)
+	@Override
+	public Customer detailCustomer(String customerNo) {
+		
+		return customerMapper.selectDetailCustomer(customerNo);
 	}
 
 	// 고객센터 글 등록/수정
@@ -49,6 +75,23 @@ public class CustomerServiceImpl implements CustomerService {
 		} else {
 			// insert
 			result = customerMapper.insertCustomerInfo(customer);
+		}
+		
+		return result;
+	}
+
+	// 고객센터 1:1문의 등록/수정
+	@Override
+	@Transactional
+	public int saveInquiry(Customer customer) {
+		
+		int result = 0;
+		
+		if(customer.getCustomerNo() != null) {
+			// update
+		} else {
+			// insert
+			result = customerMapper.insertCustomerInquiryInfo(customer);
 		}
 		
 		return result;

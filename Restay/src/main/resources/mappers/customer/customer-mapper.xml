@@ -37,11 +37,11 @@
 		<result property="customerCount" column="CUSTOMER_COUNT" />
 		<result property="customerStatus" column="CUSTOMER_STATUS" />
 		<result property="memberNo" column="MEMBER_NO" />
-		<association property="memberId" javaType="Member" 
+		<association property="member" javaType="Member" 
 			columnPrefix="M_" resultMap="com.practice.restay.member.model.mapper.MemberMapper.memberResultMap"/>
 	</resultMap>
 	
-	<!-- 고객센터 (공지사항, 자유게시판, 자주 묻는 질문 카운트)  -->
+	<!-- 고객센터(공지사항, 자유게시판, 자주 묻는 질문 카운트)  -->
 	<select id="selectCustomerCount">
 		SELECT COUNT(*)
 		FROM CUSTOMER
@@ -59,7 +59,15 @@
 		</choose>
 	</select>
 	
-	<!-- 고객센터(공지사항 리스트) -->
+	<!-- 고객센터(1:1문의 카운트) -->
+	<select id="selectCustomerInquiryCount">
+		SELECT COUNT(*)
+		FROM CUSTOMER
+		WHERE CUSTOMER_STATUS = 'Y'
+		  AND CUSTOMER_CATEGORY = '[1:1문의]'
+	</select>
+	
+	<!-- 고객센터(공지사항, 자유게시판, 자주 묻는 질문 리스트) -->
 	<select id="selectCustomerList" resultMap="customerResultMap">
 		<include refid="selectCustomerAndMemberId" />
 		WHERE CUSTOMER_STATUS = 'Y'
@@ -75,6 +83,21 @@
 			</when>
 		</choose>
 		ORDER BY CUSTOMER_ENROLLDATE DESC
+	</select>
+	
+	<!-- 고객센터(1:1문의) -->
+	<select id="selectCustomerInquiryList" resultMap="customerResultMap">
+		<include refid="selectCustomerAndMemberId" />
+		WHERE CUSTOMER_STATUS = 'Y'
+		  AND CUSTOMER_CATEGORY = '[1:1문의]'
+		ORDER BY CUSTOMER_ENROLLDATE DESC
+	</select>
+	
+	<!-- 고객센터 상세 조회(공지사항, 자유게시판, 자주 묻는 질문) -->
+	<select id="selectDetailCustomer" resultMap="customerResultMap" parameterType="string">
+		<include refid="selectCustomerAndMemberId" />
+		WHERE CUSTOMER_STATUS = 'Y'
+		  AND CUSTOMER_NO = #{customerNo}
 	</select>
 
 	<!-- 고객센터 글 등록 -->
@@ -97,6 +120,26 @@
 			#{customerContent},
 			#{customerOriginalFileName},
 			#{customerRenamedFileName},
+			#{memberNo}
+		)
+	</insert>
+	
+	<!-- 고객센터 1:1문의 등록 -->
+	<insert id="insertCustomerInquiryInfo" keyProperty="customerNo" keyColumn="CUSTOMER_NO">
+		INSERT INTO CUSTOMER
+		(
+			CUSTOMER_NO,
+			CUSTOMER_TITLE,
+			CUSTOMER_CATEGORY,
+			CUSTOMER_CONTENT,
+			MEMBER_NO
+		)
+		VALUES
+		(
+			'C' || SEQ_CUSTOMER_NO.NEXTVAL,
+			#{customerTitle},
+			#{customerCategory},
+			#{customerContent},
 			#{memberNo}
 		)
 	</insert>

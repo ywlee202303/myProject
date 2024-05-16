@@ -13,7 +13,16 @@ public interface CustomerMapper {
 	
 	int selectCustomerCount(@Param("menu") String menu);
 	
+	int selectCustomerInquiryCount();
+	
 	List<Customer> selectCustomerList(RowBounds rowBounds, @Param("menu") String menu);
 	
+	List<Customer> selectCustomerInquiryList(RowBounds rowBounds);
+	
+	Customer selectDetailCustomer(@Param("customerNo") String customerNo);
+	
 	int insertCustomerInfo(Customer customer);
+	
+	int insertCustomerInquiryInfo(Customer customer);
+	
 }

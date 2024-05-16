@@ -1,7 +1,6 @@
 package com.practice.restay.customer.model.vo;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import com.practice.restay.member.model.vo.Member;
 
@@ -24,10 +23,10 @@ public class Customer {
 	private String customerCategory;
 	
 	// 등록일
-	private Date customerEnrollDate;
+	private LocalDate customerEnrollDate;
 	
 	// 수정일
-	private Date customerModifyDate;
+	private LocalDate customerModifyDate;
 	
 	// 고객센터 내용
 	private String customerContent;
@@ -47,7 +46,7 @@ public class Customer {
 	// 회원번호
 	private int memberNo;
 	
-	// 회원 아이디
-	private Member memberId;
+	// 회원
+	private Member member;
 	
 }

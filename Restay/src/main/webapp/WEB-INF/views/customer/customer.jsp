@@ -47,7 +47,9 @@
 			<ul class="customer-restay-customer-ul">
 				<c:forEach var="customer" items="${ customerList }">
 					<li class="customer-restay-customer-li">
-						<p class="customer-restay-customer-title">${ customer.customerCategory } ${ customer.customerTitle }</p>
+						<p class="customer-restay-customer-title" onclick="location.href='${ path }/customer/${ customer.customerNo }'">
+							${ customer.customerCategory } ${ customer.customerTitle }
+						</p>
 					</li>
 				</c:forEach>
 			</ul>
@@ -141,7 +143,7 @@
     	console.log('메뉴 : ' + menu);
     	
     	if(menu === 'notice' || menu === 'question') {
-    		if(role === 'ROLE_USER') {
+    		if(role === 'ROLE_USER' || role === '') {
     			$(".customer-submit-btn").css({
     				'display': 'none'
     			});
