@@ -24,7 +24,7 @@
 		LEFT OUTER JOIN MEMBER M ON (C.MEMBER_NO = M.MEMBER_NO)
 	</sql>	
 
-	<!-- 쿼리 매핑 -->
+	<!-- 쿼리 매핑(Customer) -->
 	<resultMap id="customerResultMap" type="Customer">
 		<id property="customerNo" column="CUSTOMER_NO"/>
 		<result property="customerTitle" column="CUSTOMER_TITLE" />
@@ -39,6 +39,18 @@
 		<result property="memberNo" column="MEMBER_NO" />
 		<association property="member" javaType="Member" 
 			columnPrefix="M_" resultMap="com.practice.restay.member.model.mapper.MemberMapper.memberResultMap"/>
+	</resultMap>
+	
+	<!-- 쿼리 매핑(Reply) -->
+	<resultMap id="replyResultMap" type="Reply">
+		<id property="replyNo" column="REPLY_NO" />
+		<result property="customerNo" column="CUSTOMER_NO" />
+		<result property="writerNo" column="WRITER_NO" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="replyStatus" column="REPLY_STATUS" />
+		<result property="replyCreateDate" column="REPLY_CREATEDATE" />
+		<result property="replyModifyDate" column="REPLY_MODIFYDATE" />
+		<result property="writerId" column="WRITER_ID" />
 	</resultMap>
 	
 	<!-- 고객센터(공지사항, 자유게시판, 자주 묻는 질문 카운트)  -->
@@ -65,6 +77,14 @@
 		FROM CUSTOMER
 		WHERE CUSTOMER_STATUS = 'Y'
 		  AND CUSTOMER_CATEGORY = '[1:1문의]'
+	</select>
+	
+	<!-- 댓글 카운트 -->
+	<select id="selectReplyCount" parameterType="string">
+		SELECT COUNT(*)
+		FROM REPLY
+		WHERE REPLY_STATUS = 'Y'
+		  AND CUSTOMER_NO = #{customerNo}
 	</select>
 	
 	<!-- 고객센터(공지사항, 자유게시판, 자주 묻는 질문 리스트) -->
@@ -98,6 +118,23 @@
 		<include refid="selectCustomerAndMemberId" />
 		WHERE CUSTOMER_STATUS = 'Y'
 		  AND CUSTOMER_NO = #{customerNo}
+	</select>
+	
+	<!-- 댓글 조회 -->
+	<select id="selectReplyList" resultMap="replyResultMap" parameterType="string">
+		SELECT R.REPLY_NO,
+		       R.CUSTOMER_NO,
+		       R.WRITER_NO,
+		       R.REPLY_CONTENT,
+		       R.REPLY_STATUS,
+		       R.REPLY_CREATEDATE,
+		       R.REPLY_MODIFYDATE,
+		       M.MEMBER_ID AS WRITER_ID
+		FROM REPLY R
+		LEFT OUTER JOIN MEMBER M ON (R.WRITER_NO = M.MEMBER_NO)
+		WHERE REPLY_STATUS = 'Y'
+		  AND CUSTOMER_NO = #{customerNo}
+		ORDER BY REPLY_CREATEDATE DESC
 	</select>
 
 	<!-- 고객센터 글 등록 -->
@@ -143,4 +180,29 @@
 			#{memberNo}
 		)
 	</insert>
+	
+	<!-- 댓글 등록 -->
+	<insert id="insertReply" keyProperty="replyNo" keyColumn="REPLY_NO">
+		INSERT INTO REPLY
+		(
+			REPLY_NO,
+			CUSTOMER_NO,
+			WRITER_NO,
+			REPLY_CONTENT
+		)
+		VALUES
+		(
+			'R' || SEQ_REPLY_NO.NEXTVAL,
+			#{customerNo},
+			#{writerNo},
+			#{replyContent}
+		)
+	</insert>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="updateCustomerCount" parameterType="map">
+		UPDATE CUSTOMER
+		SET CUSTOMER_COUNT = #{viewCount}
+		WHERE CUSTOMER_NO = #{customerNo}
+	</update>
 </mapper>

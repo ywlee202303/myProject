@@ -18,6 +18,7 @@ table {
 	font-size: 16px;
     border-collapse: collapse;
     width: 1100px;
+    border-color: lightgray;
 }
 
 th {
@@ -49,5 +50,57 @@ th, td {
     color: white;
     border: none;
     font-size: 14px;
+    cursor: pointer;
+}
+
+.customer-comment-list {
+	margin-top: 50px;
+	margin-bottom: 60px;
+	border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+}
+
+.customer-comment-title {
+	font-size: 20px;
+	font-weight: 500;
+	border-bottom: 1px solid lightgray;
+	padding-bottom: 15px;
+}
+
+.customer-comment-writer {
+	padding-top: 20px;
+}
+
+.customer-comment-content {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: 300;
+}
+
+.customer-comment-paging-ul {
+	display: flex;
+    list-style: none;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+}
+
+.customer-comment-paging-ul a {
+	text-decoration: none;
+	color: black;
+}
+
+.write-btn {
+	float: right;
+}
+
+.write-btn > button {
+	width: 80px;
+    height: 80px;
+    background-color: rgb(11 86 26 / 63%);
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: 300;
     cursor: pointer;
 }

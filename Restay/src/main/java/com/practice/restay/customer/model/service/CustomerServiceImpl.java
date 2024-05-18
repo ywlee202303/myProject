@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.customer.model.mapper.CustomerMapper;
 import com.practice.restay.customer.model.vo.Customer;
+import com.practice.restay.customer.model.vo.Reply;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +31,13 @@ public class CustomerServiceImpl implements CustomerService {
 	public int getCustomerInquiryCount() {
 		
 		return customerMapper.selectCustomerInquiryCount();
+	}
+	
+	// 댓글 카운트
+	@Override
+	public int replyCount(String customerNo) {
+		
+		return customerMapper.selectReplyCount(customerNo);
 	}
 	
 	// 고객센터(공지사항, 자유게시판, 자주 묻는 질문 리스트)
@@ -62,6 +70,18 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return customerMapper.selectDetailCustomer(customerNo);
 	}
+	
+	// 댓글 조회
+	@Override
+	public List<Reply> getReplyList(String customerNo, PageInfo pageInfo) {
+		
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return customerMapper.selectReplyList(customerNo, rowBounds);
+	}
 
 	// 고객센터 글 등록/수정
 	@Override
@@ -92,6 +112,30 @@ public class CustomerServiceImpl implements CustomerService {
 		} else {
 			// insert
 			result = customerMapper.insertCustomerInquiryInfo(customer);
+		}
+		
+		return result;
+	}
+
+	// 조회수 업데이트
+	@Override
+	@Transactional
+	public int updateCustomerCount(String customerNo, int viewCount) {
+		
+		return customerMapper.updateCustomerCount(customerNo, viewCount);
+	}
+
+	// 댓글 등록/수정
+	@Override
+	public int saveReply(Reply reply) {
+		
+		int result = 0;
+		
+		if(reply.getReplyNo() != null) {
+			// update
+		} else {
+			// insert
+			result = customerMapper.insertReply(reply);
 		}
 		
 		return result;

@@ -5,6 +5,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +30,7 @@ import com.practice.restay.common.util.MultipartFileUtil;
 import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.customer.model.service.CustomerService;
 import com.practice.restay.customer.model.vo.Customer;
+import com.practice.restay.customer.model.vo.Reply;
 import com.practice.restay.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -139,18 +145,73 @@ public class CustomerController {
 	@GetMapping("/customer/{customerNo}")
 	public ModelAndView customerDetail(
 			ModelAndView modelAndView,
-			@PathVariable String customerNo
+			@PathVariable String customerNo,
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(defaultValue = "1") int page
 		) {
 		
+		PageInfo pageInfo = null;
 		Customer customer = null;
+		// 로그인 회원 정보 요청
+		HttpSession session = request.getSession();
+		Member loginMember = (Member) session.getAttribute("loginMember");
+		// 클라이언트에서 가져온 쿠키정보들
+		Cookie[] cookies = request.getCookies();
+		// 쿠키에 저장할 객체
+		Cookie cookie = null;
+		// 클라이언트 접근 유저 ip
+		String ipAddr = request.getRemoteAddr();
+		boolean cookieCheck = false;
 		
+		// 조회수 카운트 전
 		customer = customerService.detailCustomer(customerNo);
 		
-		// 조회수 카운트 구현 예정..
+		// cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
+		for (Cookie c : cookies) {
+			if(customerNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
+				cookieCheck = true;
+			}
+		}
+		
+		// 중복되지 않으면 cookie에 저장 후 조회수 카운트
+		if(!cookieCheck) {
+			cookie = new Cookie(customerNo, ipAddr);
+			
+			// 하루 지나면 쿠키 리셋
+			cookie.setMaxAge(3600);
+			
+			int viewCount = customer.getCustomerCount();
+			
+			// 관리자는 조회수 카운트X
+			if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+				viewCount++;
+				
+				// 조회수 업데이트
+				customerService.updateCustomerCount(customerNo, viewCount);
+			}
+			
+			response.addCookie(cookie);
+		}
+		
+		// 조회수 카운트 후
+		customer = customerService.detailCustomer(customerNo);
+		
+		int replyCount = customerService.replyCount(customerNo);
+		
+		System.out.println("댓글 수 : " + replyCount);
+		
+		pageInfo = new PageInfo(page, 5, replyCount, 10);
+		
+		// 댓글 조회
+		List<Reply> replies = customerService.getReplyList(customerNo, pageInfo);
 		
 		System.out.println("Customer : " + customer);
+		System.out.println("Reply : " + replies);
 		
+		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("customer", customer);
+		modelAndView.addObject("replyList", replies);
 		modelAndView.setViewName("customer/Detail");
 		
 		return modelAndView;
@@ -231,6 +292,41 @@ public class CustomerController {
 		return modelAndView;
 	}
 	
+	// 댓글 등록
+	@PostMapping("/customer/{customerNo}/reply")
+	public ModelAndView comment(
+			ModelAndView modelAndView,
+			@PathVariable("customerNo") String customerNo,
+			Reply reply,
+			@SessionAttribute("loginMember") Member loginMember
+	) {
+		
+		int result = 0;
+		
+		// 댓글 정보 댓글 객체에 저장
+		reply.setCustomerNo(customerNo);
+		reply.setWriterNo(loginMember.getMemberNo());
+		reply.setWriterId(loginMember.getMemberId());
+		
+		System.out.println("reply : " + reply);
+		
+		result = customerService.saveReply(reply);
+		
+		if(result > 0) {
+			// 등록 성공
+			modelAndView.addObject("msg", "댓글 등록 성공");
+			modelAndView.addObject("location", "/customer/" + customerNo);
+		} else {
+			// 등록 실패
+			modelAndView.addObject("msg", "댓글 등록 성공");
+			modelAndView.addObject("location", "/customer/" + customerNo);
+		}
+		
+		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
 	// 파일 다운로드
 	@GetMapping("/customer/fileDown")
 	public ResponseEntity<Resource> fileDown(
@@ -239,7 +335,15 @@ public class CustomerController {
 			@RequestHeader("user-agent") String userAgent
 	) {
 		
-		// userAgent: 브라우저별 인코딩 처리하기 위한 매개변수
+		/*
+		 * 1. 메서드 어노테이션 및 파라미터
+		 * - @GetMapping("/customer/fileDown"): HTTP GET 요청을 "/customer/fileDown" 경로로 받음
+		 * - @RequestParam("oname"): 요청 파라미터 "oname"을 받아옴
+		 * - @RequestParam("rname"): 요청 파라미터 "rname"을 받아옴
+		 * - @RequestHeader("user-agent"): 요청 헤더의 "user-agent" 값을 받아옴
+		 *   => userAgent: 브라우저별 인코딩 처리하기 위한 매개변수
+		 */
+		
 		
 		Resource resource = null;
 		String downName = null;
@@ -249,24 +353,44 @@ public class CustomerController {
 		System.out.println("user-agent : " + userAgent);
 		
 		try {
-			// 1. 클라이언트로 전송할 파일을 가져온다.
+			/*
+			 * 2. 파일 가져오기
+			 * - resource = resourceLoader.getResource("resources/upload/customer/" + rname)
+			 *   => 서버에 저장된 파일을 가져옴 
+			 */
 			resource = resourceLoader.getResource("resources/upload/customer/" + rname);
 			
-			// 2. 브라우저별 인코딩
+			/*
+			 * 3. 브라우저별 인코딩 처리
+			 * - 브라우저 IE인지 그 외 브라우저인지 확인
+			 */
 			boolean isMISE = userAgent.indexOf("MSIE") != -1 || userAgent.indexOf("Trident") != -1;
 			
 			if(isMISE) {
+				// IE의 경우 URLEncoder.encode를 사용
 				downName = URLEncoder.encode(oname, "UTF-8").replaceAll("\\+", "%20");
 			} else {
+				// 그 외 브라우저의 경우 ISO-8859-1로 인코딩
 				downName = new String(oname.getBytes("UTF-8"), "ISO-8859-1");
 			}
 			
-			// 3. 응답 메시지 작성 & 클라이언트로 출력(전송)
+			/*
+			 * 4. 응답 메시지 작성 및 파일 전송
+			 * - ResponseEntity.ok()를 사용해 응답을 생성
+			 * - HttpHeaders.CONTENT_TYPE을 MediaType.APPLICATION_OCTET_STREAM_VALUE로 설정해 바이너리 데이터로 전송
+			 * - HttpHeaders.CONTENT_DISPOSITION을 설정해 파일을 첨부 파일로 다운로드하도록 설정
+			 * - body(resource)로 파일 데이터를 응답 본문에 담아 전송
+			 */
 			return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + downName).body(resource);
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+			/*
+			 * 5. 에러 처리
+			 * - 인코딩 중 UnsupportedEncodingException이 발생하면 스택 트레이스를 출력하고
+			 *   HTTP 500(내부 서버 오류) 상태코드를 반환
+			 */
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 에러가 발생하면 500에러(내부 서버 에러) 응답
 		}
 	}
