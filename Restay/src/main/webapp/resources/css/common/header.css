@@ -21,7 +21,7 @@ body {
 }
 
 .wrap {
-    /* position 속성 추가 */
+    /* position �냽�꽦 異붽� */
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -109,7 +109,7 @@ body {
 }
 
 .main-login-wrap {
-    /* margin-left 20px -> 10px 수정 */
+    /* margin-left 20px -> 10px �닔�젙 */
     clear: both;
 }
 
@@ -180,7 +180,7 @@ body {
     color: #d3d3d3;
 }
 
-/* 모달 */
+/* 紐⑤떖 */
 .modal-wrap {
     margin: auto;
     width: 1440px;
@@ -194,10 +194,10 @@ body {
 
 .modal {
     margin: auto;
-    /* margin-top: 10px; */
     width: 1200px;
-    height: 991px;
     background-color: #FFFFFF;
+    border-radius: 30px;
+    height: 770px;
 }
 
 .modal-title {
@@ -262,9 +262,8 @@ body {
     margin: auto;
     margin-top: 75px;
     padding-left: 58px;
-    /* margin-left: 58px; */
     width: 1160px;
-    height: 400px;
+    height: 220px;
     border-bottom: 1px solid #d3d3d3;
     box-sizing: border-box;
 }
@@ -272,65 +271,63 @@ body {
 .modal-location {
     width: 564px;
     height: 212px;
-    /* border: 1px solid; */
     box-sizing: border-box;
     float: left;
 }
 
 .modal-location ul {
-    width: 564px;
-    height: 100px;
-    margin: 0;
-    padding: 0;
+    column-gap: 16px;
     list-style: none;
-    display: flex;
-    /* flex-direction: row; */
     flex-wrap: wrap;
-    /* gap: 65px; */
+    display: flex;
+    row-gap: 12px;
 }
 
-.modal-location li {
-    height: 20px;
-    padding-right: 50px;
-    /* padding-bottom: 10px; */
-    margin-bottom: 20px;
+.modal-location li:hover {
+    cursor: pointer;
 }
 
-.modal-location a {
+.modal-location button{
+    border:none;
+}
+.modal-location .item {
+    background-color: white;
+    align-items: center;
+    line-height: 24px;
+    font-weight: 400;
     font-size: 16px;
-    color: black;
-    text-decoration: none;
+    padding: 0 16px;
+    display: flex;
+    height: 36px;
+    color: #666;
 }
 
-.modal-location a:hover {
-    background-color: black;
-    color: white;
-    /* 
-    border: 1px solid;
-    */
+.modal-location .item.selected {
+    background-color: #333;
     border-radius: 20px;
-    padding: 10px;
-    font-weight: bold;
-    box-shadow: 6px 7px 15px 0 rgba(0,0,0,.3);
+    color: white;
+}
+.modal-location .item:hover {
+    background-color: #333;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
 }
 
 .modal-brand {
     margin-left: 20px;
     width: 487px;
     height: 212px;
-    /* border: 1px solid; */
     box-sizing: border-box;
     float: left;
 }
 
 .modal-brand ul {
-    width: 564px;
-    height: 100px;
-    margin: 0;
-    padding: 0;
     list-style: none;
-    display: flex;
+    column-gap: 16px;
     flex-wrap: wrap;
+    display: flex;
+    row-gap: 12px;
 }
 
 .modal-brand li {
@@ -338,21 +335,34 @@ body {
     padding-right: 55px;
     margin-bottom: 20px;
 }
-
-.modal-brand a {
+.modal-brand li:hover {
+    cursor:pointer;
+}
+.modal-brand button{
+    border:none;
+}
+.modal-brand .item {
+    background-color: white;
+    align-items: center;
+    line-height: 24px;
+    font-weight: 400;
     font-size: 16px;
-    color: black;
-    text-decoration: none;
+    padding: 0 16px;
+    display: flex;
+    color: #666;
+    height: 36px;
 }
 
-.modal-brand a:hover {
-    background-color: black;
-    color: white;
-    border: 1px solid;
+.modal-brand .item.selected {
+    background-color: #333;
     border-radius: 20px;
-    padding: 10px;
-    font-weight: bold;
-    box-shadow: 6px 7px 15px 0 rgba(0,0,0,.3);
+    color: white;
+}
+.modal-brand .item:hover {
+    background-color: #333;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
 }
 
 .modal-btn-img {
@@ -391,11 +401,11 @@ body {
 }
 
 .modal-2 {
-    margin: auto;
-    /* margin-top: 10px; */
-    width: 1200px;
-    height: 806px;
     background-color: #FFFFFF;
+    border-radius: 30px;
+    width: 1200px;
+    height: 770px;
+    margin: auto;
 }
 
 .modal-when-title {

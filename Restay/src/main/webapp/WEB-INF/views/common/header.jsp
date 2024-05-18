@@ -86,10 +86,10 @@
 						class="modal-close">
 				</div>
 				<div class="modal-search">
-					<form action="" method="">
+					<form id="formSearch" action="${ path }/findstay" method="GET">
 						<div class="modal-search-where">
-							<img src="${ path }/img/search2.png" alt="" /> <input
-								type="text" name="" id="input-search"
+							<img src="${ path }/img/search2.png" alt="" />
+							<input type="text" name="inputSearch" id="input-search"
 								placeholder="원하는 스테이 혹은 지역을 검색해 보세요." />
 						</div>
 						<div class="modal-locabrand">
@@ -97,37 +97,33 @@
 								<div
 									style="font-size: 22px; margin-bottom: 20px; font-weight: bold;">국내</div>
 								<ul>
-									<li><a href="#">국내 전체</a></li>
-									<li><a href="#">제주</a></li>
-									<li><a href="#">서울</a></li>
-									<li><a href="#">강원</a></li>
-									<li><a href="#">부산</a></li>
-									<li><a href="#">경기</a></li>
-									<li><a href="#">충청</a></li>
-									<li><a href="#">경상</a></li>
-									<li><a href="#">전라</a></li>
-									<li><a href="#">인천</a></li>
-									<li><a href="#">광주</a></li>
-									<li><a href="#">대전</a></li>
-									<li><a href="#">대구</a></li>
-									<li><a href="#">부산</a></li>
+									<li><button type="button" class="item">전체</button></li>
+									<li><button type="button" class="item">제주</button></li>
+									<li><button type="button" class="item">서울</button></li>
+									<li><button type="button" class="item">강원</button></li>
+									<li><button type="button" class="item">부산</button></li>
+									<li><button type="button" class="item">경기</button></li>
+									<li><button type="button" class="item">충청</button></li>
+									<li><button type="button" class="item">경상</button></li>
+									<li><button type="button" class="item">전라</button></li>
+									<li><button type="button" class="item">인천</button></li>
+									<li><button type="button" class="item">광주</button></li>
+									<li><button type="button" class="item">대전</button></li>
+									<li><button type="button" class="item">대구</button></li>
 								</ul>
 							</div>
 							<div class="modal-brand">
-								<div
-									style="font-size: 22px; margin-bottom: 20px; font-weight: bold;">브랜드</div>
+								<div style="font-size: 22px; margin-bottom: 20px; font-weight: bold;">브랜드</div>
 								<ul>
-									<li><a href="#">아만</a></li>
-									<li><a href="#">호시노 리조트</a></li>
-									<li><a href="#">UDS</a></li>
+									<li><button type="button" class="item">아만</button></li>
+									<li><button type="button" class="item">호시노 리조트</button></li>
+									<li><button type="button" class="item">UDS</button></li>
 								</ul>
 							</div>
 						</div>
 						<div class="modal-btn-img">
-							<img src="${ path }/img/refresh.png" alt="" onclick="location.reload()">
-							<button>
-								<img src="${ path }/img/searchClick.png" alt="">
-							</button>
+							<img src="${ path }/img/refresh.png" alt="" onclick="clearSelected()">
+							<button type="button" id="btnSearch"><img src="${ path }/img/searchClick.png" alt=""></button>
 						</div>
 					</form>
 				</div>

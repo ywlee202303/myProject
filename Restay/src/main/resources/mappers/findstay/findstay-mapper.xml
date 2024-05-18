@@ -1,181 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper 
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-	
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.practice.restay.findstay.model.mapper.FindStayMapper">
 
-	<!-- 쿼리 매핑 -->
-	<!-- 지역 테이블 매핑 -->
-	<resultMap id="areaResultMap" type="Area">
-		<result property="areaCode" column="AREA_CODE" />
-		<result property="areaName" column="AREA_NAME" />
-		<result property="sigunguCode" column="SIGUNGU_CODE" />
-		<result property="sigunguName" column="SIGUNGU_NAME" />
-	</resultMap>
-	
-	<!-- 숙소 테이블 매핑 -->
-	<resultMap id="houseResultMap" type="House">
-		<id property="houseCode" column="H_CODE" />
-		<result property="houseName" column="H_NAME" />
-		<result property="houseAddress" column="H_ADDRESS" />
-		<result property="houseTel" column="H_TEL" />
-		<result property="houseEmail" column="H_EMAIL" />
-		<result property="likeStatus" column="LIKE_STATE" />
-		<result property="houseArea" column="H_AREA" />
-		<result property="houseEnrollDate" column="H_ENROLLDATE" />
-		<result property="houseStatus" column="H_STATUS" />
-		<result property="houseSigungu" column="H_SIGUNGU" />
-		<result property="houseMinPrice" column="H_MIN_PRICE" />
-	</resultMap>
-	
-	<!-- 숙소 이미지 매핑 -->
-	<resultMap id="houseImageResultMap" type="HouseImage">
-		<id property="houseCode" column="H_CODE" />
-		<id property="houseImageCode" column="H_IMAGE_CODE" />
-		<result property="houseImageOriginalFileName" column="H_IMAGE_ORIGINALFILENAME" />
-		<result property="houseImageRenamedFileName" column="H_IMAGE_RENAMEDFILENAME" />
-	</resultMap>
-	
-	<!-- 숙소 테이블, 숙소 이미지 조인 매핑 -->
-	<resultMap id="houseDetailResultMap" type="House" 
-		extends="houseResultMap">
-	
-		<collection property="houseImages" javaType="arrayList"
-		 	columnPrefix="HI_" resultMap="houseImageResultMap" />	
-		
-	</resultMap>
-	
-	<!-- 지역 조회 -->
-	<select id="selectAreaName" resultMap="areaResultMap">
-		SELECT DISTINCT AREA_CODE,
-		       AREA_NAME
-		FROM AREAINFO
-	</select>
-	
-	<select id="selectSigunguName" resultMap="areaResultMap" parameterType="_int">
-		SELECT SIGUNGU_CODE,
-		       SIGUNGU_NAME
-		FROM AREAINFO
-		WHERE AREA_CODE = #{areaCode}
-	</select>
+    <!-- 쿼리 매핑 -->
+    <!-- 지역 테이블 매핑 -->
+    <resultMap  id="areaResultMap"         type="Area">
+        <result property="areaCode"        column="AREA_CODE" />
+        <result property="areaName"        column="AREA_NAME" />
+        <result property="sigunguCode"     column="SIGUNGU_CODE" />
+        <result property="sigunguName"     column="SIGUNGU_NAME" />
+    </resultMap>
 
-	<select id="selectAreaInfo" resultMap="areaResultMap" parameterType="map">
-		SELECT AREA_NAME,
-		       SIGUNGU_NAME
-		FROM AREAINFO
-		WHERE AREA_CODE = #{areaCode}
-		  AND SIGUNGU_CODE = #{sigunguCode}
-	</select>
-	
-	<!-- 숙소 리스트 수 -->
-	<select id="selectHouseListCount">
-		SELECT COUNT(*)
-		FROM HOUSE
-	</select>
-	
-	<!-- 숙소 조회(숙소만) -->
-	<select id="selectOnlyHouseList" resultMap="houseResultMap">
-		SELECT H_CODE,
-		       H_NAME,
-		       H_ADDRESS,
-		       H_TEL,
-		       H_EMAIL,
-		       LIKE_STATE,
-		       H_AREA,
-		       H_ENROLLDATE,
-		       H_STATUS,
-		       H_SIGUNGU,
-		       H_MIN_PRICE
-		FROM HOUSE
-		WHERE H_STATUS = 'Y'
-		ORDER BY H_ENROLLDATE DESC
-	</select>
-	
-	<!-- 숙소 조회(이미지 포함) -->
-	<select id="selectHouseList" resultMap="houseDetailResultMap">
-		SELECT H.H_CODE,
-		       H.H_NAME,
-		       H.H_ADDRESS,
-		       H.H_TEL,
-		       H.H_EMAIL,
-		       H.LIKE_STATE,
-		       H.H_AREA,
-		       H.H_ENROLLDATE,
-		       H.H_STATUS,
-		       H.H_SIGUNGU,
-		       H.H_MIN_PRICE,
-		       HI.H_IMAGE_CODE AS HI_H_IMAGE_CODE,
-		       HI.H_IMAGE_ORIGINALFILENAME AS HI_H_IMAGE_ORIGINALFILENAME,
-		       HI.H_IMAGE_RENAMEDFILENAME AS HI_H_IMAGE_RENAMEDFILENAME
-		FROM HOUSE H
-		LEFT OUTER JOIN HOUSE_IMAGE HI ON (H.H_CODE = HI.H_CODE)
-		WHERE H.H_STATUS = 'Y'
-		  AND H.H_CODE IN
-		  <foreach item="hCodes" index="index" collection="list"
-			open="(" separator="," close=")">
-				#{hCodes}
-		</foreach>
-		ORDER BY H_IMAGE_RENAMEDFILENAME DESC
-	</select>
-	
-	<!-- 숙소 이미지 조회 -->
-	<select id="selectHouseImageList" resultMap="houseImageResultMap">
-		SELECT H_CODE,
-		       H_IMAGE_CODE,
-		       H_IMAGE_ORIGINALFILENAME,
-		       H_IMAGE_RENAMEDFILENAME
-		FROM HOUSE_IMAGE
-		WHERE H_CODE IN
-		<foreach item="hCodes" index="index" collection="list"
-			open="(" separator="," close=")">
-				#{hCodes}
-		</foreach>
-	</select>
-	
-	<!-- 숙소 등록 -->
-	<insert id="insertHouseInfo" parameterType="House" useGeneratedKeys="true" keyProperty="houseCode" keyColumn="H_CODE">
-		INSERT INTO HOUSE
-		(
-			H_CODE,
-			H_NAME,
-			H_ADDRESS,
-			H_TEL,
-			H_EMAIL,
-			H_AREA,
-			H_SIGUNGU,
-			H_MIN_PRICE
-		)
-		VALUES
-		(
-			'H' || SEQ_HOUSE_CODE.NEXTVAL,
-			#{houseName},
-			#{houseAddress},
-			#{houseTel},
-			#{houseEmail},
-			#{houseArea},
-			#{houseSigungu},
-			#{houseMinPrice}
-		)
-	</insert>
-	
-	<!-- 숙소 이미지 등록 -->
-	<insert id="insertHouseImageInfo" parameterType="HouseImage">
-		INSERT INTO HOUSE_IMAGE
-		(
-			H_CODE,
-			H_IMAGE_CODE,
-			H_IMAGE_ORIGINALFILENAME,
-			H_IMAGE_RENAMEDFILENAME
-		)
-		VALUES
-		(
-			#{houseCode},
-			'HIMG' || SEQ_HOUSE_IMG_CODE.NEXTVAL,
-			#{houseImageOriginalFileName},
-			#{houseImageRenamedFileName}
-		)
-	</insert>
-	
+    <!-- 숙소 테이블 매핑 -->
+    <resultMap  id="houseResultMap"        type="House">
+        <id     property="houseCode"       column="H_CODE" />
+        <result property="houseName"       column="H_NAME" />
+        <result property="houseAddress"    column="H_ADDRESS" />
+        <result property="houseTel"        column="H_TEL" />
+        <result property="houseEmail"      column="H_EMAIL" />
+        <result property="likeStatus"      column="LIKE_STATE" />
+        <result property="houseArea"       column="H_AREA" />
+        <result property="houseEnrollDate" column="H_ENROLLDATE" />
+        <result property="houseStatus"     column="H_STATUS" />
+        <result property="houseSigungu"    column="H_SIGUNGU" />
+        <result property="houseMinPrice"   column="H_MIN_PRICE" />
+    </resultMap>
+
+    <!-- 숙소 이미지 매핑 -->
+    <resultMap  id="houseImageResultMap"              type="HouseImage">
+        <id     property="houseCode"                  column="H_CODE" />
+        <id     property="houseImageCode"             column="H_IMAGE_CODE" />
+        <result property="houseImageOriginalFileName" column="H_IMAGE_ORIGINALFILENAME" />
+        <result property="houseImageRenamedFileName"  column="H_IMAGE_RENAMEDFILENAME" />
+    </resultMap>
+
+    <!-- 숙소 테이블, 숙소 이미지 조인 매핑 -->
+    <resultMap id="houseDetailResultMap" type="House" extends="houseResultMap">
+        <collection property="houseImages" 
+                    javaType="arrayList"
+                    columnPrefix="HI_" 
+                    resultMap="houseImageResultMap" />
+    </resultMap>
+
+    <!-- 지역 조회 -->
+    <select    id="selectAreaName" resultMap="areaResultMap">
+        SELECT DISTINCT AREA_CODE,
+               AREA_NAME
+          FROM AREAINFO
+    </select>
+
+    <select    id="selectSigunguName" resultMap="areaResultMap" parameterType="_int">
+        SELECT SIGUNGU_CODE,
+               SIGUNGU_NAME
+          FROM AREAINFO
+         WHERE AREA_CODE = #{areaCode}
+    </select>
+
+    <select    id="selectAreaInfo" resultMap="areaResultMap" parameterType="map">
+        SELECT AREA_NAME,
+               SIGUNGU_NAME
+          FROM AREAINFO
+         WHERE AREA_CODE    = #{areaCode}
+           AND SIGUNGU_CODE = #{sigunguCode}
+    </select>
+
+    <!-- 숙소 리스트 수 -->
+    <select    id="selectHouseListCount">
+        SELECT COUNT(*)
+          FROM HOUSE
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+         <if   test="inputSearch != ''">
+           AND (H_NAME   LIKE '%' || #{inputSearch} || '%' OR H_ADDRESS   LIKE '%' || #{inputSearch} || '%')
+         </if>
+         <if   test="searchLocationKewords.size() != 0">
+           AND H_AREA IN
+               <foreach item="keywords" index="index" collection="searchLocationKewords" open="(" separator="," close=")">
+               #{keywords}
+               </foreach>
+         </if>
+         </trim>
+    </select>
+
+    <!-- 숙소 조회(숙소만) -->
+    <select    id="selectOnlyHouseList" resultMap="houseResultMap">
+        SELECT H_CODE,
+               H_NAME,
+               H_ADDRESS,
+               H_TEL,
+               H_EMAIL,
+               LIKE_STATE,
+               H_AREA,
+               H_ENROLLDATE,
+               H_STATUS,
+               H_SIGUNGU,
+               H_MIN_PRICE
+          FROM HOUSE
+         WHERE H_STATUS = 'Y'
+         <if   test="inputSearch != ''">
+           AND (H_NAME   LIKE '%' || #{inputSearch} || '%' OR H_ADDRESS   LIKE '%' || #{inputSearch} || '%')
+         </if>
+         <if   test="searchLocationKewords.size() != 0">
+           AND H_AREA IN
+               <foreach item="keywords" index="index" collection="searchLocationKewords" open="(" separator="," close=")">
+               #{keywords}
+               </foreach>
+         </if>
+         ORDER BY H_ENROLLDATE DESC
+    </select>
+
+    <!-- 숙소 조회(이미지 포함) -->
+    <select    id="selectHouseList" resultMap="houseDetailResultMap" parameterType="map">
+        SELECT H.H_CODE,
+               H.H_NAME,
+               H.H_ADDRESS,
+               H.H_TEL,
+               H.H_EMAIL,
+               H.LIKE_STATE,
+               H.H_AREA,
+               H.H_ENROLLDATE,
+               H.H_STATUS,
+               H.H_SIGUNGU,
+               H.H_MIN_PRICE,
+               HI.H_IMAGE_CODE AS HI_H_IMAGE_CODE,
+               HI.H_IMAGE_ORIGINALFILENAME AS HI_H_IMAGE_ORIGINALFILENAME,
+               HI.H_IMAGE_RENAMEDFILENAME AS HI_H_IMAGE_RENAMEDFILENAME
+          FROM HOUSE H
+          LEFT OUTER JOIN 
+               HOUSE_IMAGE HI 
+            ON (H.H_CODE = HI.H_CODE)
+         WHERE H.H_STATUS = 'Y'
+         <if   test="inputSearch != ''">
+           AND (H_NAME   LIKE '%' || #{inputSearch} || '%' OR H_ADDRESS   LIKE '%' || #{inputSearch} || '%')
+         </if>
+         <if   test="searchLocationKewords.size() != 0">
+           AND H.H_AREA IN
+               <foreach item="keywords" index="index" collection="searchLocationKewords" open="(" separator="," close=")">
+               #{keywords}
+               </foreach>
+         </if>
+         <if   test="list.size() != 0">
+           AND H.H_CODE IN
+               <foreach item="hCodes" index="index" collection="list" open="(" separator="," close=")">
+               #{hCodes}
+               </foreach>
+         </if>
+         ORDER BY 
+               H_IMAGE_RENAMEDFILENAME DESC
+    </select>
+
+    <!-- 숙소 이미지 조회 -->
+    <select    id="selectHouseImageList" resultMap="houseImageResultMap">
+        SELECT H_CODE,
+               H_IMAGE_CODE,
+               H_IMAGE_ORIGINALFILENAME,
+               H_IMAGE_RENAMEDFILENAME
+          FROM HOUSE_IMAGE
+         <if   test="list.size() != 0">
+         WHERE H_CODE IN
+               <foreach item="hCodes" index="index" collection="list" open="(" separator="," close=")">
+                #{hCodes}
+               </foreach>
+         </if>
+    </select>
+
+    <!-- 숙소 등록 -->
+    <insert    id="insertHouseInfo" parameterType="House" useGeneratedKeys="true" keyProperty="houseCode" keyColumn="H_CODE">
+        INSERT INTO HOUSE
+        (
+               H_CODE,
+               H_NAME,
+               H_ADDRESS,
+               H_TEL,
+               H_EMAIL,
+               H_AREA,
+               H_SIGUNGU,
+               H_MIN_PRICE
+        )
+        VALUES
+        (
+               'H' || SEQ_HOUSE_CODE.NEXTVAL,
+               #{houseName},
+               #{houseAddress},
+               #{houseTel},
+               #{houseEmail},
+               #{houseArea},
+               #{houseSigungu},
+               #{houseMinPrice}
+        )
+    </insert>
+
+    <!-- 숙소 이미지 등록 -->
+    <insert    id="insertHouseImageInfo" parameterType="HouseImage">
+        INSERT INTO HOUSE_IMAGE
+        (
+               H_CODE,
+               H_IMAGE_CODE,
+               H_IMAGE_ORIGINALFILENAME,
+               H_IMAGE_RENAMEDFILENAME
+        )
+        VALUES
+        (
+               #{houseCode},
+               'HIMG' || SEQ_HOUSE_IMG_CODE.NEXTVAL,
+               #{houseImageOriginalFileName},
+               #{houseImageRenamedFileName}
+        )
+    </insert>
+
 </mapper>

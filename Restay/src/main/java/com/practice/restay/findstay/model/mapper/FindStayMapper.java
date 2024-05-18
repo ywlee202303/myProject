@@ -19,11 +19,11 @@ public interface FindStayMapper {
 	
 	Area selectAreaInfo(@Param("areaCode") int areaCode, @Param("sigunguCode") int sigunguCode);
 	
-	int selectHouseListCount();
+	int selectHouseListCount(@Param("inputSearch") String inputSearch,@Param("searchLocationKewords") List<String> searchLocationKewords);
 	
-	List<House> selectOnlyHouseList(RowBounds rowBounds);
+	List<House> selectOnlyHouseList(RowBounds rowBounds,@Param("inputSearch") String inputSearch,@Param("searchLocationKewords") List<String> searchLocationKewords);
 	
-	List<House> selectHouseList(List<String> houseCode);
+	List<House> selectHouseList(@Param("list") List<String> houseCode,@Param("inputSearch") String inputSearch,@Param("searchLocationKewords") List<String> searchLocationKewords);
 	
 	List<HouseImage> selectHouseImageList(List<String> houseCode);
 	

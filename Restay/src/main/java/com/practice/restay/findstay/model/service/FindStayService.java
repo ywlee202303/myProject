@@ -19,13 +19,13 @@ public interface FindStayService {
 	Area getAreaInfo(int areaCode, int sigunguCode);
 	
 	// 숙소 리스트 수
-	int getHouseListCount();
+	int getHouseListCount(String inputSearch, List<String> searchLocationKewords);
 	
 	// 숙소 조회(숙소만)
-	List<House> getOnlyHouseList(PageInfo pageInfo);
+	List<House> getOnlyHouseList(PageInfo pageInfo, String inputSearch, List<String> searchLocationKewords);
 	
 	// 숙소 조회(이미지 포함)
-	List<House> getHouseList(List<String> houseCode);
+	List<House> getHouseList(List<String> houseCode, String inputSearch, List<String> searchLocationKewords);
 	
 	// 숙소 이미지 조회
 	List<HouseImage> getHouseImageList(List<String> houseCode);
@@ -35,7 +35,6 @@ public interface FindStayService {
 
 	// 숙소 이미지 등록/수정
 	int saveHouseImageInfo(HouseImage houseImage);
-
 
 	
 }
