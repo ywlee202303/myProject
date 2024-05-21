@@ -34,4 +34,6 @@ public interface CustomerMapper {
 	
 	int insertReply(Reply reply);
 	
+	int updateCustomerInfo(Customer customer);
+	
 }

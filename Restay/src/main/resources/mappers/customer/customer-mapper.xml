@@ -205,4 +205,13 @@
 		SET CUSTOMER_COUNT = #{viewCount}
 		WHERE CUSTOMER_NO = #{customerNo}
 	</update>
+	
+	<!-- 고객센터 업데이트 -->
+	<update id="updateCustomerInfo">
+		UPDATE CUSTOMER
+		SET CUSTOMER_TITLE = #{customerTitle},
+		    CUSTOMER_CONTENT = #{customerContent},
+		    CUSTOMER_MODIFYDATE = SYSDATE
+		WHERE CUSTOMER_NO = #{customerNo}
+	</update>
 </mapper>

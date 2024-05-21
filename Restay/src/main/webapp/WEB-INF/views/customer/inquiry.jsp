@@ -47,7 +47,9 @@
 				<ul class="customer-restay-customer-ul">
 					<c:forEach var="customer" items="${ customerInquiryList }">
 						<li class="customer-restay-customer-li">
-							<p class="customer-restay-customer-title">${ customer.customerCategory } ${ customer.customerTitle }</p>
+							<p class="customer-restay-customer-title" onclick="location.href='${ path }/customer/inquiry/${ customer.customerNo }'">
+								${ customer.customerCategory } ${ customer.customerTitle }
+							</p>
 						</li>
 					</c:forEach>
 				</ul>
@@ -83,6 +85,7 @@
 			</div>
 		</c:if>
 		
+		<c:if test="${ loginMember.memberRole eq 'ROLE_ADMIN' }">
 		<!-- 페이징 -->
 		<div class="customer-restay-page-number">
 			<ul class="customer-restay-page-number-ul">
@@ -105,6 +108,7 @@
 				<li><a href="${ path }/customer/inquiry?page=${ pageInfo.nextPage }">&gt;</a></li>
 			</ul>
 		</div>
+		</c:if>
 		
 	</div>
 </main>

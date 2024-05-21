@@ -92,6 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		if(customer.getCustomerNo() != null) {
 			// update
+			result = customerMapper.updateCustomerInfo(customer);
 		} else {
 			// insert
 			result = customerMapper.insertCustomerInfo(customer);

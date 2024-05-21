@@ -51,66 +51,71 @@
 		</table>
 		
 		<div class="list-btn">
+			<c:if test="${ loginMember.memberNo == customer.memberNo }">
+				<button onclick="location.href='${ path }/customer/update/${ customerNo }'">수정</button>
+			</c:if>
 			<button onclick="location.href='${ path }/customer'">목록</button>
 		</div>
 		
-		<!-- 댓글 리스트 -->
-		<div class=customer-comment-list>
-			<div class="customer-comment-title">COMMENT</div>
+		<c:if test="${ customer.customerCategory == '[자유게시판]' || customer.customerCategory == '[1:1문의]' }">
+			<!-- 댓글 리스트 -->
+			<div class=customer-comment-list>
+				<div class="customer-comment-title">COMMENT</div>
+				<c:if test="${ not empty replyList }">
+					<c:forEach var="reply" items="${ replyList }">
+						<div class="customer-comment-writer">
+							<span>${ reply.writerId }</span>
+							<span>&nbsp;(${ reply.replyCreateDate })</span>
+						</div>
+						<div class="customer-comment-content">
+							${ reply.replyContent }
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+			
 			<c:if test="${ not empty replyList }">
-				<c:forEach var="reply" items="${ replyList }">
-					<div class="customer-comment-writer">
-						<span>${ reply.writerId }</span>
-						<span>&nbsp;(${ reply.replyCreateDate })</span>
-					</div>
-					<div class="customer-comment-content">
-						${ reply.replyContent }
-					</div>
-				</c:forEach>
+			<!-- 댓글 페이징 -->
+			<div class="customer-comment-paging">
+				<ul class="customer-comment-paging-ul">
+					<!-- 이전페이지 -->
+					<li><a href="${ path }/customer/${ customer.customerNo }?page=${ pageInfo.prevPage }">&lt;</a></li>
+					
+					<!-- 5개 페이지 -->
+					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+						<c:choose>
+							<c:when test="${ current == pageInfo.currentPage }">
+								<li><a class="disable">${ current }</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${ path }/customer/${ customer.customerNo }?page=${ current }">${ current }</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<!-- 다음페이지 -->
+					<li><a href="${ path }/customer/${ customer.customerNo }?page=${ pageInfo.nextPage }">&gt;</a></li>
+				</ul>
+			</div>
 			</c:if>
-		</div>
-		
-		<c:if test="${ not empty replyList }">
-		<!-- 댓글 페이징 -->
-		<div class="customer-comment-paging">
-			<ul class="customer-comment-paging-ul">
-				<!-- 이전페이지 -->
-				<li><a href="${ path }/customer/${ customer.customerNo }?page=${ pageInfo.prevPage }">&lt;</a></li>
-				
-				<!-- 5개 페이지 -->
-				<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
-					<c:choose>
-						<c:when test="${ current == pageInfo.currentPage }">
-							<li><a class="disable">${ current }</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="${ path }/customer/${ customer.customerNo }?page=${ current }">${ current }</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				
-				<!-- 다음페이지 -->
-				<li><a href="${ path }/customer/${ customer.customerNo }?page=${ pageInfo.nextPage }">&gt;</a></li>
-			</ul>
-		</div>
+			
+			<!-- 댓글 작성 -->
+			<div style="margin-top: 30px;">
+				<form action="${ path }/customer/${ customer.customerNo }/reply" method="post">
+					<table border="1">
+						<tr>
+							<th>내용</th>
+							<td>
+								<textarea name="replyContent" rows="4" cols="115" maxlength="500" ></textarea>
+								<div class="write-btn">
+									<button>댓글작성</button>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 		</c:if>
-		
-		<!-- 댓글 작성 -->
-		<div style="margin-top: 30px;">
-			<form action="${ path }/customer/${ customer.customerNo }/reply" method="post">
-				<table border="1">
-					<tr>
-						<th>내용</th>
-						<td>
-							<textarea name="replyContent" rows="4" cols="115" maxlength="500" ></textarea>
-							<div class="write-btn">
-								<button>댓글작성</button>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
 	</div>
 	
 </main>

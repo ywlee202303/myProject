@@ -3,6 +3,7 @@ package com.practice.restay.customer.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -55,9 +56,7 @@ public class CustomerController {
 		System.out.println("메뉴 : " + menu);
 		
 		PageInfo pageInfo = null;
-		
 		List<Customer> customerList = null;
-		
 		int customerCount = 0;
 			
 		customerCount = customerService.getCustomerCount(menu);
@@ -67,8 +66,6 @@ public class CustomerController {
 		pageInfo = new PageInfo(page, 5, customerCount, 10);
 		
 		customerList = customerService.getCustomerList(pageInfo, menu);
-		
-		System.out.println("수정 공지 : " + customerList);
 		
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("menu", menu);
@@ -217,6 +214,33 @@ public class CustomerController {
 		return modelAndView;
 	}
 	
+	// 1:1문의 상세 페이지
+	@GetMapping("/customer/inquiry/{customerNo}")
+	public ModelAndView inquiryDetail(
+			ModelAndView modelAndView,
+			@PathVariable String customerNo,
+			@RequestParam(defaultValue = "1") int page
+	) {
+		
+		Customer customer = null;
+		PageInfo pageInfo = null;
+		
+		customer = customerService.detailCustomer(customerNo);
+		
+		int replyCount = customerService.replyCount(customerNo);
+		
+		pageInfo = new PageInfo(page, 5, replyCount, 10);
+		
+		// 댓글 조회
+		List<Reply> replies = customerService.getReplyList(customerNo, pageInfo);
+		
+		modelAndView.addObject("pageInfo", pageInfo);
+		modelAndView.addObject("customer", customer);
+		modelAndView.setViewName("customer/Detail");
+		
+		return modelAndView;
+	}
+	
 	// 고객센터 등록 페이지(공지사항, 자유게시판, 자주 묻는 질문)
 	@GetMapping("/customer/write")
 	public String write() {
@@ -288,6 +312,42 @@ public class CustomerController {
 		}
 		
 		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
+	// 고객센터 수정 페이지(공지사항, 자유게시판, 자주 묻는 질문)
+	@GetMapping("/customer/update/{customerNo}")
+	public ModelAndView update(
+			ModelAndView modelAndView,
+			@PathVariable String customerNo
+	) {
+		
+		Customer customer = null;
+		customer = customerService.detailCustomer(customerNo);
+		
+		modelAndView.addObject("customer", customer);
+		modelAndView.setViewName("customer/Update");
+		
+		return modelAndView;
+	}
+	
+	@PostMapping("/customer/update")
+	public ModelAndView update(
+			ModelAndView modelAndView,
+			Customer customer,
+			@RequestParam("fileName") MultipartFile fileName
+	) {
+		
+		int result = 0;
+		
+		if(fileName.isEmpty()) {
+			// 첨부파일 변경 없이 업데이트
+			result = customerService.save(customer);
+			
+		} else {
+			// 첨부파일 변경 후 업데이트
+		}
 		
 		return modelAndView;
 	}
