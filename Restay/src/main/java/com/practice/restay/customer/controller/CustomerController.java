@@ -3,8 +3,9 @@ package com.practice.restay.customer.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -320,14 +321,21 @@ public class CustomerController {
 	@GetMapping("/customer/update/{customerNo}")
 	public ModelAndView update(
 			ModelAndView modelAndView,
-			@PathVariable String customerNo
+			@PathVariable String customerNo,
+			@SessionAttribute("loginMember") Member loginMember
 	) {
 		
 		Customer customer = null;
 		customer = customerService.detailCustomer(customerNo);
 		
-		modelAndView.addObject("customer", customer);
-		modelAndView.setViewName("customer/Update");
+		if(loginMember.getMemberNo() != customer.getMemberNo()) {
+			modelAndView.addObject("msg", "잘못된 접근입니다.");
+			modelAndView.addObject("location", "/customer");
+			modelAndView.setViewName("common/msg");
+		} else {
+			modelAndView.addObject("customer", customer);
+			modelAndView.setViewName("customer/Update");
+		}
 		
 		return modelAndView;
 	}
@@ -335,19 +343,75 @@ public class CustomerController {
 	@PostMapping("/customer/update")
 	public ModelAndView update(
 			ModelAndView modelAndView,
-			Customer customer,
+			@RequestParam("customerNo") String customerNo,
+			@RequestParam("customerCategory") String customerCagetory,
+			@RequestParam("customerTitle") String customerTitle,
+			@RequestParam("customerContent") String customerContent,
 			@RequestParam("fileName") MultipartFile fileName
 	) {
 		
 		int result = 0;
+		String location = null;
+		String renamedFileName = null;
+		Customer customer = null;
+		
+		customer = customerService.detailCustomer(customerNo);
 		
 		if(fileName.isEmpty()) {
 			// 첨부파일 변경 없이 업데이트
+			customer.setCustomerCategory(customerCagetory);
+			customer.setCustomerTitle(customerTitle);
+			customer.setCustomerContent(customerContent);
+			
 			result = customerService.save(customer);
 			
 		} else {
 			// 첨부파일 변경 후 업데이트
+			customer.setCustomerCategory(customerCagetory);
+			customer.setCustomerTitle(customerTitle);
+			customer.setCustomerContent(customerContent);
+			
+			try {
+				location = resourceLoader.getResource("resources/upload/customer").getFile().getPath();
+				
+				// 기존에 업로드 된 파일 삭제
+				if(customer.getCustomerRenamedFileName() != null) {
+					MultipartFileUtil.delete(location + "/" + customer.getCustomerRenamedFileName());
+				}
+				
+				renamedFileName = MultipartFileUtil.save(fileName, location);
+				
+				if(renamedFileName != null) {
+					customer.setCustomerOriginalFileName(fileName.getOriginalFilename());
+					customer.setCustomerRenamedFileName(renamedFileName);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			result = customerService.save(customer);
 		}
+		
+		if(result > 0) {
+			modelAndView.addObject("msg", "게시글 수정 성공");
+			modelAndView.addObject("location", "/customer/" + customer.getCustomerNo());
+		} else {
+			modelAndView.addObject("msg", "게시글 수정 실패");
+			modelAndView.addObject("location", "/customer/update/" + customer.getCustomerNo());
+		}
+		
+		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
+	// 고객센터 삭제(공지사항, 자유게시판, 자주 묻는 질문)
+	@GetMapping("/customer/delete")
+	public ModelAndView delete(
+			ModelAndView modelAndView
+	) {
+		
+		modelAndView.setViewName("redirect:/customer");
 		
 		return modelAndView;
 	}
@@ -385,6 +449,36 @@ public class CustomerController {
 		modelAndView.setViewName("common/msg");
 		
 		return modelAndView;
+	}
+	
+	// 첨부파일 삭제
+	@PostMapping("/customer/deleteFile")
+	public ResponseEntity<Map<String, Integer>> deleteFile(
+			@RequestParam("customerNo") String customerNo
+	) {
+		
+		int result = 0;
+		String location = null;
+		String renamedFileName = null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		Customer customer = customerService.detailCustomer(customerNo);
+		
+		try {
+			location = resourceLoader.getResource("resources/upload/customer").getFile().getPath();
+			
+			MultipartFileUtil.delete(location + "/" + customer.getCustomerRenamedFileName());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// 파일 삭제(null 처리)
+		result = customerService.updateFileName(customerNo);
+		
+		map.put("resultCode", result);
+		
+		return ResponseEntity.ok(map);
 	}
 	
 	// 파일 다운로드

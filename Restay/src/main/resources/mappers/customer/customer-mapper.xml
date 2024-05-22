@@ -209,9 +209,32 @@
 	<!-- 고객센터 업데이트 -->
 	<update id="updateCustomerInfo">
 		UPDATE CUSTOMER
-		SET CUSTOMER_TITLE = #{customerTitle},
-		    CUSTOMER_CONTENT = #{customerContent},
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="customerCategory != null">
+				CUSTOMER_CATEGORY = #{customerCategory},
+			</if>
+			<if test="customerTitle != null">
+				CUSTOMER_TITLE = #{customerTitle},
+			</if>
+			<if test="customerContent != null">
+				CUSTOMER_CONTENT = #{customerContent},
+			</if>
+			<if test="customerOriginalFileName != null">
+				CUSTOMER_ORIGINALFILENAME = #{customerOriginalFileName},
+			</if>
+			<if test="customerRenamedFileName != null">
+				CUSTOMER_RENAMEDFILENAME = #{customerRenamedFileName},
+			</if>
 		    CUSTOMER_MODIFYDATE = SYSDATE
+		</trim>
+		WHERE CUSTOMER_NO = #{customerNo}
+	</update>
+	
+	<!-- 첨부파일 삭제(null 처리 -->
+	<update id="updateFileName">
+		UPDATE CUSTOMER
+		SET CUSTOMER_ORIGINALFILENAME = null,
+		    CUSTOMER_RENAMEDFILENAME = null
 		WHERE CUSTOMER_NO = #{customerNo}
 	</update>
 </mapper>

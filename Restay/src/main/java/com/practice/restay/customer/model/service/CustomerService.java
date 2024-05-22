@@ -41,4 +41,7 @@ public interface CustomerService {
 	// 댓글 등록/수정
 	int saveReply(Reply reply);
 
+	// 첨부파일 삭제(null 처리)
+	int updateFileName(String customerNo);
+
 }

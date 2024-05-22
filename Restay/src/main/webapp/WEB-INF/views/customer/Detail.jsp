@@ -53,6 +53,7 @@
 		<div class="list-btn">
 			<c:if test="${ loginMember.memberNo == customer.memberNo }">
 				<button onclick="location.href='${ path }/customer/update/${ customerNo }'">수정</button>
+				<button onclick="deleteBtn()">삭제</button>
 			</c:if>
 			<button onclick="location.href='${ path }/customer'">목록</button>
 		</div>
@@ -132,4 +133,13 @@
 			location.assign(`${ path }/customer/fileDown?oname=\${oname}&rname=\${rname}`);
 		});
 	})
+	
+	// 게시글 삭제
+	let deleteBtn = () => {
+		if(confirm("게시글을 삭제하시겠습니까?")) {
+			location.href=`${ path }/customer/delete?no=${ customer.customerNo }`;
+		} else {
+			return false;
+		}
+	};
 </script>

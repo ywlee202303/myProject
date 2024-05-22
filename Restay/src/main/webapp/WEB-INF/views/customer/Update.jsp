@@ -25,6 +25,18 @@
 	    background-color: black;
 	    color: white;
 	    font-weight: 300;
+	    cursor: pointer;
+	}
+	
+	.fileDelete {
+	    width: 80px;
+	    height: 35px;
+	    margin-left: 10px;
+	    background-color: black;
+	    color: white;
+	    font-weight: 300;
+	    font-size: 16px;
+	    cursor: pointer;
 	}
 	
 	#file {
@@ -40,7 +52,7 @@
 	<div class="customerWrite-containter">
 		<form action="${ path }/customer/update" method="POST" enctype="multipart/form-data">
 			<input type="hidden" id="role" value="${ loginMember.memberRole }" />
-			<input type="hidden" name="customerNo" value="${ customer.customerNo }" />
+			<input type="hidden" id="customerNo" name="customerNo" value="${ customer.customerNo }" />
 			<table border="1">
 				<tr>
 					<th>
@@ -87,11 +99,12 @@
 							<label class="fileName" for="file">파일 선택</label>
 							<input type="file" name="fileName" id="file" />
 							<span id="fileChange">${ customer.customerOriginalFileName }</span>
+							<button class="fileDelete" type="button">삭제</button>
 						</c:if>
 						<c:if test="${ customer.customerOriginalFileName == null }">
 							<label class="fileName" for="file">파일 선택</label>
 							<input type="file" name="fileName" id="file" />
-							<span> - </span>
+							<span id="fileChange"> - </span>
 						</c:if>
 					</td>
 				</tr>
@@ -127,10 +140,31 @@
     }
     
     console.log(document.getElementById('role').value);
+    
     // 파일 변경
     $('#file').on('change', () => {
     	console.log($('#file').val().split('\\')[2]);
     	
     	$('#fileChange').text($('#file').val().split('\\')[2]);
+    });
+    
+    // 첨부 파일 삭제
+    $('.fileDelete').on('click', () => {
+    	let customerNo = $('#customerNo').val();
+    	
+    	$.ajax({
+    		url: '${ path }/customer/deleteFile',
+    		type: 'post',
+    		data: {
+    			customerNo
+    		},
+    		success: (res) => {
+    			console.log(res);
+    			
+    			alert("파일 삭제 성공!");
+    			
+    			$('#fileChange').text(' - ');
+    		}
+    	});
     });
 </script>

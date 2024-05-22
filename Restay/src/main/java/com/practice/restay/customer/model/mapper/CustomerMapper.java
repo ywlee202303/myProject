@@ -36,4 +36,6 @@ public interface CustomerMapper {
 	
 	int updateCustomerInfo(Customer customer);
 	
+	int updateFileName(@Param("customerNo") String customerNo);
+	
 }

@@ -142,4 +142,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return result;
 	}
 
+	// 첨부파일 삭제(null 처리)
+	@Override
+	public int updateFileName(String customerNo) {
+		
+		return customerMapper.updateFileName(customerNo);
+	}
+
 }
