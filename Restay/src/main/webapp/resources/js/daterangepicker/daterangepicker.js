@@ -427,15 +427,17 @@
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this));
 
         if (this.element.is('input') || this.element.is('button')) {
-            this.element.on({
-                'click.daterangepicker': $.proxy(this.show, this),
-                'focus.daterangepicker': $.proxy(this.show, this),
-                'keyup.daterangepicker': $.proxy(this.elementChanged, this),
-                'keydown.daterangepicker': $.proxy(this.keydown, this) //IE 11 compatibility
-            });
+            // this.element.on({
+            //     'click.daterangepicker': $.proxy(this.show, this),
+            //     'focus.daterangepicker': $.proxy(this.show, this),
+            //     'keyup.daterangepicker': $.proxy(this.elementChanged, this),
+            //     'keydown.daterangepicker': $.proxy(this.keydown, this) //IE 11 compatibility
+            // });
+            this.show();
         } else {
-            this.element.on('click.daterangepicker', $.proxy(this.toggle, this));
-            this.element.on('keydown.daterangepicker', $.proxy(this.toggle, this));
+            // this.element.on('click.daterangepicker', $.proxy(this.toggle, this));
+            // this.element.on('keydown.daterangepicker', $.proxy(this.toggle, this));
+            this.show();
         }
 
         //
@@ -704,7 +706,8 @@
                 html += '<th></th>';
             }
 
-            var dateHtml = this.locale.monthNames[calendar[1][1].month()] + calendar[1][1].format(" YYYY");
+            var dateHtml = this.locale.monthNames[calendar[1][1].month()];
+            // var dateHtml = this.locale.monthNames[calendar[1][1].month()] + calendar[1][1].format(" YYYY");
 
             if (this.showDropdowns) {
                 var currentMonth = calendar[1][1].month();
@@ -1141,7 +1144,7 @@
 
             this.updateView();
             this.container.show();
-            this.move();
+            // this.move();
             this.element.trigger('show.daterangepicker', this);
             this.isShowing = true;
         },
@@ -1188,13 +1191,13 @@
                 target.closest(this.container).length ||
                 target.closest('.calendar-table').length
                 ) return;
-            this.hide();
+            // this.hide();
             this.element.trigger('outsideClick.daterangepicker', this);
         },
 
         showCalendars: function() {
             this.container.addClass('show-calendar');
-            this.move();
+            // this.move();
             this.element.trigger('showCalendar.daterangepicker', this);
         },
 
@@ -1220,7 +1223,7 @@
 
                 if (!this.alwaysShowCalendars)
                     this.hideCalendars();
-                this.clickApply();
+                // this.clickApply();
             }
         },
 
@@ -1354,7 +1357,7 @@
 
             if (this.singleDatePicker) {
                 this.setEndDate(this.startDate);
-                if (!this.timePicker && this.autoApply)
+                // if (!this.timePicker && this.autoApply)
                     this.clickApply();
             }
 
@@ -1398,7 +1401,7 @@
         },
 
         clickApply: function(e) {
-            this.hide();
+            // this.hide();
             this.element.trigger('apply.daterangepicker', this);
         },
 

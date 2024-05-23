@@ -141,12 +141,10 @@
                     <h1>언제 떠날까요?</h1>
                     <img src="${ path }/img/close.png" alt="" class="modal-when-close">
                 </div>
-                <form action="" method="">
+                <form action="${path}/findstay/room" method="GET">
                     <div class="modal-cal-wrap">
-<!--                         <div class="modal-cal"> -->
-<!--                             <input type="text" name="datefilter" value="" placeholder="날짜를 선택해주세요." /> -->
-<!--                         </div> -->
-                        <div class="datefilter" style="width:100px;height:100px;background-color:aqua;"></div>
+                        <input type="hidden" name="check-in"  value=""/>
+                        <input type="hidden" name="check-out" value=""/>
                     </div>
                     <div class="modal-btn-img-2">
                         <img src="${ path }/img/refresh.png" alt="" onclick="location.reload()">
