@@ -1,0 +1,277 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+body {
+    font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', sans-serif;
+    color: black;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+section1 {
+    width: 100%;
+    height: 413px;
+}
+
+.mypagetitle {
+    width: 100%;
+    height: 368px;
+}
+
+.mypage_title {
+    position: relative;
+    width: 100%;
+    height: 282px;
+}
+
+.mypage_title_img {
+    position: relative;
+    width: 443px;
+    height: 150px;
+    top: 66px;
+    left: 0;
+    background-position: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.subtitle {
+    text-align: center;
+    color: black;
+    font-size: 25px;
+    letter-spacing: 2px;
+    margin: auto;
+}
+
+section2 {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 700px;
+}
+
+.container_mypage_contents {
+    width: 1100px;
+    height: 700px;
+    position: relative;
+    margin: 0 auto;
+    background-position: 50% 50%;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-color: black;
+}
+
+.navi {
+    position: absolute;
+    float: left;
+    width: 270px;
+    margin-top: 40px;
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.menu>li {
+    width: 20%;
+    height: 100%;
+    display: block;
+    margin-top: 0.5em;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.active {
+    font-weight: 900;
+}
+
+.menu a {
+    color: black;
+    display: block;
+    height: 100%;
+    width: 270px;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 35px;
+}
+
+.navi a:hover {
+    font-weight: 900;
+}
+
+.mypage_content {
+    float: right;
+    width: 830px;
+    position: relative;
+}
+
+.list_screen {
+    position: static;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    width: 830px;
+    border-bottom-width: 0.5px;
+    border-bottom-style: solid;
+    border-color: black;
+}
+
+.list1 {
+    height: 310px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.list1 .reserv_stay_info {
+    position: absolute;
+    float: left;
+    width: 48%;
+    line-height: 2;
+    height: 90px;
+}
+
+.list1 .name {
+    font-size: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 100%;
+}
+
+.list1 .location {
+    overflow: visible;
+    font-size: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.stay_view {
+    float: right;
+    overflow: hidden;
+    width: 410px;
+}
+
+.stay_img {
+    background-image: url(../../img/stay_img.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    float: right;
+    position: relative;
+    width: 410px;
+    height: 250px;
+}
+
+.list1 .btn_reserv_cencel {
+    position: absolute;
+    width: 410px;
+    height: 40px;
+    bottom: 0;
+    right: 0;
+    line-height: 30px;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    background-color: black;
+    border-style: none;
+    cursor: pointer;
+}
+
+.list1 .reserv_info {
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    top: 90px;
+    width: 48%;
+    height: 220px;
+    padding-top: 10px;
+    line-height: 2;
+}
+
+.list1 .reserv_info .date {
+    font-size: 16px;
+    color: black;
+}
+
+.list1 .reserv_info .option {
+    font-size: 13px;
+    color: gray;
+}
+
+.list1 .reserv_info .price {
+    font-size: 20px;
+    color: black;
+    letter-spacing: 2px;
+    right: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.list1 .btn_reserv_detail {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    left: 0;
+    line-height: 30px;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    background: transparent;
+    border-style: none;
+    border-bottom: 1px solid black;
+}
+
+.paging {
+    margin-top: 60px;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.paging .prev {
+    background-image: url(../../img/arrow_backward_icon.png);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    font-size: 0;
+    text-indent: -99999px;
+    width: 7px;
+    height: 15px;
+    margin: 0 15px;
+}
+
+.paging .on {
+    opacity: 1;
+    padding-right: 15px;
+}
+
+.paging .next {
+    background-image: url(../../img/arrow_forward_icon.png);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    font-size: 0;
+    text-indent: -99999px;
+    width: 7px;
+    height: 15px;
+    margin: 0px 15px;
+}
+
+.paging a {
+    display: inline-block;
+    padding: 0 10px;
+    line-height: 30px;
+    color: #000;
+    font-size: 14px;
+    vertical-align: middle;
+    opacity: .3;
+    text-decoration: none;
+    outline: none;
+}
+
+.paging a:hover {
+    opacity: 1;
+}

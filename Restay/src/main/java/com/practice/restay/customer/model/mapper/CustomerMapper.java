@@ -38,4 +38,6 @@ public interface CustomerMapper {
 	
 	int updateFileName(@Param("customerNo") String customerNo);
 	
+	int deleteCustomerInfo(@Param("customerNo") String customerNo);
+	
 }

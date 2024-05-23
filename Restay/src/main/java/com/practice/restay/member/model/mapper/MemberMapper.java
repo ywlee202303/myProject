@@ -13,5 +13,8 @@ public interface MemberMapper {
 
 	// 회원가입
 	int insertMember(Member member);
+	
+	// 회원정보 수정
+	int updateMember(Member member);
 
 }
