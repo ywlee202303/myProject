@@ -149,4 +149,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.updateFileName(customerNo);
 	}
 
+	// 고객센터 1:1문의 등록/수정
+	@Override
+	@Transactional
+	public int delete(String customerNo) {
+		
+		return customerMapper.deleteCustomerInfo(customerNo);
+	}
+
 }

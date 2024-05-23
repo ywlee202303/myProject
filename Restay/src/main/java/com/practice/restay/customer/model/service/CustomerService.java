@@ -44,4 +44,7 @@ public interface CustomerService {
 	// 첨부파일 삭제(null 처리)
 	int updateFileName(String customerNo);
 
+	// 고객센터 1:1문의 삭제
+	int delete(String customerNo);
+
 }

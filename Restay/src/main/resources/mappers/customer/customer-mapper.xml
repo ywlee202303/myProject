@@ -237,4 +237,12 @@
 		    CUSTOMER_RENAMEDFILENAME = null
 		WHERE CUSTOMER_NO = #{customerNo}
 	</update>
+	
+	<!-- 고객센터(공지사항, 자유게시판, 자주 묻는 짊문 삭제 -->
+	<update id="deleteCustomerInfo">
+		UPDATE CUSTOMER
+		SET CUSTOMER_STATUS = 'N'
+		WHERE CUSTOMER_NO = #{customerNo}
+		
+	</update>
 </mapper>

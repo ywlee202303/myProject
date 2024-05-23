@@ -235,8 +235,11 @@ public class CustomerController {
 		// 댓글 조회
 		List<Reply> replies = customerService.getReplyList(customerNo, pageInfo);
 		
+		System.out.println("댓글 : " + replies);
+		
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("customer", customer);
+		modelAndView.addObject("replyList", replies);
 		modelAndView.setViewName("customer/Detail");
 		
 		return modelAndView;
@@ -408,10 +411,27 @@ public class CustomerController {
 	// 고객센터 삭제(공지사항, 자유게시판, 자주 묻는 질문)
 	@GetMapping("/customer/delete")
 	public ModelAndView delete(
-			ModelAndView modelAndView
+			ModelAndView modelAndView,
+			@RequestParam("no") String customerNo,
+			@SessionAttribute("loginMember") Member loginMember
 	) {
 		
-		modelAndView.setViewName("redirect:/customer");
+		int result = 0;
+		Customer customer = null;
+		
+		customer = customerService.detailCustomer(customerNo);
+		
+		if(loginMember.getMemberNo() != customer.getMemberNo()) {
+			modelAndView.addObject("msg", "잘못된 접근입니다.");
+			modelAndView.addObject("location", "/customer");
+		} else {
+			result = customerService.delete(customerNo);
+			
+			modelAndView.addObject("msg", "삭제가 완료되었습니다.");
+			modelAndView.addObject("location", "/customer");
+		}
+		
+		modelAndView.setViewName("common/msg");
 		
 		return modelAndView;
 	}

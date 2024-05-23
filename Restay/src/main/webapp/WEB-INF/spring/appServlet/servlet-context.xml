@@ -43,6 +43,9 @@
 			<mapping path="/customer/inquiry"/>
 			<mapping path="/customer/**/reply"/>
 			<mapping path="/customer/update/**"/>
+			<mapping path="/customer/delete"/>
+			
+			<mapping path="/mypage/**"/>
 			
 			<beans:bean id="loginCheckInterceptor" class="com.practice.restay.common.interceptor.LoginCheckInterceptor" />
 		</interceptor>

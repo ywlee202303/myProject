@@ -62,4 +62,16 @@
 			#{memberPhone}
 		)
 	</insert>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="memberPw != null">
+				MEMBER_PW = #{memberPw},
+			</if>
+			MEMBER_MD = SYSDATE
+		</trim>
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 </mapper>

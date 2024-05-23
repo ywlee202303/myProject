@@ -40,15 +40,20 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
-	// 회원가입
+	// 회원가입 / 수정
 	@Override
 	@Transactional // 에러가 생기면 자동 롤백
 	public int save(Member member) {
+		
+		System.out.println("멤버가 널이냐? : " + member == null);
 		
 		int result = 0;
 		
 		if(member.getMemberNo() > 0) {
 			// update
+			// 새로운 비밀번호를 암호화하여 설정
+			member.setMemberPw(encoder.encode(member.getMemberPw()));
+			result = memberMapper.updateMember(member);
 		} else {
 			// insert
 			// 새로운 비밀번호를 암호화하여 설정
