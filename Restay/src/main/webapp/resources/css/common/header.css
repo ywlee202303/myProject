@@ -183,7 +183,7 @@ body {
 /* 紐⑤떖 */
 .modal-wrap {
     margin: auto;
-    width: 1440px;
+    width: 100%;
     height: 2936px;
     background-color: rgba(0,0,0,.1);
     position: absolute;
@@ -216,7 +216,7 @@ body {
 .modal-close {
     position: absolute;
     top: 47px;
-    left: 1200px;
+    right: 350px;
     cursor: pointer;
 }
 
@@ -244,7 +244,7 @@ body {
 .modal-search img {
     position: absolute;
     top: 247px;
-    left: 470px;
+    left: 642px;
 }
 
 .modal-search input {
@@ -391,7 +391,7 @@ body {
 
 .modal-wrap-2 {
     margin: auto;
-    width: 1440px;
+    width: 100%;
     height: 2936px;
     background-color: rgba(0,0,0,.1);
     position: absolute;
@@ -424,7 +424,7 @@ body {
 .modal-when-close {
     position: absolute;
     top: 47px;
-    left: 1200px;
+    right: 350px;
     cursor: pointer;
 }
 

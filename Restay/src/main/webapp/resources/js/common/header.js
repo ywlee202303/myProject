@@ -16,16 +16,27 @@ $(document).ready(() => {
 		});
 		
 		// 달력
-		$('input[name="datefilter"]').daterangepicker({
+//		$('input[name=datefilter]').daterangepicker({
+		$('div.datefilter').daterangepicker({
 		    autoUpdateInput: false,
-		    locale: {
-		    	applyLabel: "확인",
-		        cancelLabel: "취소"
-		    }
+		    autoApply: true,
+		    autoClose: true,
+            format: 'YYYY-MM-DD',
+			isShowing: true,
+			alwaysShowCalendars:true,
+            container:$('div.datefilter'),
+            locale: {
+            "separator": " ~ ",                     // 시작일시와 종료일시 구분자
+            "format": 'YYYY-MM-DD',     // 일시 노출 포맷
+            "applyLabel": "확인",                    // 확인 버튼 텍스트
+            "cancelLabel": "취소",                   // 취소 버튼 텍스트
+            "daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+            "monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+            }
 		});
 		
 		$('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-		    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+		    $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
 		});
 		
 		$('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
@@ -69,9 +80,10 @@ $(document).ready(() => {
 			}
 			$('#formSearch').trigger('submit');
 		});
+		
+		
 });
-
-//새로고침버튼 클릭했을때 이벤트 - 언제떠날까요는 기능안함
+//새로고침모양버튼 클릭했을때 이벤트 - 언제떠날까요는 기능안함
 function clearSelected()
 {
 	$('.modal-brand button.item').removeClass('selected');
