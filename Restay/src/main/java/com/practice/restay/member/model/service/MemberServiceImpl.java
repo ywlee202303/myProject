@@ -65,4 +65,16 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	// 회원 탈퇴
+	@Override
+	@Transactional
+	public int delete(int memberNo) {
+		
+		int result = 0;
+		
+		result = memberMapper.deleteMember(memberNo);
+		
+		return result;
+	}
+
 }

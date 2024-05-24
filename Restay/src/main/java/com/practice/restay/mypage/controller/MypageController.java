@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -57,6 +58,38 @@ public class MypageController {
 		return modelAndView;
 	}
 	
+	// 비밀번호 입력 페이지
+	@GetMapping("mypage/member/check")
+	public ModelAndView check(
+			ModelAndView modelAndView
+	) {
+		
+		modelAndView.setViewName("mypage/Check");
+		
+		return modelAndView;
+	}
+	
+	@PostMapping("mypage/member/check")
+	public ModelAndView check(
+			ModelAndView modelAndView,
+			@RequestParam("memberPw") String memberPw,
+			@SessionAttribute("loginMember") Member member
+	) {
+		
+		Member loginMember = memberService.login(member.getMemberId(), memberPw);
+		
+		if(loginMember != null) {
+			modelAndView.addObject("loginMember", loginMember);
+			modelAndView.setViewName("redirect:/mypage/member/edit");
+		} else {
+			modelAndView.addObject("msg", "패스워드가 일치하지 않습니다.");
+			modelAndView.addObject("location", "/mypage/member/check");
+			modelAndView.setViewName("common/msg");
+		}
+		
+		return modelAndView;
+	}
+	
 	// 회원 정보 수정
 	@GetMapping("mypage/member/edit")
 	public ModelAndView edit(
@@ -97,6 +130,36 @@ public class MypageController {
 			modelAndView.addObject("location", "/mypage/member/edit");
 		}
 		
+		
+		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
+	// 회원 탈퇴
+	@PostMapping("/mypage/member/delete")
+	public ModelAndView delete(
+			ModelAndView modelAndView,
+			@SessionAttribute("loginMember") Member loginMember,
+			SessionStatus status
+	) {
+		
+		System.out.println("####회원 탈퇴 로그인 정보#### : " + loginMember);
+		
+		int result = 0;
+		
+		result = memberService.delete(loginMember.getMemberNo());
+		
+		if(result > 0) {
+			// 회원 탈퇴 성공
+			modelAndView.addObject("msg", "정상적으로 탈퇴 되었습니다.");
+			status.setComplete();
+			modelAndView.addObject("location", "/");
+		} else {
+			// 회원 탈퇴 실패
+			modelAndView.addObject("msg", "회원 탈퇴에 실패하였습니다.");
+			modelAndView.addObject("location", "/mypage/member/edit");
+		}
 		
 		modelAndView.setViewName("common/msg");
 		

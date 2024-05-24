@@ -71,7 +71,7 @@
 							<li><a href="${ path }/mypage/reservation">예약 정보</a></li>
 							<li><a href="${ path }/mypage/cancel">취소 내역</a></li>
 							<li><a href="${ path }/mypage/interest">관심 스테이</a></li>
-							<li><a href="${ path }/mypage/member/edit">회원 정보 수정</a></li>
+							<li><a href="${ path }/mypage/member/check">회원 정보 수정</a></li>
 							<li><a href="${ path }/logout">로그아웃</a></li>
 						</ul>
 					</div>

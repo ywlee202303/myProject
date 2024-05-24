@@ -13,4 +13,7 @@ public interface MemberService {
 	// 회원가입 / 수정
 	int save(Member member);
 
+	// 회원 탈퇴
+	int delete(int memberNo);
+
 }

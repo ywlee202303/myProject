@@ -203,6 +203,12 @@ input[type=text] {
     border-style: none;
 }
 
+.btn_delete_wrap {
+	width: 550px;
+    margin-top: 20px;
+    text-align: right;
+}
+
 .checked {
     height: 30px;
     margin: auto;
@@ -259,4 +265,53 @@ input[type=text] {
     color: white;
     background-color: black;
     border-style: none;
+}
+
+/*
+	패스워드 체크
+*/
+.container_mypage_check_contents {
+    width: 1100px;
+    height: 300px;
+    position: relative;
+    margin: 0 auto;
+    background-position: 50% 50%;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-color: black;
+}
+
+.mypage_check_content {
+	position: relative;
+    float: right;
+    width: 830px;
+    margin-top: 40px;
+    right: 15px
+}
+
+.mypage_passwordCk {
+	width: 730px;
+    border-top: 1px solid lightgray;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.mypage_passwordCk_input {
+	width: 730px;
+    height: 100px;
+    border: 1px solid lightgray;
+}
+
+#memberPw {
+	border: 1px solid;
+    width: 316px;
+    height: 40px;
+}
+
+.check {
+	width: 60px;
+	height: 40px;
+	background-color: black;
+	color: white;
+	border: none;
 }

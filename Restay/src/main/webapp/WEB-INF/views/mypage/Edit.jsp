@@ -28,7 +28,7 @@
 					<li><a href="${ path }/mypage/reservation">예약정보</a></li>
 					<li><a href="${ path }/mypage/cancel">취소 내역</a></li>
 					<li><a href="${ path }/mypage/interest">관심 스테이</a></li>
-					<li class="active"><a>회원	정보 수정</a></li>
+					<li class="active"><a>회원 정보 수정</a></li>
 				</ul>
 			</nav>
 			<div class="mypage_content">
@@ -37,12 +37,6 @@
 					<div class="password">
 						<div class="input_box">
 							<div class="tit">비밀번호</div>
-							<div class="input">
-								<label style="display: flex;">
-									<input type="password" id="password" name="currentPassword" placeholder="현재 비밀번호">
-									<input type="button" class="img-button">
-								</label>
-							</div>
 							<div class="input">
 								<label style="display: flex;"> 
 									<input type="password" id="newPassword" name="newPassword" placeholder="변경할 비밀번호"> 
@@ -79,9 +73,12 @@
 							</div>
 						</div>
 					</div>
-	
 					<button id="btn_save" class="btn_save">저장하기</button>
-	
+				</form>
+				<form action="${ path }/mypage/member/delete" method="post">
+					<div class="btn_delete_wrap">
+						<button id="btn_delete" class="btn_delete">회원 탈퇴</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -116,7 +113,6 @@
 	
 	// 비밀번호 보이기, 숨김처리
 	document.addEventListener('DOMContentLoaded', function() {
-		const passwordInput = document.getElementById('password');
 		const newPasswordInput = document.getElementById('newPassword');
 		const newPasswordConfirmInput = document.getElementById('newPasswordConfirm');
 		const passwordToggleButtons = document.querySelectorAll('.img-button');
@@ -185,6 +181,16 @@
 			
 			event.preventDefault();
 		}
-		
+	})
+	
+	// 회원 탈퇴
+	let btnDelete = document.getElementById('btn_delete');
+	
+	btnDelete.addEventListener('click', () => {
+		if(confirm('회원을 탈퇴하시겠습니까?')) {
+			return true;
+		} else {
+			event.preventDefault();
+		}
 	})
 </script>
