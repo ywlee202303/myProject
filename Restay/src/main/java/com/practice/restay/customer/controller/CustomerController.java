@@ -220,7 +220,8 @@ public class CustomerController {
 	public ModelAndView inquiryDetail(
 			ModelAndView modelAndView,
 			@PathVariable String customerNo,
-			@RequestParam(defaultValue = "1") int page
+			@RequestParam(defaultValue = "1") int page,
+			@SessionAttribute("loginMember") Member loginMember
 	) {
 		
 		Customer customer = null;
@@ -237,10 +238,16 @@ public class CustomerController {
 		
 		System.out.println("댓글 : " + replies);
 		
-		modelAndView.addObject("pageInfo", pageInfo);
-		modelAndView.addObject("customer", customer);
-		modelAndView.addObject("replyList", replies);
-		modelAndView.setViewName("customer/Detail");
+		if(loginMember.getMemberRole().equals("ROLE_ADMIN") || loginMember.getMemberNo() == customer.getMemberNo()) {
+			modelAndView.addObject("pageInfo", pageInfo);
+			modelAndView.addObject("customer", customer);
+			modelAndView.addObject("replyList", replies);
+			modelAndView.setViewName("customer/Detail");
+		} else {
+			modelAndView.addObject("msg", "잘못된 접근입니다.");
+			modelAndView.addObject("location", "/");
+			modelAndView.setViewName("common/msg");
+		}
 		
 		return modelAndView;
 	}

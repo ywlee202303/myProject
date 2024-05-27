@@ -1,5 +1,7 @@
 package com.practice.restay.mypage.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.practice.restay.common.util.PageInfo;
+import com.practice.restay.customer.model.service.CustomerService;
+import com.practice.restay.customer.model.vo.Customer;
 import com.practice.restay.member.model.service.MemberService;
 import com.practice.restay.member.model.vo.Member;
 
@@ -24,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MypageController {
 	
 	private final MemberService memberService;
+	private final CustomerService customerService;
 
 	// 예약 페이지
 	@GetMapping("/mypage/reservation")
@@ -170,11 +176,25 @@ public class MypageController {
 	@GetMapping("/mypage/customer/myinquiry")
 	public ModelAndView myInquiry(
 			ModelAndView modelAndView,
-			@SessionAttribute("loginMember") Member loginMember
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam(defaultValue = "1") int page
 	) {
 		
-		System.out.println("####나의 문의 내역 로그인 정보#### : " + loginMember);
+		PageInfo pageInfo = null;
+		List<Customer> myInquiryList = null;
+		int myInquiryCount = 0;
 		
+		myInquiryCount = customerService.getMyInquiryCount(loginMember.getMemberNo());
+		
+		pageInfo = new PageInfo(page, 5, myInquiryCount, 10);
+		
+		myInquiryList = customerService.getMyInquiryList(loginMember.getMemberNo(), pageInfo);
+		
+		System.out.println("####나의 문의 내역 로그인 정보#### : " + loginMember);
+		System.out.println("####나의 문의 내역 리스트#### : " + myInquiryList);
+		
+		modelAndView.addObject("pageInfo", pageInfo);
+		modelAndView.addObject("myInquiryList", myInquiryList);
 		modelAndView.setViewName("mypage/MyInquiry");
 		
 		return modelAndView;

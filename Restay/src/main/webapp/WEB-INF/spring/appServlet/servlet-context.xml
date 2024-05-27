@@ -40,7 +40,7 @@
 		<interceptor>
 			<!-- 인터셉터를 적용시킬 요청 선택 --> 
 			<mapping path="/customer/write"/>
-			<mapping path="/customer/inquiry"/>
+			<mapping path="/customer/inquiry/**"/>
 			<mapping path="/customer/**/reply"/>
 			<mapping path="/customer/update/**"/>
 			<mapping path="/customer/delete"/>
@@ -48,16 +48,6 @@
 			<mapping path="/mypage/**"/>
 			
 			<beans:bean id="loginCheckInterceptor" class="com.practice.restay.common.interceptor.LoginCheckInterceptor" />
-		</interceptor>
-		
-		<interceptor>
-			<!-- 인터셉터를 적용시킬 요청 선택 --> 
-			<mapping path="/customer/inquiry/**"/>
-			
-			<!-- 인터셉터를 제외시킬 요청 선택 -->
-			<exclude-mapping path="/customer/inquiry"/>
-			
-			<beans:bean id="adminCheckInterceptor" class="com.practice.restay.common.interceptor.AdminCheckInterceptor" />
 		</interceptor>
 	</interceptors>
 	

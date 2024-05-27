@@ -10,6 +10,13 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${ path }/css/mypage/Edit.css">
 
+<style>
+	.disable {
+		color: green !important;
+		font-weight: bold;
+	}
+</style>
+
 <main>
 	<section class="section1">
 		<div class="mypagetitle">
@@ -39,16 +46,50 @@
 						<th style="width: 120px;">작성자</th>
 						<th style="width: 120px;">등록일</th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td style="text-align: left;">
-							<a href="#">테스트 제목</a>
-						</td>
-						<td>user</td>
-						<td>2023-05-26</td>
-					</tr>
+					<c:if test="${ empty myInquiryList }">
+						<tr>
+							<td colspan="4">조회된 데이터가 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:if test="${ not empty myInquiryList }">
+						<c:forEach var="myInquiry" items="${ myInquiryList }">
+							<tr>
+								<td>${ myInquiry.rowNumber }</td>
+								<td style="text-align: left;">
+									<a href="${ path }/customer/inquiry/${ myInquiry.customerNo}">${ myInquiry.customerTitle }</a>
+								</td>
+								<td>${ loginMember.memberId }</td>
+								<td>${ myInquiry.customerEnrollDate }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</table>
-		</div>
+				
+				<!-- 페이징 -->
+				<div class="myinquiry-restay-page-number">
+					<ul class="myinquiry-restay-page-number-ul">
+						<!-- 이전 페이지 -->
+						<li><a href="${ path }/mypage/customer/myinquiry?page=${ pageInfo.prevPage }">&lt;</a></li>
+						
+						<!-- 5개 페이지 -->
+						<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+							<c:choose>
+								<c:when test="${ current == pageInfo.currentPage }">
+									<li><a class="disable">${ current }</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="${ path }/mypage/customer/myinquiry?page=${ current }">${ current }</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						
+						<!-- 다음 페이지 -->
+						<li><a href="${ path }/mypage/customer/myinquiry?page=${ pageInfo.nextPage }">&gt;</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			
 		</div>
 	</section>
 </main>

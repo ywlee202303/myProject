@@ -40,4 +40,8 @@ public interface CustomerMapper {
 	
 	int deleteCustomerInfo(@Param("customerNo") String customerNo);
 	
+	List<Customer> selectMyInquiryList(@Param("memberNo") int memberNo, RowBounds rowBounds);
+	
+	int selectMyInquiryCount(@Param("memberNo") int memberNo);
+	
 }

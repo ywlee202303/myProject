@@ -37,6 +37,7 @@
 		<result property="customerCount" column="CUSTOMER_COUNT" />
 		<result property="customerStatus" column="CUSTOMER_STATUS" />
 		<result property="memberNo" column="MEMBER_NO" />
+		<result property="rowNumber" column="ROWNUM" />
 		<association property="member" javaType="Member" 
 			columnPrefix="M_" resultMap="com.practice.restay.member.model.mapper.MemberMapper.memberResultMap"/>
 	</resultMap>
@@ -135,6 +136,36 @@
 		WHERE REPLY_STATUS = 'Y'
 		  AND CUSTOMER_NO = #{customerNo}
 		ORDER BY REPLY_CREATEDATE DESC
+	</select>
+	
+	<!-- 나의 문의 내역 -->
+	<select id="selectMyInquiryList" resultMap="customerResultMap" parameterType="_int">
+		SELECT ROWNUM,
+		       CUSTOMER_NO,
+		       CUSTOMER_TITLE,
+		       CUSTOMER_ENROLLDATE,
+		       CUSTOMER_STATUS
+		FROM
+		(
+		    SELECT CUSTOMER_NO,
+		           CUSTOMER_TITLE,
+		           CUSTOMER_ENROLLDATE,
+		           CUSTOMER_STATUS
+		    FROM CUSTOMER
+		    WHERE MEMBER_NO = #{memberNo}
+		    AND CUSTOMER_CATEGORY = '[1:1문의]'
+		    ORDER BY CUSTOMER_ENROLLDATE DESC
+		)
+		WHERE CUSTOMER_STATUS = 'Y'
+	</select>
+	
+	<!-- 나의 문의 내역 카운트 -->
+	<select id="selectMyInquiryCount" parameterType="_int">
+		SELECT COUNT(*)
+		FROM CUSTOMER
+		WHERE CUSTOMER_STATUS = 'Y'
+		AND CUSTOMER_CATEGORY = '[1:1문의]'
+		AND MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 고객센터 글 등록 -->

@@ -49,4 +49,7 @@ public class Customer {
 	// 회원
 	private Member member;
 	
+	// 번호
+	private int rowNumber;
+	
 }

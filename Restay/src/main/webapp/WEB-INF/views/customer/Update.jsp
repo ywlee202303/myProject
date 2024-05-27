@@ -60,9 +60,18 @@
 					</th>
 					<td>
 						<select id="customer-category" name="customerCategory">
-							<option value="[공지사항]">공지사항</option>
-							<option value="[자유게시판]">자유게시판</option>
-							<option value="[자주 묻는 질문]">자주 묻는 질문</option>
+							<c:if test="${ customer.customerCategory == '[공지사항]' }">
+								<option value="[공지사항]">공지사항</option>
+							</c:if>
+							<c:if test="${ customer.customerCategory == '[자유게시판]' }">
+								<option value="[자유게시판]">자유게시판</option>
+							</c:if>
+							<c:if test="${ customer.customerCategory == '[자주 묻는 질문]' }">
+								<option value="[자주 묻는 질문]">자주 묻는 질문</option>
+							</c:if>
+							<c:if test="${ customer.customerCategory == '[1:1문의]' }">
+								<option value="[1:1문의]">1:1문의</option>
+							</c:if>
 						</select>
 					</td>
 				</tr>
@@ -129,15 +138,6 @@
     
     let category = document.getElementById('customer-category')
     let role = document.getElementById('role').value;
-    
-    // 일반 사용자는 자유게시판만 등록 가능
-    if(role ===  'ROLE_USER') {
-    	category.innerHTML = '';
-    	
-    	requestAnimationFrame(function() {
-    		category.innerHTML = '<option value="[자유게시판]">자유게시판</option>';
-    	});
-    }
     
     console.log(document.getElementById('role').value);
     

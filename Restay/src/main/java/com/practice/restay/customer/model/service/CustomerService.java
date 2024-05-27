@@ -47,4 +47,10 @@ public interface CustomerService {
 	// 고객센터 1:1문의 삭제
 	int delete(String customerNo);
 
+	// 나의 문의 내역
+	List<Customer> getMyInquiryList(int memberNo, PageInfo pageInfo);
+
+	// 나의 문의 내역 카운트
+	int getMyInquiryCount(int memberNo);
+
 }

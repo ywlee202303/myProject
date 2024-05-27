@@ -157,4 +157,24 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.deleteCustomerInfo(customerNo);
 	}
 
+	// 나의 문의 내역
+	@Override
+	public List<Customer> getMyInquiryList(int memberNo, PageInfo pageInfo) {
+		
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		
+		return customerMapper.selectMyInquiryList(memberNo, rowBounds);
+	}
+
+	// 나의 문의 내역 카운트
+	@Override
+	public int getMyInquiryCount(int memberNo) {
+		
+		return customerMapper.selectMyInquiryCount(memberNo);
+	}
+
 }
