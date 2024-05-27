@@ -1,6 +1,10 @@
 package com.practice.restay.findstay.controller;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,13 +25,16 @@ import com.practice.restay.findstay.model.service.FindStayService;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
 import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.Reservation;
+import com.practice.restay.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
-@Slf4j
+@SessionAttributes("loginMember")
 public class FindStayController {
     
     private final FindStayService findStayService;
@@ -39,7 +47,9 @@ public class FindStayController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "") String searchLocationKewords,
             @RequestParam(defaultValue = "") String searchBrandKewords,
-            @RequestParam(defaultValue = "") String inputSearch
+            @RequestParam(defaultValue = "") String inputSearch,
+            @RequestParam(name="checkIn", defaultValue = "") String checkIn,
+            @RequestParam(name="checkOut", defaultValue = "") String checkOut
         ) 
     {
         if(searchLocationKewords.contains("충청")||searchLocationKewords.contains("경상")||searchLocationKewords.contains("전라"))
@@ -76,7 +86,10 @@ public class FindStayController {
 //      else if(searchBrandKewords.contains(","))
 //      {
 //      }
-        
+
+        System.out.println("checkIn : " + checkIn);
+        System.out.println("checkOut : " + checkOut);
+
         int listCount = 0;
         PageInfo pageInfo = null;
         List<String> houseCode = new ArrayList<>();
@@ -101,17 +114,106 @@ public class FindStayController {
         log.info("HouseImage List : {}", houseImageList);
         
         modelAndView.addObject("pageInfo", pageInfo);
+        modelAndView.addObject("checkIn", checkIn);
+        modelAndView.addObject("checkOut", checkOut);
         modelAndView.addObject("houseList", houseList);
         modelAndView.setViewName("findstay/FindStay");
         
         return modelAndView;
     }
-    
-    // 숙소 예약 패이지
+
+    // 숙소 예약 페이지
     @GetMapping("/findstay/room")
-    public String room() 
+    public ModelAndView room(
+            ModelAndView modelAndView,
+            @RequestParam(defaultValue = "") String houseCode,
+            @RequestParam(name="checkIn", defaultValue = "") String checkIn,
+            @RequestParam(name="checkOut", defaultValue = "") String checkOut
+    )
     {
-        return "findstay/Room";
+        long day = 0L;
+        
+        if(!checkIn.equals("")&&!checkOut.equals(""))
+        {
+            DateTimeFormatter sdfStr = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter sdfEnd = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            
+            LocalDate dateStr = LocalDate.parse(checkIn, sdfStr);
+            LocalDate dateEnd = LocalDate.parse(checkOut, sdfEnd);
+            
+            day =DAYS.between(dateStr, dateEnd);
+        }
+        
+        House house = new House();
+
+        house = findStayService.getHouse(houseCode);
+        
+        modelAndView.addObject("house", house);
+        modelAndView.addObject("houseCode", houseCode);
+        modelAndView.addObject("day"       , day);
+        modelAndView.addObject("checkIn"  , checkIn);
+        modelAndView.addObject("checkOut" , checkOut);
+        modelAndView.setViewName("findstay/Room");
+        return modelAndView;
+    }
+
+    // 숙소 예약 페이지
+    @PostMapping("/findstay/reserveRoom")
+    public ModelAndView reserveRoom(
+            ModelAndView modelAndView,
+            Member loginMember,
+            @RequestParam(defaultValue = "") String houseCode,
+            @RequestParam(name="check-in-3", defaultValue = "") String checkIn,
+            @RequestParam(name="check-out-3", defaultValue = "") String checkOut
+    )
+    {
+        System.out.println("houseCode : " + houseCode);
+        System.out.println("checkIn : " + checkIn);
+        System.out.println("checkOut : " + checkOut);
+        System.out.println("loginMember : " + loginMember);
+        
+//        if(loginMember == null)
+//        {
+//            modelAndView.addObject("msg", "숙소 예약 실패\n로그인이 필요합니다.");
+//            modelAndView.addObject("location", "/findstay");
+//            return modelAndView;
+//        }
+        
+        House house = new House();
+
+        house = findStayService.getHouse(houseCode);
+        
+        Reservation reservation = new Reservation();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        int dateDiff = (int)DAYS.between(LocalDate.parse(checkIn, dtf), LocalDate.parse(checkOut, dtf));
+        
+        reservation.setResCheckin(LocalDate.parse(checkIn, dtf));
+        reservation.setResCheckout(LocalDate.parse(checkOut, dtf));
+        reservation.setResState("결제완료");
+        reservation.setResNop(2);//숙박인원은 선택이 없으므로 일단 2명
+        reservation.setTotalPrice(house.getHouseMinPrice() * dateDiff);
+        reservation.setResDate(LocalDate.now());
+        reservation.setMemberNo(loginMember.getMemberNo());
+        
+        
+        int resultNum = findStayService.saveReservation(reservation);
+        
+
+        if(resultNum > 0) {
+            // 숙소 예약 성공
+            modelAndView.addObject("msg", "숙소 예약 성공");
+            modelAndView.addObject("location", "/");
+        } else {
+            // 숙소 예약 실패
+            modelAndView.addObject("msg", "숙소 예약 실패");
+            modelAndView.addObject("location", "/findstay");
+        }
+        
+        modelAndView.setViewName("common/msg");
+        
+        return modelAndView;
     }
     
     // 숙소 등록 페이지(관리자)

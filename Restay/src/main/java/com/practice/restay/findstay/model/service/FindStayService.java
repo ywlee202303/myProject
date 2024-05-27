@@ -6,6 +6,7 @@ import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
 import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.Reservation;
 
 public interface FindStayService {
 
@@ -35,6 +36,11 @@ public interface FindStayService {
 
 	// 숙소 이미지 등록/수정
 	int saveHouseImageInfo(HouseImage houseImage);
+
+    House getHouse(String houseCode);
+
+    // 숙소 예약/수정
+    int saveReservation(Reservation reservation);
 
 	
 }

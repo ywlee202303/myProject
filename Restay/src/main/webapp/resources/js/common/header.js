@@ -16,7 +16,7 @@ $(document).ready(() => {
 		});
 		
 		// 달력
-		$('input[name=check-in]').daterangepicker({
+		$('input[name=checkIn]').daterangepicker({
 		    autoUpdateInput: true,
 		    autoApply: true,
 		    autoClose: true,
@@ -26,7 +26,7 @@ $(document).ready(() => {
 			alwaysShowCalendars:true,
 			alwaysOpen:true,
             parentEl:'div.modal-cal-wrap',
-            container:'div.check-in',
+            container:'div.checkIn',
             locale: {
             "separator": " ~ ",                     // 시작일시와 종료일시 구분자
             "format": 'YYYY-MM-DD',     // 일시 노출 포맷
@@ -37,9 +37,9 @@ $(document).ready(() => {
             }
 		});
 		
-		$('input[name="check-in"]').on('apply.daterangepicker', function(ev, picker) {
+		$('input[name="checkIn"]').on('apply.daterangepicker', function(ev, picker) {
 		    $(this).val(picker.startDate.format('YYYY-MM-DD'));
-		    $('input[name="check-out"').val(picker.endDate.format('YYYY-MM-DD'));
+		    $('input[name="checkOut"').val(picker.endDate.format('YYYY-MM-DD'));
 		});
 		
 		//스테이 검색 - 국내지역 선택시 발생하는 이벤트

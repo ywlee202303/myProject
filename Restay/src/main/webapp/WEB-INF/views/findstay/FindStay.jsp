@@ -85,9 +85,11 @@
                             <div class="stay_info">
                                 <p class="address_info">
                                     <span>${house.houseArea} / ${house.houseSigungu}</span> <br> 기준 2명 (최대 4명) <br> 
-                                    <span style="font-weight: 300; font-size: 14px" class="houseMinPrice" id="houseMinPrice">${house.houseMinPrice}</span>
+                                    <span style="font-weight: 300; font-size: 14px" class="houseMinPrice" id="houseMinPrice">
+                                        ${house.houseMinPrice}
+                                    </span>
                                 </p>
-                                <p class="btn_more" onclick="location.href='${path}/findstay/room'">예약하기</p>
+                                <p class="btn_more" onclick="location.href='${path}/findstay/room?houseCode=${house.houseCode}&checkIn=${checkIn}&checkOut=${checkOut}'">예약하기</p>
                             </div>
                         </div>
 
@@ -120,7 +122,7 @@
         <ul class="pageNum_box">
             <!-- 이전 페이지 -->
             <li id="pageNum_before">
-                <a href="${path}/findstay?page=${pageInfo.prevPage}">&lt;</a></li>
+                <a href="${path}/findstay?page=${pageInfo.prevPage}&checkIn=${checkIn}&checkOut=${checkOut}">&lt;</a></li>
 
             <!-- 5개 페이지 목록 -->
             <c:forEach var="current" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
@@ -129,14 +131,14 @@
                         <li><a class="disable">${current}</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${path}/findstay?page=${current}">${current}</a></li>
+                        <li><a href="${path}/findstay?page=${current}&checkIn=${checkIn}&checkOut=${checkOut}">${current}</a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <!-- 다음 페이지 -->
             <li id="pageNum_next">
-                <a href="${path}/findstay?page=${pageInfo.nextPage}">&gt;</a></li>
+                <a href="${path}/findstay?page=${pageInfo.nextPage}&checkIn=${checkIn}&checkOut=${checkOut}">&gt;</a></li>
         </ul>
     </section>
 </main>

@@ -142,10 +142,10 @@
                     <h1>언제 떠날까요?</h1>
                     <img src="${ path }/img/close.png" alt="" class="modal-when-close">
                 </div>
-                <form action="${path}/findstay/room" method="GET">
+                <form action="${path}/findstay" method="GET">
                     <div class="modal-cal-wrap">
-                        <input type="hidden" name="check-in"  value=""/>
-                        <input type="hidden" name="check-out" value=""/>
+                        <input type="hidden" name="checkIn"  value=""/>
+                        <input type="hidden" name="checkOut" value=""/>
                     </div>
                     <div class="modal-btn-img-2">
                         <img src="${ path }/img/refresh.png" alt="" onclick="location.reload()">

@@ -11,6 +11,7 @@ import com.practice.restay.findstay.model.mapper.FindStayMapper;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
 import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.Reservation;
 
 import lombok.RequiredArgsConstructor;
 
@@ -109,6 +110,29 @@ public class FindStayServiceImpl implements FindStayService
             result = findStayMapper.insertHouseImageInfo(houseImage);
         }
 
+        return result;
+    }
+    // 숙소 상세페이지(이미지 포함)
+    @Override
+    public House getHouse(String houseCode)
+    {
+        return findStayMapper.selectHouse(houseCode);
+    }
+
+    //숙소 예약/수정
+    @Override
+    public int saveReservation(Reservation reservation)
+    {
+        int result = 0;
+
+        if (reservation.getResCode() != null)
+        {
+            // update
+        } else
+        {
+            // insert
+            result = findStayMapper.insertReservation(reservation);
+        }
         return result;
     }
 }
