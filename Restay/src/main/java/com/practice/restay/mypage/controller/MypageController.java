@@ -165,4 +165,19 @@ public class MypageController {
 		
 		return modelAndView;
 	}
+	
+	// 나의 문의 내역(1:1 문의 내역)
+	@GetMapping("/mypage/customer/myinquiry")
+	public ModelAndView myInquiry(
+			ModelAndView modelAndView,
+			@SessionAttribute("loginMember") Member loginMember
+	) {
+		
+		System.out.println("####나의 문의 내역 로그인 정보#### : " + loginMember);
+		
+		modelAndView.setViewName("mypage/MyInquiry");
+		
+		return modelAndView;
+	}
+	
 }

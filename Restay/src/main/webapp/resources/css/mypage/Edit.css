@@ -315,3 +315,39 @@ input[type=text] {
 	color: white;
 	border: none;
 }
+
+/*
+	나의 문의 내역
+*/
+.myInquiry_check_content {
+	position: relative;
+    float: right;
+    width: 830px;
+    margin-top: 40px;
+    right: 15px
+}
+
+table {
+	width: 845px;
+	border-collapse: collapse;
+	text-align: center;
+	border-color: lightgray;
+}
+
+th, td {
+	height: 45px;
+}
+
+th {
+	padding: 3px 10px;
+	background-color: #edf4ed;
+}
+
+td {
+	padding: 10px;
+}
+
+td > a {
+	text-decoration: none;
+    color: black;
+}
