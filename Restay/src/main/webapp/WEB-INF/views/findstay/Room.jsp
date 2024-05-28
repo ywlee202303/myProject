@@ -54,6 +54,7 @@ body {
 }
 </style>
 
+        <form id="formRoom" action="${path}/findstay/reserveRoom" method="POST">
 
 <!-- 모달(언제) -->
 <div class="modal-wrap-3">
@@ -61,13 +62,11 @@ body {
         <div class="modal-when-title-3">
             <img src="${ path }/img/close.png" alt="" class="modal-when-close-3">
         </div>
-        <form id="formRoom" action="${path}/findstay/reserveRoom" method="POST">
         <div class="modal-cal-wrap-3">
             <input type="hidden" name="check-in-3"  value="${chekcIn}"/>
             <input type="hidden" name="check-out-3" value="${chekcOut}"/>
             <input type="hidden" name="houseCode"   value="${houseCode}"/>
         </div>
-        </form>
     </div>
 </div>
 
@@ -90,7 +89,7 @@ body {
                         <div class="btn_select">${checkIn} - ${checkOut} <em>${day}박</em></div>
                       </c:if>
                 </div>
-                <button id="reserveRoom" class="findstayRoom-restay-title-pay"><fmt:formatNumber value="${ day * house.houseMinPrice}" type="currency"/> 예약하기</button>
+                <button type="button" id="reserveRoom" class="findstayRoom-restay-title-pay"><fmt:formatNumber value="${ day * house.houseMinPrice}" type="currency"/> 예약하기</button>
             </div>
             <div class="findstayRoom-restay-content">
                 <div class="findstayRoom-restay-content-text">
@@ -199,6 +198,7 @@ body {
     </div>
 </main>
 
+        </form>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -277,12 +277,14 @@ body {
         {
             return ;
         }
-        let btnSelect = $('#btnSelect').text();
+        let btnSelect = $('.btn_select').text();
         let checkIn  = btnSelect.split(' ')[0];
         let checkOut = btnSelect.split(' ')[2];
 
         $('input[name=check-in-3]').val(checkIn);
         $('input[name=check-out-3]').val(checkOut);
+
         
+        $('#formRoom').submit();
     });
 </script>

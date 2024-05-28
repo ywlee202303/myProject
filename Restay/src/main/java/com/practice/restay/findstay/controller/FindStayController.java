@@ -167,21 +167,16 @@ public class FindStayController {
             @RequestParam(name="check-out-3", defaultValue = "") String checkOut
     )
     {
-        System.out.println("houseCode : " + houseCode);
-        System.out.println("checkIn : " + checkIn);
-        System.out.println("checkOut : " + checkOut);
-        System.out.println("loginMember : " + loginMember);
+        if(loginMember == null || loginMember.getMemberNo() == 0)
+        {
+            modelAndView.addObject("msg", "숙소 예약 실패 로그인이 필요합니다.");
+            modelAndView.addObject("location", "/findstay");
+            
+            modelAndView.setViewName("common/msg");
+            return modelAndView;
+        }
         
-//        if(loginMember == null)
-//        {
-//            modelAndView.addObject("msg", "숙소 예약 실패\n로그인이 필요합니다.");
-//            modelAndView.addObject("location", "/findstay");
-//            return modelAndView;
-//        }
-        
-        House house = new House();
-
-        house = findStayService.getHouse(houseCode);
+        House house = findStayService.getHouse(houseCode);
         
         Reservation reservation = new Reservation();
 
