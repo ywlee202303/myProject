@@ -22,7 +22,6 @@
         <result property="houseAddress"    column="H_ADDRESS" />
         <result property="houseTel"        column="H_TEL" />
         <result property="houseEmail"      column="H_EMAIL" />
-        <result property="likeStatus"      column="LIKE_STATE" />
         <result property="houseArea"       column="H_AREA" />
         <result property="houseEnrollDate" column="H_ENROLLDATE" />
         <result property="houseStatus"     column="H_STATUS" />
@@ -104,7 +103,6 @@
                H_ADDRESS,
                H_TEL,
                H_EMAIL,
-               LIKE_STATE,
                H_AREA,
                H_ENROLLDATE,
                H_STATUS,
@@ -131,7 +129,6 @@
                H.H_ADDRESS,
                H.H_TEL,
                H.H_EMAIL,
-               H.LIKE_STATE,
                H.H_AREA,
                H.H_ENROLLDATE,
                H.H_STATUS,
@@ -186,7 +183,6 @@
                H.H_ADDRESS,
                H.H_TEL,
                H.H_EMAIL,
-               H.LIKE_STATE,
                H.H_AREA,
                H.H_ENROLLDATE,
                H.H_STATUS,
