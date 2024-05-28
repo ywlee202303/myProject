@@ -89,7 +89,10 @@ body {
                         <div class="btn_select">${checkIn} - ${checkOut} <em>${day}박</em></div>
                       </c:if>
                 </div>
-                <button type="button" id="reserveRoom" class="findstayRoom-restay-title-pay"><fmt:formatNumber value="${ day * house.houseMinPrice}" type="currency"/> 예약하기</button>
+                <button type="button" id="reserveRoom" class="findstayRoom-restay-title-pay">
+                      <c:if test="${checkIn ne ''}">
+                            <fmt:formatNumber value="${ day * house.houseMinPrice}" type="currency"/>
+                      </c:if>예약하기</button>
             </div>
             <div class="findstayRoom-restay-content">
                 <div class="findstayRoom-restay-content-text">
@@ -237,7 +240,7 @@ body {
     // 달력
     $('input[name=check-in-3]').daterangepicker({
         autoUpdateInput: true,
-        autoApply: false,
+        autoApply: true,
         autoClose: true,
         format: 'YYYY-MM-DD',
         inline:true,
