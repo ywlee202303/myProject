@@ -39,7 +39,7 @@
 				</ul>
 			</nav>
 			<div class="myInquiry_check_content">
-				<table border="1">
+				<table border="1" class="myInquiry-table">
 					<tr>
 						<th style="width: 50px;">번호</th>
 						<th>제목</th>
