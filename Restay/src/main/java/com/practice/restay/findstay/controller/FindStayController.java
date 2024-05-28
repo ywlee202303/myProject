@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,7 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes("loginMember")
 public class FindStayController {
     
     private final FindStayService findStayService;
@@ -161,7 +161,7 @@ public class FindStayController {
     @PostMapping("/findstay/reserveRoom")
     public ModelAndView reserveRoom(
             ModelAndView modelAndView,
-            Member loginMember,
+            @SessionAttribute("loginMember") Member loginMember,
             @RequestParam(defaultValue = "") String houseCode,
             @RequestParam(name="check-in-3", defaultValue = "") String checkIn,
             @RequestParam(name="check-out-3", defaultValue = "") String checkOut

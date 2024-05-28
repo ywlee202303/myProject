@@ -1,7 +1,5 @@
 package com.practice.restay.member.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +35,6 @@ public class MemberController {
 	@PostMapping("/login")
 	public ModelAndView login(
 			ModelAndView modelAndView,
-			HttpSession session,
 			@RequestParam String userId,
 			@RequestParam String userPw
 	) {
@@ -48,8 +45,8 @@ public class MemberController {
 		
 		if(loginMember != null) {
 			// 로그인 성공
+			modelAndView.addObject("loginMember", loginMember);
 			modelAndView.setViewName("redirect:/");
-			session.setAttribute("loginMember", loginMember);
 		} else {
 			// 로그인 실패
 			modelAndView.addObject("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
