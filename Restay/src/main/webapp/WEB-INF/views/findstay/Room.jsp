@@ -281,13 +281,24 @@ body {
             return ;
         }
         let btnSelect = $('.btn_select').text();
-        let checkIn  = btnSelect.split(' ')[0];
-        let checkOut = btnSelect.split(' ')[2];
-
-        $('input[name=check-in-3]').val(checkIn);
-        $('input[name=check-out-3]').val(checkOut);
-
         
-        $('#formRoom').submit();
+        console.log(btnSelect);
+        if(btnSelect === '날짜를 선택해주세요.') {
+        	alert('날짜를 선택해주세요.');
+        	
+        	return false;
+        } else {
+	        let checkIn  = btnSelect.split(' ')[0];
+	        let checkOut = btnSelect.split(' ')[2].slice(0, 10);
+	        
+	        console.log(checkIn);
+	        console.log(checkOut);
+	
+	        $('input[name=check-in-3]').val(checkIn);
+	        $('input[name=check-out-3]').val(checkOut);
+	
+	        
+	        $('#formRoom').submit();
+        }
     });
 </script>

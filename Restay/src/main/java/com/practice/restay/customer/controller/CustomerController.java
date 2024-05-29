@@ -127,7 +127,7 @@ public class CustomerController {
 			// 등록 성공
 			modelAndView.addObject("msg", "1:1문의 등록 성공");
 			// 마이페이지로 변경 예정(**)
-			modelAndView.addObject("location", "/customer");
+			modelAndView.addObject("location", "/mypage/customer/myinquiry");
 		} else {
 			// 등록 실패
 			modelAndView.addObject("msg", "1:1문의 등록 실패");
@@ -327,7 +327,7 @@ public class CustomerController {
 		return modelAndView;
 	}
 	
-	// 고객센터 수정 페이지(공지사항, 자유게시판, 자주 묻는 질문)
+	// 고객센터 수정 페이지(공지사항, 자유게시판, 자주 묻는 질문, 1:1문의)
 	@GetMapping("/customer/update/{customerNo}")
 	public ModelAndView update(
 			ModelAndView modelAndView,
@@ -403,8 +403,14 @@ public class CustomerController {
 		}
 		
 		if(result > 0) {
-			modelAndView.addObject("msg", "게시글 수정 성공");
-			modelAndView.addObject("location", "/customer/" + customer.getCustomerNo());
+			if(customer.getCustomerCategory().equals("[1:1문의]")) {
+				// 1:1문의 수정 성공 시 나의 문의 내역으로 이동
+				modelAndView.addObject("msg", "게시글 수정 성공");
+				modelAndView.addObject("location", "/mypage/customer/myinquiry");
+			} else {
+				modelAndView.addObject("msg", "게시글 수정 성공");
+				modelAndView.addObject("location", "/customer/" + customer.getCustomerNo());
+			}
 		} else {
 			modelAndView.addObject("msg", "게시글 수정 실패");
 			modelAndView.addObject("location", "/customer/update/" + customer.getCustomerNo());
@@ -415,7 +421,7 @@ public class CustomerController {
 		return modelAndView;
 	}
 	
-	// 고객센터 삭제(공지사항, 자유게시판, 자주 묻는 질문)
+	// 고객센터 삭제(공지사항, 자유게시판, 자주 묻는 질문, 1:1문의)
 	@GetMapping("/customer/delete")
 	public ModelAndView delete(
 			ModelAndView modelAndView,
@@ -434,8 +440,13 @@ public class CustomerController {
 		} else {
 			result = customerService.delete(customerNo);
 			
-			modelAndView.addObject("msg", "삭제가 완료되었습니다.");
-			modelAndView.addObject("location", "/customer");
+			if(customer.getCustomerCategory().equals("[1:1문의]")) {
+				modelAndView.addObject("msg", "삭제가 완료되었습니다.");
+				modelAndView.addObject("location", "/mypage/customer/myinquiry");
+			} else {
+				modelAndView.addObject("msg", "삭제가 완료되었습니다.");
+				modelAndView.addObject("location", "/customer");
+			}
 		}
 		
 		modelAndView.setViewName("common/msg");

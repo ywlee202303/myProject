@@ -44,6 +44,7 @@
 			<mapping path="/customer/**/reply"/>
 			<mapping path="/customer/update/**"/>
 			<mapping path="/customer/delete"/>
+			<mapping path="/findstay/reserveRoom"/>
 			
 			<mapping path="/mypage/**"/>
 			

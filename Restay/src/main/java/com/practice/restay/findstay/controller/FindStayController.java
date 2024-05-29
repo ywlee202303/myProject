@@ -167,14 +167,14 @@ public class FindStayController {
             @RequestParam(name="check-out-3", defaultValue = "") String checkOut
     )
     {
-        if(loginMember == null || loginMember.getMemberNo() == 0)
-        {
-            modelAndView.addObject("msg", "숙소 예약 실패 로그인이 필요합니다.");
-            modelAndView.addObject("location", "/findstay");
-            
-            modelAndView.setViewName("common/msg");
-            return modelAndView;
-        }
+//        if(loginMember == null || loginMember.getMemberNo() == 0)
+//        {
+//            modelAndView.addObject("msg", "숙소 예약 실패 로그인이 필요합니다.");
+//            modelAndView.addObject("location", "/findstay");
+//            
+//            modelAndView.setViewName("common/msg");
+//            return modelAndView;
+//        }
         
         House house = findStayService.getHouse(houseCode);
         
@@ -198,8 +198,8 @@ public class FindStayController {
 
         if(resultNum > 0) {
             // 숙소 예약 성공
-            modelAndView.addObject("msg", "숙소 예약 성공");
-            modelAndView.addObject("location", "/");
+//            modelAndView.addObject("msg", "숙소 예약 성공");
+            modelAndView.addObject("location", "/payment");
         } else {
             // 숙소 예약 실패
             modelAndView.addObject("msg", "숙소 예약 실패");
