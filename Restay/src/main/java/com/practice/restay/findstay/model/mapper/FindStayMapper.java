@@ -35,5 +35,9 @@ public interface FindStayMapper {
     House selectHouse(String houseCode);
 
     int insertReservation(Reservation reservation);
-	
+    
+    Reservation selectResInfo(Reservation reservation);
+    
+    Reservation selectResMemberHouse(@Param("resCode") String resCode);
+    
 }

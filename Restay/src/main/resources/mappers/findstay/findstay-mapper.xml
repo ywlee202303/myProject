@@ -54,7 +54,20 @@
         <result property="resNop"          column="RES_NOP"     />
         <result property="totalPrice"      column="TOTAL_PRICE" />
         <result property="resDate"         column="RES_DATE"    />
-        <result property="memberNo"        column="C_NO"        />
+        <result property="memberNo"        column="MEMBER_NO"   />
+        <result property="houseCode"       column="H_CODE"      />
+    </resultMap>
+    
+    <!-- 예약 사용자, 숙소 정보 조회 매핑 -->
+    <resultMap id="resMemberHouseResultMap" type="Reservation" extends="reservationResultMap">
+    	<association property="member" javaType="Member">
+    		<id property="memberNo" column="MEMBER_NO" />
+            <result property="memberName" column="MEMBER_NAME" />
+    	</association>
+    	<association property="house" javaType="House">
+    		<id property="houseCode" column="H_CODE" />
+            <result property="houseName" column="H_NAME" />
+    	</association>
     </resultMap>
     
     <!-- 지역 조회 -->
@@ -200,6 +213,47 @@
          ORDER BY 
                H_IMAGE_RENAMEDFILENAME DESC
     </select>
+    
+    <!-- 예약 정보 조회 -->
+    <select id="selectResInfo" resultMap="reservationResultMap" parameterType="Reservation">
+    	SELECT RES_CODE,
+    	       RES_CHECKIN,
+    	       RES_CHECKOUT,
+    	       RES_STATE,
+    	       RES_NOP,
+    	       TOTAL_PRICE,
+    	       RES_DATE,
+    	       MEMBER_NO,
+    	       H_CODE
+    	  FROM RESERVATION
+    	 WHERE RES_CHECKIN = #{resCheckin}
+    	   AND RES_CHECKOUT = #{resCheckout}
+    	   AND RES_STATE = #{resState}
+    	   AND RES_NOP = #{resNop}
+    	   AND TOTAL_PRICE = #{totalPrice}
+    	   AND RES_DATE = #{resDate}
+    	   AND MEMBER_NO = #{memberNo}
+    	   AND H_CODE = #{houseCode}
+    </select>
+    
+    <!-- 예약 사용자, 숙소 정보 조회 -->
+    <select id="selectResMemberHouse" resultMap="resMemberHouseResultMap" parameterType="string">
+    	SELECT R.RES_CODE,
+		       R.RES_CHECKIN,
+		       R.RES_CHECKOUT,
+		       R.RES_STATE,
+		       R.RES_NOP,
+		       R.TOTAL_PRICE,
+		       R.RES_DATE,
+		       R.MEMBER_NO,
+		       R.H_CODE,
+		       M.MEMBER_NAME,
+		       H.H_NAME
+		FROM RESERVATION R
+		LEFT OUTER JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
+		LEFT OUTER JOIN HOUSE H ON (R.H_CODE = H.H_CODE)
+		WHERE R.RES_CODE = #{resCode}
+    </select>
 
     <!-- 숙소 등록 -->
     <insert    id="insertHouseInfo" parameterType="House" useGeneratedKeys="true" keyProperty="houseCode" keyColumn="H_CODE">
@@ -237,7 +291,8 @@
              , RES_NOP
              , TOTAL_PRICE
              , RES_DATE
-             , C_NO
+             , MEMBER_NO
+             , H_CODE
         )
         VALUES (
                'R' || SEQ_RES_CODE.NEXTVAL
@@ -248,6 +303,7 @@
              , #{totalPrice}
              , #{resDate}
              , #{memberNo}
+             , #{houseCode}
         )
     </insert>
 

@@ -42,5 +42,11 @@ public interface FindStayService {
     // 숙소 예약/수정
     int saveReservation(Reservation reservation);
 
+    // 예약 정보 조회
+	Reservation resInfo(Reservation reservation);
+
+	// 예약 사용자, 숙소 정보 조회
+	Reservation resMemberHouseInfo(String resCode);
+
 	
 }

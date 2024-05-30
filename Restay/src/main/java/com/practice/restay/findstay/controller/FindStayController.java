@@ -191,22 +191,24 @@ public class FindStayController {
         reservation.setTotalPrice(house.getHouseMinPrice() * dateDiff);
         reservation.setResDate(LocalDate.now());
         reservation.setMemberNo(loginMember.getMemberNo());
-        
+        reservation.setHouseCode(houseCode);
         
         int resultNum = findStayService.saveReservation(reservation);
-        
 
         if(resultNum > 0) {
             // 숙소 예약 성공
-//            modelAndView.addObject("msg", "숙소 예약 성공");
-            modelAndView.addObject("location", "/payment");
+        	// 예약 정보 조회
+        	reservation = findStayService.resInfo(reservation);
+        	
+        	System.out.println("####예약정보#### : " + reservation);
+        	
+        	modelAndView.setViewName("redirect:/payment?resCode=" + reservation.getResCode());
         } else {
             // 숙소 예약 실패
             modelAndView.addObject("msg", "숙소 예약 실패");
             modelAndView.addObject("location", "/findstay");
+            modelAndView.setViewName("common/msg");
         }
-        
-        modelAndView.setViewName("common/msg");
         
         return modelAndView;
     }

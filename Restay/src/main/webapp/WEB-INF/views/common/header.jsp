@@ -35,7 +35,7 @@
 <body>
 	<header class="header">
 		<div class="wrap">
-			<div class="logo">
+			<div class="h-logo">
 				<a href="${ path }/">img</a>
 			</div>
 			<div class="menu-wrap">

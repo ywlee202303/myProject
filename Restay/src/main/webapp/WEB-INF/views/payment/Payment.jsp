@@ -11,6 +11,26 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${ path }/css/payment/Payment.css">
 
+<style>
+	.payMethod-label {
+		width: 100px;
+		margin-right: 10px;
+		padding: 10px;
+		background-color: #a9b3a9;
+		color: white;
+		border: 1px solid;
+		text-align: center;
+		font-weight: 300;
+		cursor: pointer;
+		border: 3px solid gray;
+	}
+	
+	.highlight {
+        background-color: yellow;
+        font-weight: bold;
+    }
+</style>
+
 <main>
 	<div class="payment-banner">
 		<img alt="" src="${ path }/img/RESERVATION_BANNER.png">
@@ -21,15 +41,15 @@
 			<table>
 				<tr>
 					<th>예약 스테이</th>
-					<td>보아비양</td>
+					<td>${ reservation.house.houseName }</td>
 				</tr>
 				<tr>
 					<th>예약일</th>
-					<td>2024-05-29</td>
+					<td>${ reservation.resDate }</td>
 				</tr>
 				<tr>
 					<th>이름</th>
-					<td>테스트</td>
+					<td>${ reservation.member.memberName }</td>
 				</tr>
 				<tr>
 					<th>휴대폰 번호</th>
@@ -47,13 +67,13 @@
 				</tr>
 				<tr>
 					<th>결제금액</th>
-					<td>₩180,000 / 1박</td>
+					<td>${ reservation.totalPrice }</td>
 				</tr>
 				<tr>
 					<th>결제방법</th>
 					<td>
 						<div class="payment-method">
-							<input type="radio" id="card" name="payMethod" value="card" checked="checked" />
+							<input type="radio" id="card" name="payMethod" value="card" />
 							<label for="card" class="card">신용카드</label>
 							<input type="radio" id="naverPay" name="payMethod" value="naverPay" />
 							<label for="naverPay" class="naverPay">네이버 페이</label>
@@ -72,8 +92,8 @@
 					<label for="allCheck">사용자 약관 전체 동의</label>
 				</div>
 				<div>
-					<input type="checkbox" id="privacyCheck" />
-					<label for="privacyCheck">개인정보 제공 동의</label><span class="privacyCheck">&nbsp;▽</span>
+					<input type="checkbox" id="privacyCheck" class="agree_check" />
+					<label for="privacyCheck">개인정보 제공 동의(필수)</label><span class="privacyCheck">&nbsp;▽</span>
 					<div class="payment-checklist-content1">
 						예약 시스템 제공 과정에서 예약자 동의 하에 서비스 이용을 위한 예약자 개인정보를 수집하며,<br/>
 						수집된 개인정보는 제휴 판매자(숙소)에게 제공됩니다.<br/>
@@ -85,8 +105,8 @@
 					</div>
 				</div>
 				<div>
-					<input type="checkbox" id="minorCheck" />
-					<label for="minorCheck">미성년자 투숙 기준 동의</label><span class="minorCheck">&nbsp;▽</span>
+					<input type="checkbox" id="minorCheck" class="agree_check" />
+					<label for="minorCheck">미성년자 투숙 기준 동의(필수)</label><span class="minorCheck">&nbsp;▽</span>
 					<div class="payment-checklist-content2">
 						만 19세 미만 미성년자(청소년)의 경우 예약 및 투숙이 불가합니다.<br/>
 						19세 미만 미성년자가 투숙을 원하는 경우 보호자(법정대리인)가 필수 동행해야 합니다.<br/>
@@ -97,8 +117,8 @@
 					</div>
 				</div>
 				<div>
-					<input type="checkbox" id="refundCheck" />
-					<label for="refundCheck">환불 규정에 대한 동의</label><span class="refundCheck">&nbsp;▽</span>
+					<input type="checkbox" id="refundCheck" class="agree_check" />
+					<label for="refundCheck">환불 규정에 대한 동의(필수)</label><span class="refundCheck">&nbsp;▽</span>
 					<div class="payment-checklist-content3">
 						환불규정기준일환불 금액체크인 20일 전까지총 결제금액의 100% 환불체크인 19일 - 15일 전까지<br/>
 						총 결제금액의 80% 환불체크인 14일 - 10일 전까지총 결제금액의 60% 환불체크인 9일 - 5일 전까지<br/>
@@ -111,7 +131,7 @@
 			</div>
 			
 			<div class="payment-btn">
-				<button>결제하기</button>
+				<button id="submitBtn">결제하기</button>
 			</div>
 		</div>
 	</form>
@@ -131,6 +151,44 @@
 		
 		$('.refundCheck').on('click', () => {
 			$('.payment-checklist-content3').fadeToggle();
+		})
+		
+		// 결제 수단 변경 시 테두리 굵게 적용
+		$('input[name="payMethod"]').on('change', (e) => {
+			let selectMethod = $(e.target).val();
+			
+            // 모든 라디오 버튼의 레이블에서 payMethod-label 클래스를 제거
+            $('label').removeClass('payMethod-label');
+            
+            // 선택된 라디오 버튼의 레이블에 payMethod-label 클래스 추가
+            if(selectMethod) {
+            	$('.' + selectMethod).addClass('payMethod-label');
+            }
+		})
+		
+		// 체크박스
+		$('#allCheck').on('click', () => {
+			if($('#allCheck').is(":checked")) {
+				$('.agree_check').attr('checked', true);
+			} else {
+				$('.agree_check').attr('checked', false);
+			}
+		});
+		
+		$('#submitBtn').on('click', () => {
+			// 결제수단 확인
+			if(!$('input[name="payMethod"]').is(":checked")) {
+				alert('결제 수단을 선택해주세요.');
+				
+				return false;
+			}
+			
+			// 체크리스트 체크 여부 확인
+			if(!$('.agree_check').is(":checked")) {
+				alert('필수 동의 사항을 체크해주세요.');
+				
+				return false;
+			}
 		})
 		
 	})

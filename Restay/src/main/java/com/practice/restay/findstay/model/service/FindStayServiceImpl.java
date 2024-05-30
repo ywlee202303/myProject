@@ -135,4 +135,18 @@ public class FindStayServiceImpl implements FindStayService
         }
         return result;
     }
+
+    // 예약 정보 조회
+	@Override
+	public Reservation resInfo(Reservation reservation) {
+		
+		return findStayMapper.selectResInfo(reservation);
+	}
+
+	// 예약 사용자, 숙소 정보 조회
+	@Override
+	public Reservation resMemberHouseInfo(String resCode) {
+		
+		return findStayMapper.selectResMemberHouse(resCode);
+	}
 }
