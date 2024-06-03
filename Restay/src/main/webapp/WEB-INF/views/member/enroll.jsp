@@ -100,6 +100,11 @@
 				</div>
 				<div id="passwordMismatch">비밀번호가 일치하지 않습니다.</div>
 
+				<!-- 이메일 -->
+				<div class="input_box">
+					<label>이메일</label>
+					<input type="email" name="memberEmail" id="memberEmail" placeholder="이메일을 입력하세요."/>
+				</div>
 
 				<div class="input_box">
 					<!-- 휴대폰 번호 -->

@@ -63,6 +63,8 @@
     	<association property="member" javaType="Member">
     		<id property="memberNo" column="MEMBER_NO" />
             <result property="memberName" column="MEMBER_NAME" />
+            <result property="memberEmail" column="MEMBER_EMAIL" />
+            <result property="memberPhone" column="MEMBER_PHONE" />
     	</association>
     	<association property="house" javaType="House">
     		<id property="houseCode" column="H_CODE" />
@@ -248,6 +250,8 @@
 		       R.MEMBER_NO,
 		       R.H_CODE,
 		       M.MEMBER_NAME,
+		       M.MEMBER_EMAIL,
+		       M.MEMBER_PHONE,
 		       H.H_NAME
 		FROM RESERVATION R
 		LEFT OUTER JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)

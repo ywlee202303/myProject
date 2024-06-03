@@ -51,6 +51,7 @@
 			MEMBER_ID,
 			MEMBER_PW,
 			MEMBER_NAME,
+			MEMBER_EMAIL,
 			MEMBER_PHONE
 		)
 		VALUES
@@ -59,6 +60,7 @@
 			#{memberId},
 			#{memberPw},
 			#{memberName},
+			#{memberEmail},
 			#{memberPhone}
 		)
 	</insert>

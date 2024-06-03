@@ -38,6 +38,7 @@
 	
 	<form action="${ path }/payment" method="post">
 		<div class="payment-info">
+		<input type="hidden" name="resCode" value="${ reservation.resCode }" />
 			<table>
 				<tr>
 					<th>예약 스테이</th>
@@ -53,21 +54,15 @@
 				</tr>
 				<tr>
 					<th>휴대폰 번호</th>
-					<td>01012341234</td>
+					<td>${ reservation.member.memberPhone }</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td>test@restay.com</td>
-				</tr>
-				<tr>
-					<th>요청사항</th>
-					<td>
-						<textarea rows="10" cols="100"></textarea>
-					</td>
+					<td>${ reservation.member.memberEmail }</td>
 				</tr>
 				<tr>
 					<th>결제금액</th>
-					<td>${ reservation.totalPrice }</td>
+					<td id="price">${ reservation.totalPrice }</td>
 				</tr>
 				<tr>
 					<th>결제방법</th>
@@ -176,6 +171,10 @@
 		});
 		
 		$('#submitBtn').on('click', () => {
+			if(!confirm('결제 하시겠습니까?')) {
+				return false;
+			}
+			
 			// 결제수단 확인
 			if(!$('input[name="payMethod"]').is(":checked")) {
 				alert('결제 수단을 선택해주세요.');
@@ -190,6 +189,11 @@
 				return false;
 			}
 		})
+		
+		// 가격 원화표시 + 콤마처리
+		let price = $('#price')
+		
+		price.text('₩' + parseInt(price.text()).toLocaleString());
 		
 	})
 </script>

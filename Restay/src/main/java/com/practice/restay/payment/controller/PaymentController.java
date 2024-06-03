@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.practice.restay.findstay.model.service.FindStayService;
 import com.practice.restay.findstay.model.vo.Reservation;
+import com.practice.restay.payment.model.service.PaymentService;
+import com.practice.restay.payment.model.vo.Payment;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class PaymentController {
 	
 	private final FindStayService findStayService;
+	private final PaymentService paymentService;
 
 	// 결제
 	@GetMapping("/payment")
@@ -39,10 +42,24 @@ public class PaymentController {
 	
 	@PostMapping("payment")
 	public ModelAndView payment(
-			ModelAndView modelAndView
+			ModelAndView modelAndView,
+			Payment payment
 	) {
 		
-		modelAndView.setViewName("redirect:/mypage/reservation");
+		int result = 0;
+		
+		// 결제정보 insert
+		result = paymentService.savePaymentInfo(payment);
+		
+		if(result > 0) {
+			modelAndView.addObject("msg", "결제가 완료되었습니다.");
+			modelAndView.addObject("location", "/mypage/reservation");
+		} else {
+			modelAndView.addObject("msg", "결제가 정상적으로 이루어지지 않았습니다.");
+			modelAndView.addObject("location", "/payment?resCode=" + payment.getResCode());
+		}
+		
+		modelAndView.setViewName("common/msg");
 		
 		return modelAndView;
 	}
