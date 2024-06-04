@@ -7,16 +7,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,6 +30,7 @@ import com.practice.restay.findstay.model.service.FindStayService;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
 import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.InterestStay;
 import com.practice.restay.findstay.model.vo.Reservation;
 import com.practice.restay.member.model.vo.Member;
 
@@ -327,4 +332,51 @@ public class FindStayController {
         
         return ResponseEntity.ok(areas);
     }
+    
+    @PostMapping("/findstay/saveInterestStay")
+    public ResponseEntity<Map<String, Object>> addLikeStay(@RequestBody Map<String, Object> requestMap, HttpSession session)
+    {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        
+        Member loginMember = (Member)session.getAttribute("loginMember");
+        
+        //로그인 필수 기능
+        if(loginMember == null)
+        {
+            resultMap.put("result"    , 0);
+            resultMap.put("resultMsg" , "로그인 후에 사용가능합니다.");
+            resultMap.put("failLocation" , "/login");
+            return ResponseEntity.ok(resultMap);
+        }
+        
+        
+        InterestStay interestStay = new InterestStay(); 
+        interestStay.setMemberNo(loginMember.getMemberNo());
+        interestStay.setHouseCode(requestMap.get("houseCode").toString());
+        
+        InterestStay existInterestStay = findStayService.getInterestStay(interestStay);
+        String action = requestMap.get("action").toString();
+        int result = 0;
+        
+        if(existInterestStay != null && action.equals("delete"))
+        {
+            //delete
+            result = findStayService.deleteInterestStay(interestStay);
+            
+        }
+        else if(existInterestStay == null && action.equals("insert"))
+        {
+            //insert
+            result = findStayService.insertInterestStay(interestStay);
+        }
+        else
+        {
+            resultMap.put("resultMsg" , "문제가 발생하였습니다. 다시 시도해주세요");
+            resultMap.put("failLocation" , "/findstay");
+        }
+
+        resultMap.put("result"    , result);
+        return ResponseEntity.ok(resultMap);
+    }
+
 }

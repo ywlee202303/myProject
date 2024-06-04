@@ -122,8 +122,8 @@ main {
 
 .stayName {
     display: block;
-    width: 510px; 
-    height: 110px; 
+/*     width: 510px; */
+/*     height: 110px;  */
     position: absolute; 
     font-size: 32px; 
     font-weight: 400;

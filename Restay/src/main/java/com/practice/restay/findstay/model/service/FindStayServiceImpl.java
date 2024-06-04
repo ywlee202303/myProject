@@ -11,6 +11,7 @@ import com.practice.restay.findstay.model.mapper.FindStayMapper;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
 import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.InterestStay;
 import com.practice.restay.findstay.model.vo.Reservation;
 
 import lombok.RequiredArgsConstructor;
@@ -149,4 +150,26 @@ public class FindStayServiceImpl implements FindStayService
 		
 		return findStayMapper.selectResMemberHouse(resCode);
 	}
+
+    // 스테이 찜 기능 목록저장
+    @Override
+    @Transactional
+    public int insertInterestStay(InterestStay interestStay)
+    {
+        return findStayMapper.insertInterestStay(interestStay);
+    }
+    
+    // 스테이 찜 기능 목록삭제
+    @Override
+    @Transactional
+    public int deleteInterestStay(InterestStay interestStay)
+    {
+        return findStayMapper.deleteInterestStay(interestStay);
+    }
+
+    @Override
+    public InterestStay getInterestStay(InterestStay interestStay)
+    {
+        return findStayMapper.selectInterestStay(interestStay);
+    }
 }

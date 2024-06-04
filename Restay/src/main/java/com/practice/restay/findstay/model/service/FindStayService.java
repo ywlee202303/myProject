@@ -6,6 +6,7 @@ import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
 import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.InterestStay;
 import com.practice.restay.findstay.model.vo.Reservation;
 
 public interface FindStayService {
@@ -47,6 +48,15 @@ public interface FindStayService {
 
 	// 예약 사용자, 숙소 정보 조회
 	Reservation resMemberHouseInfo(String resCode);
+
+    //스테이찜기능
+    int insertInterestStay(InterestStay interestStay);
+    
+    //스테이찜기능
+    int deleteInterestStay(InterestStay interestStay);
+
+    //스테이찜 저장전 조회
+    InterestStay getInterestStay(InterestStay interestStay);
 
 	
 }

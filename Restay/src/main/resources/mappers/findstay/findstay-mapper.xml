@@ -72,6 +72,13 @@
     	</association>
     </resultMap>
     
+    
+    <!-- 숙소 찜 매핑 -->
+    <resultMap  id="interestStayResultMap"            type="InterestStay">
+        <id     property="houseCode"                  column="H_CODE"   />
+        <id     property="memberNo"                   column="MEMBER_NO"/>
+    </resultMap>
+    
     <!-- 지역 조회 -->
     <select    id="selectAreaName" resultMap="areaResultMap">
         SELECT DISTINCT AREA_CODE,
@@ -328,5 +335,36 @@
                #{houseImageRenamedFileName}
         )
     </insert>
+    <!-- 숙소 찜 등록 -->
+    <insert    id="insertInterestStay" parameterType="InterestStay" >
+        INSERT 
+          INTO INTEREST_STAY
+        (
+               MEMBER_NO,
+               H_CODE
+        )
+        VALUES
+        (
+               #{memberNo},
+               #{houseCode}
+        )
+    </insert>
+    
+    <!-- 등록 찜 숙소 삭제 -->
+    <delete    id="deleteInterestStay" parameterType="InterestStay" >
+        DELETE 
+          FROM INTEREST_STAY
+         WHERE MEMBER_NO = #{memberNo}
+           AND H_CODE    = #{houseCode}
+    </delete>
+
+    <!-- 숙소 찜 조회 -->
+    <select    id="selectInterestStay" resultMap="interestStayResultMap" parameterType="InterestStay">
+        SELECT H_CODE,
+               MEMBER_NO
+          FROM INTEREST_STAY
+         WHERE H_CODE    = #{houseCode}
+           AND MEMBER_NO = #{memberNo}
+    </select>    
 
 </mapper>
