@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import com.practice.restay.findstay.model.vo.Area;
 import com.practice.restay.findstay.model.vo.House;
 import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.InterestStay;
 import com.practice.restay.findstay.model.vo.Reservation;
 
 @Mapper
@@ -39,6 +40,12 @@ public interface FindStayMapper {
     Reservation selectResInfo(Reservation reservation);
     
     Reservation selectResMemberHouse(@Param("resCode") String resCode);
+
+    int deleteInterestStay(InterestStay interestStay);
+
+    int insertInterestStay(InterestStay interestStay);
+
+    InterestStay selectInterestStay(InterestStay interestStay);
     
     List<Reservation> selectMyResHouse(@Param("memberNo") int memberNo);
     
