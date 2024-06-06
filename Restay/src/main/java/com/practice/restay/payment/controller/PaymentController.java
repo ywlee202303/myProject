@@ -2,12 +2,15 @@ package com.practice.restay.payment.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.practice.restay.findstay.model.service.FindStayService;
 import com.practice.restay.findstay.model.vo.Reservation;
+import com.practice.restay.member.model.vo.Member;
 import com.practice.restay.payment.model.service.PaymentService;
 import com.practice.restay.payment.model.vo.Payment;
 
@@ -40,7 +43,7 @@ public class PaymentController {
 		return modelAndView;
 	}
 	
-	@PostMapping("payment")
+	@PostMapping("/payment")
 	public ModelAndView payment(
 			ModelAndView modelAndView,
 			Payment payment
@@ -60,6 +63,67 @@ public class PaymentController {
 		}
 		
 		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
+	// 결제 상세
+	@GetMapping("/payment/detail/{resCode}")
+	public ModelAndView detail(
+			ModelAndView modelAndView,
+			@PathVariable("resCode") String resCode,
+			@SessionAttribute("loginMember") Member loginMember
+	) {
+		
+		Reservation reservation = null;
+		Payment payment = null;
+		
+		// 결제 상세
+		reservation = findStayService.resMemberHouseInfo(resCode);
+		
+		// 결제 정보
+		payment = paymentService.paymentInfo(resCode);
+		
+		if(loginMember.getMemberNo() != reservation.getMemberNo()) {
+			modelAndView.addObject("msg", "잘못된 접근입니다.");
+			modelAndView.addObject("location", "/");
+			modelAndView.setViewName("common/msg");
+		} else {
+			modelAndView.addObject("reservation", reservation);
+			modelAndView.addObject("payment", payment);
+			modelAndView.setViewName("payment/Detail");
+		}
+		
+		
+		return modelAndView;
+	}
+	
+	// 결제 취소
+	@GetMapping("/payment/cancel/{resCode}")
+	public ModelAndView cancel(
+			ModelAndView modelAndView,
+			@PathVariable("resCode") String resCode,
+			@SessionAttribute("loginMember") Member loginMember
+	) {
+		
+		Reservation reservation = null;
+		Payment payment = null;
+		
+		// 결제 상세
+		reservation = findStayService.resMemberHouseInfo(resCode);
+		
+		// 결제 정보
+		payment = paymentService.paymentInfo(resCode);
+		
+		if(loginMember.getMemberNo() != reservation.getMemberNo()) {
+			modelAndView.addObject("msg", "잘못된 접근입니다.");
+			modelAndView.addObject("location", "/");
+			modelAndView.setViewName("common/msg");
+		} else {
+			modelAndView.addObject("reservation", reservation);
+			modelAndView.addObject("payment", payment);
+			modelAndView.setViewName("payment/Cancel");
+		}
 		
 		return modelAndView;
 	}

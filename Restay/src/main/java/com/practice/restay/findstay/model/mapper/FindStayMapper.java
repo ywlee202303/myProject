@@ -40,4 +40,6 @@ public interface FindStayMapper {
     
     Reservation selectResMemberHouse(@Param("resCode") String resCode);
     
+    List<Reservation> selectMyResHouse(@Param("memberNo") int memberNo);
+    
 }

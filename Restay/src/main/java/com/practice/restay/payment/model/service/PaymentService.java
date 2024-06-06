@@ -7,4 +7,7 @@ public interface PaymentService {
 	// 결제정보 insert
 	int savePaymentInfo(Payment payment);
 
+	// 결제정보
+	Payment paymentInfo(String resCode);
+
 }

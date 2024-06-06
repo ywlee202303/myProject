@@ -69,7 +69,14 @@
     	<association property="house" javaType="House">
     		<id property="houseCode" column="H_CODE" />
             <result property="houseName" column="H_NAME" />
+            <result property="houseArea" column="H_AREA" />
+            <result property="houseSigungu" column="H_SIGUNGU" />
     	</association>
+    	<collection property="houseImages" ofType="HouseImage" javaType="arrayList">
+    		<id property="houseCode" column="H_CODE" />
+    		<id property="houseImageCode" column="H_IMAGE_CODE" />
+    		<result property="houseImageRenamedFileName" column="H_IMAGE_RENAMEDFILENAME" />
+    	</collection>
     </resultMap>
     
     <!-- 지역 조회 -->
@@ -257,6 +264,25 @@
 		LEFT OUTER JOIN MEMBER M ON(R.MEMBER_NO = M.MEMBER_NO)
 		LEFT OUTER JOIN HOUSE H ON (R.H_CODE = H.H_CODE)
 		WHERE R.RES_CODE = #{resCode}
+    </select>
+    
+    <!-- 나의 예약 숙소 정보 --> 
+    <select id="selectMyResHouse" resultMap="resMemberHouseResultMap" parameterType="_int">
+    	SELECT R.RES_CODE,
+		       R.RES_CHECKIN,
+		       R.RES_CHECKOUT,
+		       R.RES_NOP,
+		       R.TOTAL_PRICE,
+		       H.H_NAME,
+		       H.H_AREA,
+		       H.H_SIGUNGU,
+		       HI.H_IMAGE_RENAMEDFILENAME
+		FROM RESERVATION R
+		LEFT OUTER JOIN HOUSE H ON (R.H_CODE = H.H_CODE)
+		LEFT OUTER JOIN HOUSE_IMAGE HI ON (R.H_CODE = HI.H_CODE)
+		WHERE R.RES_STATE = '결제완료' 
+		AND R.MEMBER_NO = #{memberNo}
+		ORDER BY RES_DATE DESC
     </select>
 
     <!-- 숙소 등록 -->

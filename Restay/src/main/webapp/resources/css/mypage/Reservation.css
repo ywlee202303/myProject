@@ -191,7 +191,7 @@ section2 {
     line-height: 2;
 }
 
-.list1 .reserv_info .date {
+.list1 .reserv_info {
     font-size: 16px;
     color: black;
 }
@@ -223,6 +223,7 @@ section2 {
     background: transparent;
     border-style: none;
     border-bottom: 1px solid black;
+    cursor: pointer;
 }
 
 .paging {
@@ -233,31 +234,9 @@ section2 {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-.paging .prev {
-    background-image: url(../../img/arrow_backward_icon.png);
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    font-size: 0;
-    text-indent: -99999px;
-    width: 7px;
-    height: 15px;
-    margin: 0 15px;
-}
-
 .paging .on {
     opacity: 1;
     padding-right: 15px;
-}
-
-.paging .next {
-    background-image: url(../../img/arrow_forward_icon.png);
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    font-size: 0;
-    text-indent: -99999px;
-    width: 7px;
-    height: 15px;
-    margin: 0px 15px;
 }
 
 .paging a {
@@ -274,4 +253,32 @@ section2 {
 
 .paging a:hover {
     opacity: 1;
+}
+
+.find_stay_for_empty {
+	text-align: center;
+}
+
+.text {
+	display: block;
+    margin: 0 auto;
+    font-size: 14px;
+    width: 830px;
+    padding: 0px;
+}
+
+.find_stay_button {
+	width: 210px;
+    height: 45px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: white;
+    background: black;
+    border: 0;
+    border-radius: 0;
+    vertical-align: middle;
+    cursor: pointer;
 }

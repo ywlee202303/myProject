@@ -1,6 +1,8 @@
 package com.practice.restay.findstay.model.vo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.practice.restay.member.model.vo.Member;
 
@@ -8,8 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
+@Data@NoArgsConstructor
 @AllArgsConstructor
 public class Reservation
 {
@@ -25,4 +26,5 @@ public class Reservation
     
     private Member member;
     private House house;
+    private List<HouseImage> houseImages = new ArrayList<HouseImage>();
 }

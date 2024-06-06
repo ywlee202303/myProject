@@ -48,5 +48,7 @@ public interface FindStayService {
 	// 예약 사용자, 숙소 정보 조회
 	Reservation resMemberHouseInfo(String resCode);
 
+	// 나의 예약 숙소 정보
+	List<Reservation> getMyResHouse(int memberNo);
 	
 }

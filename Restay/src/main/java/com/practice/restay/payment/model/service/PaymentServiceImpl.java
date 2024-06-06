@@ -14,6 +14,7 @@ public class PaymentServiceImpl implements PaymentService {
 	
 	private final PaymentMapper paymentMapper;
 
+	// 결제정보 insert
 	@Override
 	@Transactional
 	public int savePaymentInfo(Payment payment) {
@@ -23,6 +24,13 @@ public class PaymentServiceImpl implements PaymentService {
 		result = paymentMapper.insertPaymentInfo(payment);
 		
 		return result;
+	}
+
+	// 결제정보
+	@Override
+	public Payment paymentInfo(String resCode) {
+		
+		return paymentMapper.selectPaymentInfo(resCode);
 	}
 
 }

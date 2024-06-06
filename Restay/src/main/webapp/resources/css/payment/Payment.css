@@ -80,9 +80,17 @@ input[type="checkbox"] {
 	display: none;
 }
 
-.payment-btn {
+.payment-btn, 
+.move-btn
+{
 	margin-top: 50px;
     text-align: center;
+}
+
+.move-btn {
+	display: flex;
+    justify-content: center;
+    gap: 100px;
 }
 
 .payment-btn > button {
@@ -93,4 +101,16 @@ input[type="checkbox"] {
     background-color: black;
     border: none;
     font-weight: 300;
+    cursor: pointer;
+}
+
+.move-btn button {
+	width: 150px;
+    height: 50px;
+    font-size: 16px;
+    color: white;
+    background-color: black;
+    border: none;
+    font-weight: 300;
+    cursor: pointer;
 }

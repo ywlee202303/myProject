@@ -16,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.practice.restay.common.util.PageInfo;
 import com.practice.restay.customer.model.service.CustomerService;
 import com.practice.restay.customer.model.vo.Customer;
+import com.practice.restay.findstay.model.service.FindStayService;
+import com.practice.restay.findstay.model.vo.HouseImage;
+import com.practice.restay.findstay.model.vo.Reservation;
 import com.practice.restay.member.model.service.MemberService;
 import com.practice.restay.member.model.vo.Member;
 
@@ -30,13 +33,27 @@ public class MypageController {
 	
 	private final MemberService memberService;
 	private final CustomerService customerService;
+	private final FindStayService findStayService;
 
 	// 예약 페이지
 	@GetMapping("/mypage/reservation")
 	public ModelAndView reservation(
-			ModelAndView modelAndView
+			ModelAndView modelAndView,
+			@SessionAttribute("loginMember") Member loginMember
 	) {
 		
+		// 나의 예약 숙소 정보 조회
+		List<Reservation> myResHouseList = null;
+		
+		myResHouseList = findStayService.getMyResHouse(loginMember.getMemberNo());
+		
+		System.out.println("####나의 예약 숙소 정보#### : " + myResHouseList);
+		
+		for (Reservation reservation : myResHouseList) {
+			System.out.println("####숙소 이미지#### : " + reservation.getHouseImages());
+		}
+		
+		modelAndView.addObject("myResHouseList", myResHouseList);
 		modelAndView.setViewName("mypage/Reservation");
 		
 		return modelAndView;

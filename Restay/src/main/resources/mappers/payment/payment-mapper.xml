@@ -6,6 +6,23 @@
     
 <mapper namespace="com.practice.restay.payment.model.mapper.PaymentMapper">
 
+	<resultMap id="paymentResultMap" type="Payment">
+		<id property="payCode" column="PAY_CODE" />
+		<result property="payDate" column="PAY_DATE" />
+		<result property="payMethod" column="PAY_METHOD" />
+		<result property="resCode" column="RES_CODE" />
+	</resultMap>
+	
+	<!-- 결제정보 -->
+	<select id="selectPaymentInfo" resultMap="paymentResultMap" parameterType="string">
+		SELECT PAY_CODE,
+		       PAY_DATE,
+		       PAY_METHOD,
+		       RES_CODE
+		  FROM PAYMENT
+		 WHERE RES_CODE = #{resCode}
+	</select>
+
 	<insert id="insertPaymentInfo" parameterType="Payment" useGeneratedKeys="true" keyProperty="payCode" keyColumn="PAY_CODE">
 		INSERT INTO PAYMENT
 		(

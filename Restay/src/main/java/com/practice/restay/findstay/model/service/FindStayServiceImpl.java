@@ -149,4 +149,12 @@ public class FindStayServiceImpl implements FindStayService
 		
 		return findStayMapper.selectResMemberHouse(resCode);
 	}
+
+	// 나의 예약 숙소 정보
+	@Override
+	public List<Reservation> getMyResHouse(int memberNo) {
+		
+		return findStayMapper.selectMyResHouse(memberNo);
+	}
+	
 }
