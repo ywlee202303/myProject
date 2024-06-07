@@ -47,6 +47,8 @@ public interface FindStayMapper {
 
     InterestStay selectInterestStay(InterestStay interestStay);
     
-    List<Reservation> selectMyResHouse(@Param("memberNo") int memberNo);
+    List<Reservation> selectMyResHouse(@Param("memberNo") int memberNo, @Param("resState") String resState);
+    
+    int updateResState(@Param("resCode") String resCode);
     
 }

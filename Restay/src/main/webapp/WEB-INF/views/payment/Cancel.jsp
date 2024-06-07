@@ -37,7 +37,8 @@
 	</div>
 	
 	<div class="payment-info">
-	<input type="hidden" name="resCode" value="${ reservation.resCode }" />
+	<form action="${ path }/payment/cancel" method="post">
+		<input type="hidden" name="resCode" value="${ reservation.resCode }" />
 		<table>
 			<tr>
 				<th>예약 스테이</th>
@@ -61,7 +62,7 @@
 			</tr>
 			<tr>
 				<th>예약일</th>
-				<td>${ reservation.resCheckin } ~ ${ reservation.resCheckout }</td>
+				<td id="reservationDate">${ reservation.resCheckin } ~ ${ reservation.resCheckout }</td>
 			</tr>
 			<tr>
 				<th>결제방법</th>
@@ -79,10 +80,9 @@
 		
 		<div class="move-btn">
 			<button onclick="location.href='${ path }/mypage/reservation'">마이페이지로 이동</button>
-			<form action="${ path }/payment/cancel" method="post">
-				<button id="reservationCancel">예약 취소</button>
-			</form>
+			<button id="reservationCancel">예약 취소</button>
 		</div>
+	</form>
 	</div>
 </main>
 
@@ -90,6 +90,10 @@
 
 <script>
 	$(document).ready(() => {
+		
+		let reservationDate = $('#reservationDate').text();
+		let firstDate = new Date(reservationDate.slice(0, 10));
+		let currentDate = new Date();
 		
 		// 가격 원화표시 + 콤마처리
 		let price = $('#price')
@@ -100,6 +104,13 @@
 		$('#reservationCancel').on('click', () => {
 			if(!confirm("정말로 예약을 취소하시겠습니까?")) {
 				return false;
+			} else {
+				// 날짜 비교
+				if(currentDate > firstDate) {
+					alert("예약 날짜를 확인해주세요.");
+					
+					return false;
+				}
 			}
 		});
 	})

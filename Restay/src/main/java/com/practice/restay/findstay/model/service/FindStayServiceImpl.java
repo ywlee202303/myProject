@@ -153,9 +153,9 @@ public class FindStayServiceImpl implements FindStayService
 
 	// 나의 예약 숙소 정보
 	@Override
-	public List<Reservation> getMyResHouse(int memberNo) {
+	public List<Reservation> getMyResHouse(int memberNo, String resState) {
 		
-		return findStayMapper.selectMyResHouse(memberNo);
+		return findStayMapper.selectMyResHouse(memberNo, resState);
 	}
 	
     // 스테이 찜 기능 목록저장
@@ -179,4 +179,12 @@ public class FindStayServiceImpl implements FindStayService
     {
         return findStayMapper.selectInterestStay(interestStay);
     }
+
+    // 결제 취소
+	@Override
+	@Transactional
+	public int updateResState(String resCode) {
+		
+		return findStayMapper.updateResState(resCode);
+	}
 }

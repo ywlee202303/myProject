@@ -43,15 +43,12 @@ public class MypageController {
 	) {
 		
 		// 나의 예약 숙소 정보 조회
+		String resState = "결제완료";
 		List<Reservation> myResHouseList = null;
 		
-		myResHouseList = findStayService.getMyResHouse(loginMember.getMemberNo());
+		myResHouseList = findStayService.getMyResHouse(loginMember.getMemberNo(), resState);
 		
 		System.out.println("####나의 예약 숙소 정보#### : " + myResHouseList);
-		
-		for (Reservation reservation : myResHouseList) {
-			System.out.println("####숙소 이미지#### : " + reservation.getHouseImages());
-		}
 		
 		modelAndView.addObject("myResHouseList", myResHouseList);
 		modelAndView.setViewName("mypage/Reservation");
@@ -62,9 +59,19 @@ public class MypageController {
 	// 취소 페이지
 	@GetMapping("/mypage/cancel")
 	public ModelAndView cancel(
-			ModelAndView modelAndView
+			ModelAndView modelAndView,
+			@SessionAttribute("loginMember") Member loginMember
 	) {
 		
+		// 결제 취소 리스트
+		String resState = "결제취소";
+		List<Reservation> myResCancelHouseList = null;
+		
+		myResCancelHouseList = findStayService.getMyResHouse(loginMember.getMemberNo(), resState);
+		
+		System.out.println("####예약 취소 정보#### : " + myResCancelHouseList);
+		
+		modelAndView.addObject("myResCancelHouseList", myResCancelHouseList);
 		modelAndView.setViewName("mypage/Cancel");
 		
 		return modelAndView;

@@ -127,4 +127,30 @@ public class PaymentController {
 		
 		return modelAndView;
 	}
+	
+	@PostMapping("/payment/cancel")
+	public ModelAndView cancel(
+			ModelAndView modelAndView,
+			@RequestParam("resCode") String resCode
+	) {
+		
+		// 결제완료 -> 결제취소 변경
+		int result = 0;
+		
+		result = findStayService.updateResState(resCode);
+		
+		if(result > 0) {
+			// 결제취소 완료
+			modelAndView.addObject("msg", "정상적으로 취소가 완료되었습니다.");
+			modelAndView.addObject("location", "/mypage/cancel");
+		} else {
+			// 결제취소 실패
+			modelAndView.addObject("msg", "예약 취소가 정상적으로 진행되지 않았습니다.");
+			modelAndView.addObject("location", "/payment/cancel/" + resCode);
+		}
+		
+		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
 }

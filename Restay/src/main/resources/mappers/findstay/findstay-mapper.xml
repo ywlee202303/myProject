@@ -274,7 +274,7 @@
     </select>
     
     <!-- 나의 예약 숙소 정보 --> 
-    <select id="selectMyResHouse" resultMap="resMemberHouseResultMap" parameterType="_int">
+    <select id="selectMyResHouse" resultMap="resMemberHouseResultMap" parameterType="map">
     	SELECT R.RES_CODE,
 		       R.RES_CHECKIN,
 		       R.RES_CHECKOUT,
@@ -287,7 +287,7 @@
 		FROM RESERVATION R
 		LEFT OUTER JOIN HOUSE H ON (R.H_CODE = H.H_CODE)
 		LEFT OUTER JOIN HOUSE_IMAGE HI ON (R.H_CODE = HI.H_CODE)
-		WHERE R.RES_STATE = '결제완료' 
+		WHERE R.RES_STATE = #{resState} 
 		AND R.MEMBER_NO = #{memberNo}
 		ORDER BY RES_DATE DESC
     </select>
@@ -392,5 +392,12 @@
          WHERE H_CODE    = #{houseCode}
            AND MEMBER_NO = #{memberNo}
     </select>    
+    
+    <!-- 결제 취소 -->
+    <update    id="updateResState" parameterType="string">
+    	UPDATE RESERVATION
+    	SET RES_STATE = '결제취소'
+    	WHERE RES_CODE = #{resCode}
+    </update>
 
 </mapper>

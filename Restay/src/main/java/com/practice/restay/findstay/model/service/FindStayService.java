@@ -50,7 +50,8 @@ public interface FindStayService {
 	Reservation resMemberHouseInfo(String resCode);
 
 	// 나의 예약 숙소 정보
-	List<Reservation> getMyResHouse(int memberNo);
+	List<Reservation> getMyResHouse(int memberNo, String resState);
+	
     //스테이찜기능
     int insertInterestStay(InterestStay interestStay);
     
@@ -59,6 +60,9 @@ public interface FindStayService {
 
     //스테이찜 저장전 조회
     InterestStay getInterestStay(InterestStay interestStay);
+
+    // 결제취소
+	int updateResState(String resCode);
 
 	
 }
