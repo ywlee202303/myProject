@@ -22,4 +22,16 @@
 ![프로젝트 일정](https://github.com/ywlee202303/myProject/assets/127309120/21539182-e7e2-42e0-ae6c-2564ef68e83c)
 
 
+## ✅ 프로젝트 기획
+![프로젝트 기획](https://github.com/ywlee202303/myProject/assets/127309120/7728ea05-341a-46dd-b9aa-0a531dd5a41b)
+
+
+## ✅ 페이지 주요 기능
+**로그인 & 회원가입**
+![로그인](https://github.com/ywlee202303/myProject/assets/127309120/7eb8250a-99b7-4040-b918-2c2ec0d4b292)
+![회원가입](https://github.com/ywlee202303/myProject/assets/127309120/e2037fd3-8053-4c81-82f4-db1fe1445f04)
+
+
+
+
 ![Re:Stay](https://github.com/ywlee202303/myProject/blob/main/Restay/src/main/webapp/resources/img/RestayMainPage.png)
