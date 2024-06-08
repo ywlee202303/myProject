@@ -7,7 +7,7 @@
 * 언어 : ![HTML5](https://img.shields.io/badge/-HTML5-F05032?style=for-the-badge&logo=html5&labelColor=000000)
 ![CSS3](https://img.shields.io/badge/-CSS3-007ACC?style=for-the-badge&logo=css3&labelColor=000000&logoColor=007ACC)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&labelColor=000000&color=F7DF1E)
-![java](https://img.shields.io/badge/java-78A083?style=for-the-badge&logo=java&labelColor=000000)
+![java]([https://img.shields.io/badge/java-78A083?style=for-the-badge&logo=java&labelColor=000000](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white))
 ![jsp](https://img.shields.io/badge/jsp-41644A?style=for-the-badge&logo=jsp&labelColor=000000)
 
 
