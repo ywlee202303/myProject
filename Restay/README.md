@@ -29,15 +29,9 @@
 ## ✅ 페이지 주요 기능
 **로그인 & 회원가입**
 
-<figure class="half">
-  <a><img src="https://github.com/ywlee202303/myProject/assets/127309120/cddae002-b070-46e2-8d83-60cb35e0ba15"></a>
-  <a><img src="https://github.com/ywlee202303/myProject/assets/127309120/e2037fd3-8053-4c81-82f4-db1fe1445f04"></a>
-  <figcaption>2개이미지.</figcaption>
-</figure>
-
 <div>
-  <img src="https://github.com/ywlee202303/myProject/assets/127309120/cddae002-b070-46e2-8d83-60cb35e0ba15" />
-  <img src="https://github.com/ywlee202303/myProject/assets/127309120/e2037fd3-8053-4c81-82f4-db1fe1445f04" />
+  <img src="https://github.com/ywlee202303/myProject/assets/127309120/cddae002-b070-46e2-8d83-60cb35e0ba15" style="display:inline;" />
+  <img src="https://github.com/ywlee202303/myProject/assets/127309120/e2037fd3-8053-4c81-82f4-db1fe1445f04" style="display:inline;" />
 </div>
 
 
