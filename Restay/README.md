@@ -25,6 +25,9 @@
 ## ✅ 프로젝트 기획
 ![프로젝트 기획](https://github.com/ywlee202303/myProject/assets/127309120/7728ea05-341a-46dd-b9aa-0a531dd5a41b)
 
+## ✅ ERD
+![image](https://github.com/ywlee202303/myProject/assets/127309120/3c9dc2ad-3424-454e-96b3-d39de14c4415)
+
 
 ## ✅ 페이지 주요 기능
 **❖ MAIN**
@@ -83,32 +86,20 @@
 ![마이페이지_예약정보](https://github.com/ywlee202303/myProject/assets/127309120/4a6383a7-cae5-45f0-803e-2ec989dac1bf)
 ![screencapture-localhost-8080-Restay-payment-detail-R242-2024-06-11-15_08_13](https://github.com/ywlee202303/myProject/assets/127309120/bf77cc2a-f3bb-4b9a-844d-2c14f31ed208)
 
+- 취소내역 : 사용자 본인이 예약 취소한 숙소 리스트 확인 가능
+![마이페이지_취소내역](https://github.com/ywlee202303/myProject/assets/127309120/263e66a9-c076-4080-87f0-6f0e2c5cefe5)
 
+- 나의 문의 내역 : 사용자 본인이 1:1문의한 리스트 확인 가능
+- 나의 문의 내역 제목 클릭 시 상세페이지로 이동 가능
+![마이페이지_나의문의내역](https://github.com/ywlee202303/myProject/assets/127309120/b520ecb1-7665-4290-a90f-f341104cdb5d)
+![마이페이지_나의문의내역상세](https://github.com/ywlee202303/myProject/assets/127309120/b8fa9b42-1c09-404b-89ca-3773d4cae081)
 
-
-**LOGIN & JOIN**
-
-- 비밀번호 유효성 검사(정규표현식 사용)
-- 모든 입력값 조건 만족 후 회원가입
-- 사용자 약관 전체 동의 클릭 시, 전체 체크 기능
-
-![로그인](https://github.com/ywlee202303/myProject/assets/127309120/7a97f220-2073-4ee5-953b-a0cae11c7416) | ![회원가입](https://github.com/ywlee202303/myProject/assets/127309120/384eb300-3007-4246-bc3f-ffe0f27bba67)
---- | --- |
-
-![유효성 검사](https://github.com/ywlee202303/myProject/assets/127309120/30f27ad9-bca7-45e9-be22-0c8164cba8ea)
-
-**ABOUT**
-
-- 리스테이(RE_STAY) 소개페이지
-- 리스테이(RE_STAY)의 identity(정체성) & symbol(상징)을 설명
-  
-![어바웃](https://github.com/ywlee202303/myProject/assets/127309120/c0e1a5b3-47e8-4677-8326-ab4cddde799d)
-
-**CUSTOMER**
+**❖ CUSTOMER**
 
 - 리스테이(RE_STAY) 고객센터 페이지
 - 공지사항, 자유게시판, 자주 묻는 질문, 1:1문의 카테고리 분류
-- 자유게시판, 1:1문의 댓글기능 구현(자유게시판 : 관리자, 사용자 / 1:1문의 : 관리자만 댓글 달 수 있도록 구현)
+- jQuery 사용하여 카테고리 클릭 시 카테고리에 해당하는 리스트 출력
+- 자유게시판, 1:1문의 댓글기능 구현(자유게시판 : 관리자, 사용자 등록 / 1:1문의 : 관리자 댓글 등록 할 수 있도록 구현)
 - Cookie 사용하여 조회수 기능 구현(24시간 지나면 쿠키 리셋)
 - MultipartFile, ResourceLoader 사용하여 파일 업로드, 다운로드 기능 구현
 
@@ -118,14 +109,14 @@
 ![공지사항 상세](https://github.com/ywlee202303/myProject/assets/127309120/1a61ff99-d2c7-4459-a8dd-d445e5f0468c)
 ![자묻질](https://github.com/ywlee202303/myProject/assets/127309120/9876ecdf-82a1-4229-9dc5-9518969c3fcb)
 
-##### [자유게시판 상세페이지]
+##### [자유게시판 상세페이지 + 댓글 + 파일 다운로드]
 ![자게1](https://github.com/ywlee202303/myProject/assets/127309120/cad7884a-219c-43be-9638-69b3ad4a41df)
 
 ##### [1:1문의]
 ![11문의](https://github.com/ywlee202303/myProject/assets/127309120/788292b7-96e9-40c1-8762-2184182cddfd)
 
 ##### [고객센터 등록, 수정 페이지]
-등록 - 사용자(자유게시판)
+등록 - 사용자(자유게시판, 일반 사용자는 자유게시판만 등록 가능)
 ![image](https://github.com/ywlee202303/myProject/assets/127309120/d8a22a21-8162-421b-aaf8-ae1e5181e1ec)
 
 수정 - 사용자(자유게시판)
@@ -136,3 +127,29 @@
 
 수정 - 관리자(공지사항, 자유게시판, 자주 묻는 질문)
 ![image](https://github.com/ywlee202303/myProject/assets/127309120/20d3ef62-b6e1-481e-bdfe-f52c8b9538ec)
+
+**❖ LOGIN & JOIN**
+
+- 회원가입 시 DB에 저장된 데이터(ID, PW)와 일치 값 확인 후 로그인 승인
+- 비밀번호 유효성 검사(정규표현식 사용)
+- 모든 입력값 조건 만족 후 회원가입
+- 사용자 약관 전체 동의 클릭 시, 전체 체크 기능
+
+##### [로그인]
+![image](https://github.com/ywlee202303/myProject/assets/127309120/50c70c4a-9dee-40ec-baa8-035179b72a58)
+
+##### [회원가입]
+![회원가입](https://github.com/ywlee202303/myProject/assets/127309120/18be86c6-9ee2-4647-aed7-986a6cb4126e)
+
+##### [유효성 검사]
+![유효성 검사](https://github.com/ywlee202303/myProject/assets/127309120/30f27ad9-bca7-45e9-be22-0c8164cba8ea)
+
+**❖ ABOUT**
+
+- 리스테이(RE_STAY) 소개페이지
+- 리스테이(RE_STAY)의 identity(정체성) & symbol(상징)을 설명
+
+![어바웃](https://github.com/ywlee202303/myProject/assets/127309120/c0e1a5b3-47e8-4677-8326-ab4cddde799d)
+
+
+
