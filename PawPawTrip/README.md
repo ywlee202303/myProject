@@ -1,10 +1,20 @@
-# Restay
+# PawPawTrip
 
-## ✅ 프로젝트 기간
-2023-12-04 ~ 2024-01-30
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/10cc07bb-af91-4ea3-89f4-5dada1cfb377) 프로젝트 기간 / 인원
+- 2024-02-01 ~ 2024-03-18
+- KH정보교육원 팀 프로젝트 : 4명(김정아, 송은정, 양우찬, 이영우)
 
 
-## ✅ 개발 환경
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/10cc07bb-af91-4ea3-89f4-5dada1cfb377) 프로젝트 역할
+- 커뮤니티 조회/등록/수정/삭제
+- 파일 업로드/다운로드
+- 마이페이지 내가 쓴 게시글 조회
+- 관리자페이지(대시보드)
+- 에러페이지
+- 지역별 날씨 조회(공공 데이터 포털 API)
+
+
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/88dc293a-8dc5-4f9a-9c5a-2cf12bd5a117) 개발 환경
 * 언어 : Java, HTML/CSS, Javascript
 
 * 서버 : Apache Tomcat 9.0
@@ -17,19 +27,31 @@
 
 * 라이브러리 : jQuery
 
-
-## ✅ 프로젝트 일정
-![프로젝트 일정](https://github.com/ywlee202303/myProject/assets/127309120/21539182-e7e2-42e0-ae6c-2564ef68e83c)
+* API : 공공 데이터 포털 API
 
 
-## ✅ 프로젝트 기획
-![프로젝트 기획](https://github.com/ywlee202303/myProject/assets/127309120/7728ea05-341a-46dd-b9aa-0a531dd5a41b)
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/88dc293a-8dc5-4f9a-9c5a-2cf12bd5a117) 프로젝트 소개
+- 국내 반려동물 양육자 1500만 '펫코노미(Pet + Economy)'시대
+- 반려동물을 가족처럼 생각하는  '펫팸(Pet + Family)족' 증가
+- 반려인이 필요로 하는 정보 1순위 '반려동물과 함께 갈 수 있는 장소 정보'
+- 공공 데이터 포털 API를 활용한 국내 반려동물 동반가능 여행지 & 숙소 안내 사이트 '포포트립 (PawPaw Trip)'
 
-## ✅ ERD
-![image](https://github.com/ywlee202303/myProject/assets/127309120/3c9dc2ad-3424-454e-96b3-d39de14c4415)
+
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/17d5f570-6030-4339-beec-e7b9a965fc88) 프로젝트 일정
+![image](https://github.com/ywlee202303/myProject/assets/127309120/a699a539-3ef2-41ca-8cc4-d2649515d32d)
 
 
-## ✅ 페이지 주요 기능
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/88dc293a-8dc5-4f9a-9c5a-2cf12bd5a117) 프로젝트 기획
+![image](https://github.com/ywlee202303/myProject/assets/127309120/61946380-2dd0-441a-b841-1df5dac12791)
+![image](https://github.com/ywlee202303/myProject/assets/127309120/14e7706a-47b3-417d-8925-eb2442bbe134)
+![image](https://github.com/ywlee202303/myProject/assets/127309120/463fbe59-1596-41fb-8631-c413070c7c16)
+
+
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/88dc293a-8dc5-4f9a-9c5a-2cf12bd5a117) ERD
+![image](https://github.com/ywlee202303/myProject/assets/127309120/9490a287-7891-4b8c-9caa-bcd55a5d1d0b)
+
+
+## ![favicon](https://github.com/ywlee202303/myProject/assets/127309120/88dc293a-8dc5-4f9a-9c5a-2cf12bd5a117) 페이지 주요 기능
 **❖ MAIN**
 
 - 메인이미지 슬라이드 기능 (자동 슬라이드 & 버튼)
