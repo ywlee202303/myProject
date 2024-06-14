@@ -72,6 +72,8 @@ public class MemberController {
 	@PostMapping("/enroll/duplication_check")
 	public ResponseEntity<String> duplicationCheck(@RequestParam String userId) {
 		
+		System.out.println("유저 아이디 : " + userId);
+		
 		// 회원 아이디 조회
 		Member member = memberService.memberIdCheck(userId);
 		

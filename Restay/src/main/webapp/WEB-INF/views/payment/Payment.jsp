@@ -61,6 +61,10 @@
 					<td>${ reservation.member.memberEmail }</td>
 				</tr>
 				<tr>
+					<th>예약일</th>
+					<td>${ reservation.resCheckin } ~ ${ reservation.resCheckout }</td>
+				</tr>
+				<tr>
 					<th>결제금액</th>
 					<td id="price">${ reservation.totalPrice }</td>
 				</tr>
